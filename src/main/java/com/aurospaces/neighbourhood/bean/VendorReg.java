@@ -69,8 +69,14 @@ protected String Vegetables ;
 protected String AniHus ;
 
 /** Field mapping. **/
-protected String Dairy ;
+protected String Dairy,strdateOfIncorp ;
 
+public String getStrdateOfIncorp() {
+	return strdateOfIncorp;
+}
+public void setStrdateOfIncorp(String strdateOfIncorp) {
+	this.strdateOfIncorp = strdateOfIncorp;
+}
 /** Field mapping. **/
 protected Date DateOfReg ;
 

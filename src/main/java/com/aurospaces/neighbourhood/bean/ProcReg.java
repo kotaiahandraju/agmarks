@@ -18,9 +18,6 @@ import javax.persistence.Id;
 public class ProcReg 
 {
 
-@Id
-@GeneratedValue(strategy=GenerationType.AUTO)
-		 /** Field mapping. **/
 protected int Id   = 0;
 
 /** Field mapping. **/
@@ -62,6 +59,7 @@ protected String Mobile ;
 /** Field mapping. **/
 protected Date DateOfIncorp ;
 
+protected String strdateOfIncorp ;
 /** Field mapping. **/
 protected String GSTNumber ;
 
@@ -92,6 +90,14 @@ protected String Packaging ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+
+
+public String getStrdateOfIncorp() {
+	return strdateOfIncorp;
+}
+public void setStrdateOfIncorp(String strdateOfIncorp) {
+	this.strdateOfIncorp = strdateOfIncorp;
+}
 public int getId()
 {
   return Id;

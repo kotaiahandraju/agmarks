@@ -64,7 +64,7 @@ ps.setString(7, farRegs.getVillage());
 ps.setString(8, farRegs.getMandal());
 ps.setString(9, farRegs.getDistrict());
 ps.setString(10, farRegs.getState());
-ps.setInt(11, farRegs.getPincode());
+ps.setString(11, farRegs.getPincode());
 ps.setString(12, farRegs.getCropType());
 ps.setString(13, farRegs.getCrop1());
 ps.setString(14, farRegs.getCrop2());
@@ -108,9 +108,9 @@ ps.setTimestamp(40, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE far_regs  set First_name = ? ,Last_name = ? ,Dob = ? ,Mobile = ? ,Aadhar = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Crop_type = ? ,Crop1 = ? ,Crop2 = ? ,Crop3 = ? ,Crop4 = ? ,Crop5 = ? ,Add_Crop = ? ,Vegetables = ? ,Veg1 = ? ,Veg2 = ? ,Veg3 = ? ,Veg4 = ? ,Veg5 = ? ,Veg6 = ? ,Veg7 = ? ,Veg8 = ? ,Add_veg = ? ,Ani_hus = ? ,Ani_hus1 = ? ,Ani_hus2 = ? ,Ani_hus3 = ? ,Add_ani_hus = ? ,Dairy = ? ,Dairy1 = ? ,Dairy2 = ? ,Dairy3 = ? ,Add_dairy = ? ,Token_id = ?  where Id = ? ";
+			String sql = "UPDATE far_regs  set First_name = ? ,Last_name = ? ,Dob = ? ,Mobile = ? ,Aadhar = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Crop_type = ? ,Crop1 = ? ,Crop2 = ? ,Crop3 = ? ,Crop4 = ? ,Crop5 = ? ,Add_Crop = ? ,Vegetables = ? ,Veg1 = ? ,Veg2 = ? ,Veg3 = ? ,Veg4 = ? ,Veg5 = ? ,Veg6 = ? ,Veg7 = ? ,Veg8 = ? ,Add_veg = ? ,Ani_hus = ? ,Ani_hus1 = ? ,Ani_hus2 = ? ,Ani_hus3 = ? ,Add_ani_hus = ? ,Dairy = ? ,Dairy1 = ? ,Dairy2 = ? ,Dairy3 = ? ,Add_dairy = ?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{farRegs.getFirstName(),farRegs.getLastName(),farRegs.getDob(),farRegs.getMobile(),farRegs.getAadhar(),farRegs.getAddress(),farRegs.getVillage(),farRegs.getMandal(),farRegs.getDistrict(),farRegs.getState(),farRegs.getPincode(),farRegs.getCropType(),farRegs.getCrop1(),farRegs.getCrop2(),farRegs.getCrop3(),farRegs.getCrop4(),farRegs.getCrop5(),farRegs.getAddCrop(),farRegs.getVegetables(),farRegs.getVeg1(),farRegs.getVeg2(),farRegs.getVeg3(),farRegs.getVeg4(),farRegs.getVeg5(),farRegs.getVeg6(),farRegs.getVeg7(),farRegs.getVeg8(),farRegs.getAddVeg(),farRegs.getAniHus(),farRegs.getAniHus1(),farRegs.getAniHus2(),farRegs.getAniHus3(),farRegs.getAddAniHus(),farRegs.getDairy(),farRegs.getDairy1(),farRegs.getDairy2(),farRegs.getDairy3(),farRegs.getAddDairy(),farRegs.getTokenId(),farRegs.getId()});
+			jdbcTemplate.update(sql, new Object[]{farRegs.getFirstName(),farRegs.getLastName(),farRegs.getDob(),farRegs.getMobile(),farRegs.getAadhar(),farRegs.getAddress(),farRegs.getVillage(),farRegs.getMandal(),farRegs.getDistrict(),farRegs.getState(),farRegs.getPincode(),farRegs.getCropType(),farRegs.getCrop1(),farRegs.getCrop2(),farRegs.getCrop3(),farRegs.getCrop4(),farRegs.getCrop5(),farRegs.getAddCrop(),farRegs.getVegetables(),farRegs.getVeg1(),farRegs.getVeg2(),farRegs.getVeg3(),farRegs.getVeg4(),farRegs.getVeg5(),farRegs.getVeg6(),farRegs.getVeg7(),farRegs.getVeg8(),farRegs.getAddVeg(),farRegs.getAniHus(),farRegs.getAniHus1(),farRegs.getAniHus2(),farRegs.getAniHus3(),farRegs.getAddAniHus(),farRegs.getDairy(),farRegs.getDairy1(),farRegs.getDairy2(),farRegs.getDairy3(),farRegs.getAddDairy(),farRegs.getId()});
 		}
 	}
 		

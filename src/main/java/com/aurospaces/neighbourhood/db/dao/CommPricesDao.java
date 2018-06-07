@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.CommPrices;
+import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseCommPricesDao;
 
@@ -35,6 +36,40 @@ public class CommPricesDao extends BaseCommPricesDao
 		return list;
 		
 	}
+	
+	public List<Map<String,Object>> getCommList(String pincode){
+		List<Map<String,Object>> list=null;
+		
+		try{
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql ="SELECT * FROM `comm_prices` cp,`pincodedata` pd WHERE cp.`District`=pd.`District` AND pd.`Pincode`=? GROUP BY cp.`Commodity`";
+			list =jdbcTemplate.queryForList(sql, new Object[]{pincode});
+			System.out.println(sql);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+	
+	
+	public List<Map<String,Object>> getCommoditiesList(FarRegs farRegs){
+		List<Map<String,Object>> list=null;
+		
+		try{
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql ="select * from comm_prices where Commodity IN ('"+farRegs.getCrop1()+"' , '"+farRegs.getCrop2()+"' ,'"+farRegs.getCrop3()+"' , '"+farRegs.getCrop4()+"' ,'"+farRegs.getCrop5()+"' ) " ; 
+			
+			list =jdbcTemplate.queryForList(sql, new Object[]{});
+			System.out.println(sql);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
+	  
+	  
 	
 
 

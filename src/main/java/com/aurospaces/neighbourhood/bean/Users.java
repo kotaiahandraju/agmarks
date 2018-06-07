@@ -125,5 +125,13 @@ public void setStatus4(final String Status4)
 {
   this.Status4 = Status4;
 }
+@Override
+public String toString() {
+	return "Users [UserId=" + UserId + ", TokenId=" + TokenId + ", Mobile=" + Mobile + ", Email=" + Email
+			+ ", User_name=" + User_name + ", Password=" + Password + ", Status1=" + Status1 + ", Status2=" + Status2
+			+ ", Status3=" + Status3 + ", Status4=" + Status4 + "]";
+}
+
+
 
 }

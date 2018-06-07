@@ -44,8 +44,14 @@ protected int MaxPrice ;
 protected int ModalPrice ;
 
 /** Field mapping. **/
-protected String UnitOfPrice ;
+protected String UnitOfPrice ,pincode;
 
+public String getPincode() {
+	return pincode;
+}
+public void setPincode(String pincode) {
+	this.pincode = pincode;
+}
 /** Field mapping. **/
 protected Date Date ;
 

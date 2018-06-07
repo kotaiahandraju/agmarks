@@ -2,6 +2,7 @@ package CommonUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.UUID;
 
 
@@ -22,8 +23,15 @@ public class CommonUtils {
 	{   
 	    int x = (int)(Math.random() * 9);
 	    x = x + 1;
-	    String randomPIN = (x + "") + ( ((int)(Math.random()*1000)) + "" );
-	    return randomPIN;
+	   // String randomPIN = (x + "") + ( ((int)(Math.random()*10000)) + "" );
+	    
+	    
+	    Random random = new Random();
+		String  randompassword = String.format("%04d", random.nextInt(10000));
+		
+		int randomPIN = (int)(Math.random()*9000)+1000;
+		
+	    return String.valueOf(randomPIN);
 	}
 	public static String getIndainDate(String sDate) {
 

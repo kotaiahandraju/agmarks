@@ -46,7 +46,7 @@ protected String District ;
 protected String State ;
 
 /** Field mapping. **/
-protected int Pincode ;
+protected String Pincode ;
 
 /** Field mapping. **/
 protected String CropType ;
@@ -223,13 +223,12 @@ public void setState(final String State)
 {
   this.State = State;
 }
-public int getPincode()
-{
-  return Pincode;
+
+public String getPincode() {
+	return Pincode;
 }
-public void setPincode(final int Pincode)
-{
-  this.Pincode = Pincode;
+public void setPincode(String pincode) {
+	Pincode = pincode;
 }
 public String getCropType()
 {
@@ -463,5 +462,21 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+@Override
+public String toString() {
+	return "FarRegs [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Dob=" + Dob + ", Mobile="
+			+ Mobile + ", Aadhar=" + Aadhar + ", Address=" + Address + ", Village=" + Village + ", Mandal=" + Mandal
+			+ ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", CropType=" + CropType
+			+ ", Crop1=" + Crop1 + ", Crop2=" + Crop2 + ", Crop3=" + Crop3 + ", Crop4=" + Crop4 + ", Crop5=" + Crop5
+			+ ", AddCrop=" + AddCrop + ", Vegetables=" + Vegetables + ", Veg1=" + Veg1 + ", Veg2=" + Veg2 + ", Veg3="
+			+ Veg3 + ", Veg4=" + Veg4 + ", Veg5=" + Veg5 + ", Veg6=" + Veg6 + ", Veg7=" + Veg7 + ", Veg8=" + Veg8
+			+ ", AddVeg=" + AddVeg + ", AniHus=" + AniHus + ", AniHus1=" + AniHus1 + ", AniHus2=" + AniHus2
+			+ ", AniHus3=" + AniHus3 + ", AddAniHus=" + AddAniHus + ", Dairy=" + Dairy + ", Dairy1=" + Dairy1
+			+ ", Dairy2=" + Dairy2 + ", Dairy3=" + Dairy3 + ", AddDairy=" + AddDairy + ", TokenId=" + TokenId
+			+ ", DateOfReg=" + DateOfReg + "]";
+}
+
+
+
 
 }

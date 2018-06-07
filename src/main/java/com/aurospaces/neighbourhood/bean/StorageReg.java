@@ -79,11 +79,17 @@ protected String Dairy ;
 protected String StorageCapacity ;
 
 /** Field mapping. **/
-protected String Units ;
+protected String Units,strdateOfIncorp ;
 
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+public String getStrdateOfIncorp() {
+	return strdateOfIncorp;
+}
+public void setStrdateOfIncorp(String strdateOfIncorp) {
+	this.strdateOfIncorp = strdateOfIncorp;
+}
 public int getId()
 {
   return Id;

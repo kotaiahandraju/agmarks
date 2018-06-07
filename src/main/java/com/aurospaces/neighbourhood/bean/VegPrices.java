@@ -39,8 +39,16 @@ protected String Market ;
 protected String Vegetables ;
 
 /** Field mapping. **/
-protected String LocalRate ;
+protected String LocalRate,pincode ;
 
+
+
+public String getPincode() {
+	return pincode;
+}
+public void setPincode(String pincode) {
+	this.pincode = pincode;
+}
 /** Field mapping. **/
 protected Date Date ;
 
