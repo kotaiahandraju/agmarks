@@ -1295,7 +1295,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	objJSON.put("dairyproductsbuylist", list);
     	
-    	List<Map<String, Object>>	units = usersDao.getUnits();
+    	List<Map<String, Object>>	units = usersDao.getDairyProductsUnits();
     	objJSON.put("units", units);
     	
 		return String.valueOf(objJSON);
@@ -1347,6 +1347,80 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 			}
 		    
 	}
+    
+    
+    
+    @RequestMapping(value = "/rest/cropspostings")
+    public @ResponseBody String viewPostingsOfFarmerTransactionsOfCrops(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		List<Map<String, Object>>	farmerTransactionslist =fdaTransDao.getFarmerTransactionsOfCrop(fdaTrans);
+				objJSON.put("cropspostings", farmerTransactionslist);
+		} catch (JSONException e) {
+			objJSON.put("cropspostings", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
+    @RequestMapping(value = "/rest/vegpostings")
+    public @ResponseBody String viewPostingsOfFarmerTransactionsOfVeg(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		List<Map<String, Object>>	farmerTransactionslist =fdaTransDao.getFarmerTransactionsOfVeg(fdaTrans);
+				objJSON.put("vegpostings", farmerTransactionslist);
+		} catch (JSONException e) {
+			objJSON.put("vegpostings", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
+    
+    
+    @RequestMapping(value = "/rest/cropshistory")
+    public @ResponseBody String viewhistoryOfFarmerTransactionsOfCrops(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		List<Map<String, Object>>	farmerTransactionslist =fdaTransDao.getFarmerTransactionsOfCropsHistory(fdaTrans);
+				objJSON.put("cropshistory", farmerTransactionslist);
+		} catch (JSONException e) {
+			objJSON.put("cropshistory", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
+    
+    @RequestMapping(value = "/rest/veghistory")
+    public @ResponseBody String viewHistoryOfFarmerTransactionsOfVeg(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		List<Map<String, Object>>	farmerTransactionslist =fdaTransDao.getFarmerTransactionsOfVegHistory(fdaTrans);
+				objJSON.put("veghistory", farmerTransactionslist);
+		} catch (JSONException e) {
+			objJSON.put("veghistory", "");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
 
 
 

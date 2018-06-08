@@ -138,6 +138,14 @@ public class UsersDao extends BaseUsersDao
 		System.out.println(retlist);
 		return retlist;
 	}
+	
+	public List<Map<String, Object>> getDairyProductsUnits() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String hql ="select * from units where Category ='2' ";
+				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
+		System.out.println(retlist);
+		return retlist;
+	}
 
 
 }
