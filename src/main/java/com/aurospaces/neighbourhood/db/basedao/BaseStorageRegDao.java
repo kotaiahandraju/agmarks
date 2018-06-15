@@ -26,7 +26,7 @@ public class BaseStorageRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO storage_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Dairy, Storage_capacity, Units, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO storage_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Dairy, Storage_capacity, Units, Date_of_reg, Ani_husbandry) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -82,6 +82,7 @@ ps.setString(18, storageReg.getDairy());
 ps.setString(19, storageReg.getStorageCapacity());
 ps.setString(20, storageReg.getUnits());
 ps.setTimestamp(21, DateOfReg);
+ps.setString(22, storageReg.getAniHusbandry());
 
 							return ps;
 						}
@@ -96,9 +97,9 @@ ps.setTimestamp(21, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE storage_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Dairy = ? ,Storage_capacity = ? ,Units = ?  where Id = ? ";
+			String sql = "UPDATE storage_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Dairy = ? ,Storage_capacity = ? ,Units = ? ,setString = ? where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{storageReg.getTokenId(),storageReg.getFirstName(),storageReg.getLastName(),storageReg.getCompanyName(),storageReg.getStatus(),storageReg.getAddress(),storageReg.getVillage(),storageReg.getMandal(),storageReg.getDistrict(),storageReg.getState(),storageReg.getPincode(),storageReg.getEmail(),storageReg.getMobile(),storageReg.getDateOfIncorp(),storageReg.getGSTNumber(),storageReg.getCrops(),storageReg.getVegetables(),storageReg.getDairy(),storageReg.getStorageCapacity(),storageReg.getUnits(),storageReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{storageReg.getTokenId(),storageReg.getFirstName(),storageReg.getLastName(),storageReg.getCompanyName(),storageReg.getStatus(),storageReg.getAddress(),storageReg.getVillage(),storageReg.getMandal(),storageReg.getDistrict(),storageReg.getState(),storageReg.getPincode(),storageReg.getEmail(),storageReg.getMobile(),storageReg.getDateOfIncorp(),storageReg.getGSTNumber(),storageReg.getCrops(),storageReg.getVegetables(),storageReg.getDairy(),storageReg.getStorageCapacity(),storageReg.getUnits(),storageReg.getAniHusbandry(),storageReg.getId()});
 		}
 	}
 		

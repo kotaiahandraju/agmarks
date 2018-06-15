@@ -70,6 +70,8 @@ protected String TokenId ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+
+
 public int getId()
 {
   return Id;
@@ -222,5 +224,19 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+@Override
+public String toString() {
+	return "LogisticsReg [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", CompanyName="
+			+ CompanyName + ", DateOfIncorp=" + DateOfIncorp + ", Address=" + Address + ", Status=" + Status
+			+ ", Village=" + Village + ", Mandal=" + Mandal + ", District=" + District + ", State=" + State
+			+ ", Pincode=" + Pincode + ", Mobile=" + Mobile + ", Email=" + Email + ", VehicleType=" + VehicleType
+			+ ", VehicleCapacity=" + VehicleCapacity + ", VehicleCapcityUnits=" + VehicleCapcityUnits + ", TokenId="
+			+ TokenId + ", DateOfReg=" + DateOfReg + "]";
+}
+
+
+
+
+
 
 }

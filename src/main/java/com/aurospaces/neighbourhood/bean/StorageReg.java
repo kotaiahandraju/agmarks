@@ -72,6 +72,8 @@ protected String Crops ;
 /** Field mapping. **/
 protected String Vegetables ;
 
+protected String aniHusbandry ;
+
 /** Field mapping. **/
 protected String Dairy ;
 
@@ -266,5 +268,14 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+public String getAniHusbandry() {
+	return aniHusbandry;
+}
+public void setAniHusbandry(String aniHusbandry) {
+	this.aniHusbandry = aniHusbandry;
+}
+
+
+
 
 }

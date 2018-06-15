@@ -146,6 +146,16 @@ public class UsersDao extends BaseUsersDao
 		System.out.println(retlist);
 		return retlist;
 	}
+	public List<Users> getUserByUsername(String username) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from users where User_name = '"+username+"' ";
+		List<Users> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(Users.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return null;
+	}
 
 
 }

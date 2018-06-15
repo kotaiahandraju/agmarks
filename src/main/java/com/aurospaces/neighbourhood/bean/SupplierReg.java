@@ -3,6 +3,8 @@ package com.aurospaces.neighbourhood.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 /**
  *
@@ -54,6 +56,7 @@ protected String Email ;
 protected String Mobile ;
 
 /** Field mapping. **/
+@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-MM-yyyy")
 protected Date DateOfIncorp ;
 
 /** Field mapping. **/
@@ -82,6 +85,8 @@ protected String Seed ;
 
 /** Field mapping. **/
 protected Date DateOfReg ;
+
+protected String strdateOfIncorp ;
 
 public int getId()
 {
@@ -267,5 +272,24 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+public String getStrdateOfIncorp() {
+	return strdateOfIncorp;
+}
+public void setStrdateOfIncorp(String strdateOfIncorp) {
+	this.strdateOfIncorp = strdateOfIncorp;
+}
+@Override
+public String toString() {
+	return "SupplierReg [Id=" + Id + ", TokenId=" + TokenId + ", FirstName=" + FirstName + ", LastName=" + LastName
+			+ ", CompanyName=" + CompanyName + ", Address=" + Address + ", Village=" + Village + ", Mandal=" + Mandal
+			+ ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", Email=" + Email + ", Mobile="
+			+ Mobile + ", DateOfIncorp=" + DateOfIncorp + ", GSTNumber=" + GSTNumber + ", Status=" + Status + ", Bio="
+			+ Bio + ", Botanical=" + Botanical + ", FarmMachinery=" + FarmMachinery + ", Inorganic=" + Inorganic
+			+ ", Organic=" + Organic + ", Seed=" + Seed + ", DateOfReg=" + DateOfReg + ", strdateOfIncorp="
+			+ strdateOfIncorp + "]";
+}
+
+
+
 
 }

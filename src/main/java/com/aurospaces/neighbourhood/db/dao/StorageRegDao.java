@@ -82,7 +82,7 @@ public class StorageRegDao extends BaseStorageRegDao
 
 	public Set<StorageReg> getStorageDataOVegetablesf(FarRegs farRegs) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String cropType =farRegs.getCropType();
+		String cropType =farRegs.getVegetables();
 		
 		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
 		
@@ -91,6 +91,58 @@ public class StorageRegDao extends BaseStorageRegDao
 		for(String entry:crops)
 		{
 			String sql ="select * from storage_reg  where Vegetables like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOfDairy(FarRegs farRegs) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =farRegs.getDairy();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Dairy like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOfAnimals(FarRegs farRegs) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =farRegs.getAniHus();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Ani_husbandry like '%"+entry+"%';";
 			System.out.println(sql);
 			List<StorageReg> storageList = jdbcTemplate.query(sql,
 					new Object[]{},

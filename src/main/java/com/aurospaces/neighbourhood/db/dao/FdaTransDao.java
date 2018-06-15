@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.FarmerTransactions;
 import com.aurospaces.neighbourhood.bean.FdaTrans;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseFdaTransDao;
@@ -21,32 +22,34 @@ public class FdaTransDao extends BaseFdaTransDao
 @Autowired
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate;
-	public List<Map<String, Object>> getFarmerTransactionsOfCrop(FdaTrans fdaTrans) {
+	public List<Map<String, Object>> getFarmerTransactions(FarmerTransactions fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select * from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' and Transaction_type like '%crop%'  ";
+		String hql =" select *,Date(Date) as Date from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
-		System.out.println(retlist);
+		//System.out.println(retlist);
 		return retlist;
 	}
-	public List<Map<String, Object>> getFarmerTransactionsOfVeg(FdaTrans fdaTrans) {
+	
+	public List<Map<String, Object>> getFarmerTransactionsHistory(FarmerTransactions fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select * from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' and Transaction_type like '%veg%'  ";
+		String hql =" select *,Date(Date) as Date  from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed'   ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
-		System.out.println(retlist);
+		//System.out.println(retlist);
 		return retlist;
 	}
-	public List<Map<String, Object>> getFarmerTransactionsOfCropsHistory(FdaTrans fdaTrans) {
+	
+	public List<Map<String, Object>> getFdaTransactions(FdaTrans fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select * from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed' and Transaction_type like '%crop%'  ";
+		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
-		System.out.println(retlist);
+		//System.out.println(retlist);
 		return retlist;
 	}
-	public List<Map<String, Object>> getFarmerTransactionsOfVegHistory(FdaTrans fdaTrans) {
+	public List<Map<String, Object>> getFdaTransactionsHistory(FdaTrans fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select * from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed' and Transaction_type like '%veg%'  ";
+		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed'   ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
-		System.out.println(retlist);
+		//System.out.println(retlist);
 		return retlist;
 	} 
 
