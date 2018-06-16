@@ -9,6 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -19,7 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.HttpRequest;
+import org.castor.util.Base64Decoder;
+import org.castor.util.Base64Encoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +71,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import CommonUtils.CommonUtils;
 
-import sun.misc.BASE64Decoder;
-
 /**
  * @author YOGI
  */
@@ -98,6 +99,8 @@ public class RestController {
 	@Autowired CommPricesDao CommPricesDao;
 	
 	@Autowired FarmerTransactionsDao farmerTransactionsDao;
+	
+	@Autowired HttpServletRequest request ;
 	
 	
 
@@ -1227,10 +1230,16 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	String ramdomString =String.valueOf(randomPIN);
     	
+    	//System.out.println(plantClinic.getImgName());
+    	
     	try {
     		plantClinic.setStatus("inprocess");
-    		decoder(plantClinic.getImgName(), request,ramdomString);
-    		plantClinic.setImgName(ramdomString);
+    		//decoder(plantClinic.getImgName(), request,ramdomString);
+    		String impgpath = imgdecoder(plantClinic.getImgName(),request);
+    		
+    		System.out.println(impgpath);
+    		
+    		plantClinic.setImgName(impgpath);
     		plantClinicDao.save(plantClinic);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1244,7 +1253,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     }
     
     
-    @RequestMapping(value = "/rest/commoditiesStorage")
+   
+	@RequestMapping(value = "/rest/commoditiesStorage")
     public @ResponseBody String storageDataOfCommodities(@RequestBody Users user,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
     	
@@ -1357,32 +1367,6 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     }
     
-    
-    @SuppressWarnings("resource")
-	public static void decoder(String base64Image,HttpServletRequest request, String ramdomString) throws IOException {
-	    // Converting a Base64 String into Image byte array
-		byte[] imageByteArray = Base64.encodeBase64(base64Image.getBytes());
-		    String  filepath= ramdomString+".png";
-		    /*String rootPath = request.getSession().getServletContext().getRealPath("/");
-		    File dir = new File(rootPath + File.separator + "img");
-		   */ 
-		    String path = request.getServletContext().getRealPath("/");
-	    	 File dir = new File (path +"reportDocuments");
-		    
-		    
-		    if (!dir.exists()) {
-		        dir.mkdirs();
-		    }
-		    File serverFile = new File(dir.getAbsolutePath() + File.separator + filepath);
-		    FileOutputStream imageOutFile = new FileOutputStream(serverFile);
-		    try {
-				imageOutFile.write(imageByteArray);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		    
-	}
     
     
     
@@ -1568,8 +1552,10 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     public @ResponseBody String viewPostingsOfFdaPostClinic(@RequestBody PlantClinic  plantClinic,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
     	
+    	 HashMap<String,String> imageList =new LinkedHashMap<String,String>();
+    	
     	try {
-    		List<Map<String, Object>>	plantClinicTransactionslist =plantClinicDao.getplantClinicTransactions(plantClinic);
+    		List<PlantClinic>	plantClinicTransactionslist =plantClinicDao.getplantClinicTransactions(plantClinic);
 				if(plantClinicTransactionslist.isEmpty())
 				{
     		
@@ -1578,6 +1564,16 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 				else
 				{
 					objJSON.put("clinicpostings", plantClinicTransactionslist);
+					
+					
+					for(PlantClinic entry :plantClinicTransactionslist){
+						
+						imageList.put(entry.getImgName(), imgEncoder(entry.getImgName()));
+						 
+						
+					}
+					
+					objJSON.put("imageList", imageList);
 				}
 		} catch (JSONException e) {
 			objJSON.put("clinicpostings", "fail");
@@ -1589,9 +1585,10 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     @RequestMapping(value = "/rest/clinicpostingshistory")
     public @ResponseBody String viewhistoryOfPlantclinicTransactions(@RequestBody  PlantClinic  plantClinic,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
+    	 HashMap<String,String> imageList =new LinkedHashMap<String,String>();
     	
     	try {
-    		List<Map<String, Object>>	clinicTransactionslist =plantClinicDao.getplantClinicTransactionsHistory(plantClinic);
+    		List<PlantClinic>	clinicTransactionslist =plantClinicDao.getplantClinicTransactionsHistory(plantClinic);
 				if(clinicTransactionslist.isEmpty())
 				{
 					objJSON.put("clinichistory", "");
@@ -1600,6 +1597,15 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 				{
     		
     		objJSON.put("clinichistory", clinicTransactionslist);
+    		
+    		for(PlantClinic entry :clinicTransactionslist){
+				
+				imageList.put(entry.getImgName(), imgEncoder(entry.getImgName()));
+				 
+				
+			}
+			
+			objJSON.put("imageList", imageList);
 				}
 		} catch (JSONException e) {
 			objJSON.put("clinichistory", "fail");
@@ -1630,7 +1636,92 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     }
     
+    private String  imgdecoder(String imgData, HttpServletRequest request) {
+    	
+    	String filepath = null;
+    	
+    	FileOutputStream osf;
+    	
+    	KhaibarGasUtil utils=new KhaibarGasUtil();
+    	
+    	String id =utils.randNum(4);
+    	
+			Base64Decoder decoder = new Base64Decoder(); 
+			//byte[] imgBytes = decoder.decode(imgData.split(",")[1]);
+			
+			byte[] imgBytes = decoder.decode(imgData);
+			/*name=name.substring(n + 1);
+			name=name+".png";*/
+			
+			long millis = System.currentTimeMillis() % 1000;
+			filepath= id+millis+".png";
+
+		        String rootPath = request.getSession().getServletContext().getRealPath("/");
+		        File dir = new File(rootPath + File.separator + "img");
+		        if (!dir.exists()) {
+		            dir.mkdirs();
+		        }
+		        
+		        System.out.println(dir);
+		        
+		        try {
+		        	osf = new FileOutputStream(new File(dir.getAbsolutePath() + File.separator + filepath));
+		        	osf.write(imgBytes);
+					 osf.flush();
+		        } catch (IOException e) {
+		            System.out.println("error : " + e);
+		        }
 
 
-}
+              filepath= "img/"+filepath;
+    	
+    	return  filepath;
+    	
+		
+	}
+    
+    
+    
+private String  imgEncoder(String imgname) {
+	
+    	String encodedfile = null;
+		Base64Encoder encoder =new Base64Encoder();
+         String rootPath = request.getSession().getServletContext().getRealPath("/");
+		        
+		        File file = new File(rootPath + File.separator + imgname);
+		        
+		        System.out.println(file);
+		        
+		        try {
+	                @SuppressWarnings("resource")
+					FileInputStream fileInputStreamReader = new FileInputStream(file);
+	                byte[] bytes = new byte[(int)file.length()];
+	                fileInputStreamReader.read(bytes);
+	                encodedfile = new String(Base64.encodeBase64(bytes), "UTF-8");
+	            } catch (FileNotFoundException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            }
+
+
+    	
+    	return  encodedfile;
+    	
+		
+	}
+    	
+    
+    
+    
+    
+    	
+    	
+    	
+    }
+
+
+
 	
