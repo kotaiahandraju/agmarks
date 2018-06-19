@@ -1591,7 +1591,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     @RequestMapping(value = "/rest/clinicpostingshistory")
     public @ResponseBody String viewhistoryOfPlantclinicTransactions(@RequestBody  PlantClinic  plantClinic,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
-    	 HashMap<String,String> imageList =new LinkedHashMap<String,String>();
+    	 
+    	 ArrayList<HashMap<String, String>> prodArrayList = new ArrayList<HashMap<String, String>>();
     	
     	try {
     		List<PlantClinic>	clinicTransactionslist =plantClinicDao.getplantClinicTransactionsHistory(plantClinic);
@@ -1606,12 +1607,16 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     		
     		for(PlantClinic entry :clinicTransactionslist){
 				
+    			HashMap<String,String> imageList =new LinkedHashMap<String,String>();
+				
 				imageList.put(entry.getImgName(), imgEncoder(entry.getImgName()));
+				
+				prodArrayList.add(imageList);
 				 
 				
 			}
 			
-			objJSON.put("imageList", imageList);
+			objJSON.put("imageList", prodArrayList);
 				}
 		} catch (JSONException e) {
 			objJSON.put("clinichistory", "fail");
