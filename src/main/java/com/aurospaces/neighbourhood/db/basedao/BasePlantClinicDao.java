@@ -76,9 +76,9 @@ ps.setTimestamp(8, Date);
 		else
 		{
 
-			String sql = "UPDATE plant_clinic  set Farmer_name = ? ,Mobile = ? ,Token_Id = ? ,Type = ? ,Img_name = ? ,Status = ? ,Comment = ?  where S_no = ? ";
+			String sql = "UPDATE plant_clinic  set Farmer_name = ? ,Mobile = ? ,Token_Id = ? ,Type = ? ,Status = ? ,Comment = ?  where S_no = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{plantClinic.getFarmerName(),plantClinic.getMobile(),plantClinic.getTokenId(),plantClinic.getType(),plantClinic.getImgName(),plantClinic.getStatus(),plantClinic.getComment(),plantClinic.getSNo()});
+			jdbcTemplate.update(sql, new Object[]{plantClinic.getFarmerName(),plantClinic.getMobile(),plantClinic.getTokenId(),plantClinic.getType(),plantClinic.getStatus(),plantClinic.getComment(),plantClinic.getSNo()});
 		}
 	}
 		

@@ -42,7 +42,7 @@ protected String ImgName ;
 protected String Status ;
 
 /** Field mapping. **/
-protected String Comment ;
+protected String Comment ,strdate;
 
 /** Field mapping. **/
 protected Date Date ;
@@ -119,5 +119,13 @@ public void setDate(final Date Date)
 {
   this.Date = Date;
 }
+public String getStrdate() {
+	return strdate;
+}
+public void setStrdate(String strdate) {
+	this.strdate = strdate;
+}
+
+
 
 }

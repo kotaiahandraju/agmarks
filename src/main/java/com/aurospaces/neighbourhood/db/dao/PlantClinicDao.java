@@ -24,21 +24,21 @@ public class PlantClinicDao extends BasePlantClinicDao
 	JdbcTemplate jdbcTemplate;
 	public List<PlantClinic> getplantClinicTransactions(PlantClinic plantClinic) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='inprocess' ";
+		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='inprocess' ";
 				//List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
-		//System.out.println(retlist);
-				
+		
+		System.out.println(hql);
 				List<PlantClinic> retlist = jdbcTemplate.query(hql,
 						new Object[]{},
 						ParameterizedBeanPropertyRowMapper.newInstance(PlantClinic.class));
 				
-				
+				System.out.println(retlist);	
 				
 		return retlist;
 	}
 	public List<PlantClinic> getplantClinicTransactionsHistory(PlantClinic plantClinic) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='completed'   ";
+		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='completed'   ";
 				//List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 				
 		//System.out.println(retlist);
