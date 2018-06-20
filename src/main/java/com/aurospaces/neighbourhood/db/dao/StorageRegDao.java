@@ -155,6 +155,19 @@ public class StorageRegDao extends BaseStorageRegDao
 		
 		return storageSet;
 	}
+	public StorageReg getmysqlpath() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = " SELECT @@basedir AS companyName ";
+		List<StorageReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+		if(retlist.size() > 0)
+		return retlist.get(0);
+		return null;
+		}
+
+
+		
 
 }
 

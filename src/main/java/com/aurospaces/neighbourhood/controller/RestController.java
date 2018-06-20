@@ -3,15 +3,22 @@
  */
 package com.aurospaces.neighbourhood.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.RoundingMode;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -19,6 +26,8 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
@@ -67,6 +76,7 @@ import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
+import com.aurospaces.neighbourhood.util.SendAttachmentInEmail;
 import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -1256,9 +1266,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     
    
 	@RequestMapping(value = "/rest/commoditiesStorage")
-    public @ResponseBody String storageDataOfCommodities(@RequestBody Users user,  HttpServletRequest request)  {
+    public @ResponseBody String storageDataOfCommodities(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
-    	
     	
     	
     	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
@@ -1267,16 +1276,20 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	if(storagedata.isEmpty())
     		objJSON.put("commoditiesStorage","");
     	else
+    	{
+    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(farregbean,storagedata);
     		
-    	objJSON.put("commoditiesStorage",storagedata);
-  
+    	//objJSON.put("commoditiesStorage",storagedata);
+    	objJSON.put("commoditiesStorage",distanceStorageData);
+    	}
     	
 		return String.valueOf(objJSON);
     	
     	}
     
-    @RequestMapping(value = "/rest/vegetablesStorage")
-    public @ResponseBody String storageDataOfVegetables(@RequestBody Users user,  HttpServletRequest request)  {
+   
+	@RequestMapping(value = "/rest/vegetablesStorage")
+    public @ResponseBody String storageDataOfVegetables(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
     	
     	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
@@ -1285,13 +1298,18 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	if(storagedata.isEmpty())
     		objJSON.put("vegetablesStorage","");
     	else
-    	objJSON.put("vegetablesStorage",storagedata);
+    	{
+    		
+    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(farregbean,storagedata);
+    	//objJSON.put("vegetablesStorage",storagedata);
+    		objJSON.put("vegetablesStorage",distanceStorageData);
+    	}
     	
 		return String.valueOf(objJSON);
     	
     	}
     @RequestMapping(value = "/rest/dairystorage")
-    public @ResponseBody String storageDataOfDairy(@RequestBody Users user,  HttpServletRequest request)  {
+    public @ResponseBody String storageDataOfDairy(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
     	
     	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
@@ -1300,13 +1318,19 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	if(storagedata.isEmpty())
     		objJSON.put("dairystorage","");
     	else
-    	objJSON.put("dairystorage",storagedata);
+    	{
+    		
+    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(farregbean,storagedata);
+    	//objJSON.put("dairystorage",storagedata);
+    		objJSON.put("dairystorage",distanceStorageData);
+    	
+    	}
     	
 		return String.valueOf(objJSON);
     	
     	}
     @RequestMapping(value = "/rest/animalstorage")
-    public @ResponseBody String storageDataOfAnimals(@RequestBody Users user,  HttpServletRequest request)  {
+    public @ResponseBody String storageDataOfAnimals(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
     	
     	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
@@ -1315,7 +1339,14 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	if(storagedata.isEmpty())
     		objJSON.put("animalstorage","");
     	else
-    	objJSON.put("animalstorage",storagedata);
+    	{
+    		
+    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(farregbean,storagedata);
+    	//objJSON.put("animalstorage",storagedata);
+    	
+    	objJSON.put("animalstorage",distanceStorageData);
+    	
+    	}
     	
 		return String.valueOf(objJSON);
     	
@@ -1726,7 +1757,136 @@ private String  imgEncoder(String imgname) {
     	
     
     
+@RequestMapping(value = "/rest/distanceAPI")
+public @ResponseBody String distenceAPI(@RequestBody PlantClinic  plantClinic,  HttpServletRequest request) throws IOException  {
+	JSONObject objJSON = new JSONObject();
+	
+	String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=521121&destinations=521328&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+    /*URL url = new URL(requestUrl);
+    HttpURLConnection uc = (HttpURLConnection)url.openConnection();
+    String response = uc.getResponseMessage();
+    System.out.println("SMS response:"+response);
+    uc.disconnect();
+    objJSON.put("test",response );*/
     
+    URL obj = new URL(requestUrl);
+    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    // optional default is GET
+    con.setRequestMethod("GET");
+    //add request header
+    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+    int responseCode = con.getResponseCode();
+    
+    
+    
+    
+    
+    
+    String distence[] =null;
+    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+    String inputLine;
+    StringBuffer responses = new StringBuffer();
+    while ((inputLine = in.readLine()) != null) {
+    	System.out.println(inputLine);
+    	
+    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+    			{
+    		distence =inputLine.split(":");
+    		
+    			}
+    	
+    	responses.append(inputLine);
+    }
+    
+    for(String entry:distence)
+    {
+    	System.out.println(entry);
+    }
+    
+    System.out.println(distence[1].length());
+    
+    
+    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+    
+    System.out.println(finaldistence);
+    
+    
+    double d=Double.parseDouble(finaldistence);
+    if(d <6.3)
+    {
+    	
+    } 
+    
+	return null;
+
+	
+}
+
+
+private Set<StorageReg> getStoragedataByDistence(List<FarRegs> farregbean, Set<StorageReg> storagedata) throws IOException {
+
+	Set<StorageReg> distencestorageSet  =new LinkedHashSet<StorageReg>();
+	
+	
+	
+	for(StorageReg entry :storagedata)
+	{
+	String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+    
+    
+    URL obj = new URL(requestUrl);
+    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    // optional default is GET
+    con.setRequestMethod("GET");
+    //add request header
+    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+    int responseCode = con.getResponseCode();
+    
+    String distence[] =null;
+    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+    String inputLine;
+    StringBuffer responses = new StringBuffer();
+    while ((inputLine = in.readLine()) != null) {
+    	//System.out.println(inputLine);
+    	
+    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+    			{
+    		distence =inputLine.split(":");
+    		
+    			}
+    	
+    	responses.append(inputLine);
+    }
+    
+  
+   // System.out.println(distence[1].length());
+    
+    
+    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+    
+   // System.out.println(finaldistence);
+    
+    double d=Double.parseDouble(finaldistence);
+    
+    
+    double distanceInKM =d*1.60934;        //converting distance miles to km .
+    
+    String result = String.format("%.2f", distanceInKM);
+    
+  
+    entry.setDistance(result);   
+    
+    distencestorageSet.add(entry);
+    
+    
+    
+	}
+	return distencestorageSet; 
+}
+
+
+
+
     
     	
     	

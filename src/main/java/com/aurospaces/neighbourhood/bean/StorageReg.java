@@ -81,7 +81,7 @@ protected String Dairy ;
 protected String StorageCapacity ;
 
 /** Field mapping. **/
-protected String Units,strdateOfIncorp ;
+protected String Units,strdateOfIncorp,distance ;
 
 /** Field mapping. **/
 protected Date DateOfReg ;
@@ -273,6 +273,22 @@ public String getAniHusbandry() {
 }
 public void setAniHusbandry(String aniHusbandry) {
 	this.aniHusbandry = aniHusbandry;
+}
+public String getDistance() {
+	return distance;
+}
+public void setDistance(String distance) {
+	this.distance = distance;
+}
+@Override
+public String toString() {
+	return "StorageReg [Id=" + Id + ", TokenId=" + TokenId + ", FirstName=" + FirstName + ", LastName=" + LastName
+			+ ", CompanyName=" + CompanyName + ", Status=" + Status + ", Address=" + Address + ", Village=" + Village
+			+ ", Mandal=" + Mandal + ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", Email="
+			+ Email + ", Mobile=" + Mobile + ", DateOfIncorp=" + DateOfIncorp + ", GSTNumber=" + GSTNumber + ", Crops="
+			+ Crops + ", Vegetables=" + Vegetables + ", aniHusbandry=" + aniHusbandry + ", Dairy=" + Dairy
+			+ ", StorageCapacity=" + StorageCapacity + ", Units=" + Units + ", strdateOfIncorp=" + strdateOfIncorp
+			+ ", distance=" + distance + ", DateOfReg=" + DateOfReg + "]";
 }
 
 

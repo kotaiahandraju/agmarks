@@ -78,7 +78,7 @@ public class SendAttachmentInEmail {
 
          // Part two is attachment
          messageBodyPart = new MimeBodyPart();
-         String filename = "D://backup1.sql";
+         String filename = "D://backup5.sql";
          DataSource source = new FileDataSource(filename);
          messageBodyPart.setDataHandler(new DataHandler(source));
          messageBodyPart.setFileName(filename);
@@ -101,14 +101,14 @@ public class SendAttachmentInEmail {
    
    static int BUFFER = 10485760;      
 
-   public static String getData(String host, String port,    String user, String password, String db) throws Exception {
+   public static String getData(String host, String port,    String user, String password, String db ) throws Exception {
 	   
 		
    Process run = Runtime.getRuntime().exec(
-              "C:\\Program Files (x86)\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --host="  + host + " --port=" + port + 
+              "C:\\Program Files\\MySQL\\MySQL Server 5.5\\bin\\mysqldump --host="  + host + " --port=" + port + 
               " --user=" + user + " --password=" + password +
               " --compact --databases --add-drop-table --complete-insert --extended-insert " +
-              "--skip-comments --skip-triggers "+ db);
+              "--skip-comments --skip-triggers "+ db+ " -r  D://backup5.sql ");
    InputStream in = run.getInputStream(); 
    BufferedReader br = new BufferedReader(new InputStreamReader(in));
    StringBuffer temp = new StringBuffer();
