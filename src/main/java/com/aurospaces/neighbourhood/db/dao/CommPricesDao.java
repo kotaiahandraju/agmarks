@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.CommPrices;
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.VegPrices;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseCommPricesDao;
 
@@ -67,6 +68,35 @@ public class CommPricesDao extends BaseCommPricesDao
 		}
 		return list;
 		
+	}
+
+	public List<Map<String, Object>> getDistrictList(CommPrices commPrices) {
+List<Map<String,Object>> list=null;
+		
+		try{
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql =" select State ,District from comm_prices group by District order by State " ; 
+			
+			list =jdbcTemplate.queryForList(sql, new Object[]{});
+			System.out.println(sql);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<Map<String, Object>> getDistrictList(VegPrices vegPrice) {
+		List<Map<String,Object>> list=null;
+		try{
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql =" select State ,District from veg_prices group by District order by State " ; 
+			
+			list =jdbcTemplate.queryForList(sql, new Object[]{});
+			System.out.println(sql);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
 	}
 	  
 	  

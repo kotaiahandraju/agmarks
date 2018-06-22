@@ -119,11 +119,17 @@ public class RestController {
 	@RequestMapping(value = "/rest/getCommoditiesList")
 	public @ResponseBody String getCommodities(@RequestBody CommPrices commPrices,  HttpServletRequest request) throws Exception {
 		List<Map<String,Object>> list=null;
+		List<Map<String,Object>> districtList=null;
+		
 		JSONObject objJSON = new JSONObject();
 		try{
 			list = commPricesDao.getCommpricesList(commPrices);
+			districtList = commPricesDao.getDistrictList(commPrices);
 			if(list != null){
 				objJSON.put("commodities", list);
+				objJSON.put("districtList", districtList);
+				
+				
 				
 			}else{
 				objJSON.put("commodities", "");
@@ -183,11 +189,14 @@ public class RestController {
 	@RequestMapping(value = "/rest/getvegpriceList")
 	public @ResponseBody String getvegpriceList(@RequestBody VegPrices vegPrice,  HttpServletRequest request) throws Exception {
 		List<Map<String,Object>> list=null;
+		List<Map<String,Object>> districtList=null;
 		JSONObject objJSON = new JSONObject();
 		try{
 			list = vegPricesDao.getVegPriceList(vegPrice);
+			districtList = commPricesDao.getDistrictList(vegPrice);
 			if(list != null){
 				objJSON.put("vegpriceList", list);
+				objJSON.put("districtList", districtList);
 				
 			}else{
 				objJSON.put("vegpriceList", "");
