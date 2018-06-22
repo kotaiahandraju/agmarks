@@ -147,6 +147,13 @@ public class StorageRegDao extends BaseStorageRegDao
 			List<StorageReg> storageList = jdbcTemplate.query(sql,
 					new Object[]{},
 					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			
+			System.out.println(storageSet.containsAll(storageList));
+			
+			/*if(storageSet.containsAll(storageList))
+		          System.out.println("alreadyExists");
+			else*/
+				
 			storageSet.addAll(storageList);
 			
 			System.out.println(sql);

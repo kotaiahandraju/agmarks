@@ -290,6 +290,171 @@ public String toString() {
 			+ ", StorageCapacity=" + StorageCapacity + ", Units=" + Units + ", strdateOfIncorp=" + strdateOfIncorp
 			+ ", distance=" + distance + ", DateOfReg=" + DateOfReg + "]";
 }
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + ((Address == null) ? 0 : Address.hashCode());
+	result = prime * result + ((CompanyName == null) ? 0 : CompanyName.hashCode());
+	result = prime * result + ((Crops == null) ? 0 : Crops.hashCode());
+	result = prime * result + ((Dairy == null) ? 0 : Dairy.hashCode());
+	result = prime * result + ((DateOfIncorp == null) ? 0 : DateOfIncorp.hashCode());
+	result = prime * result + ((DateOfReg == null) ? 0 : DateOfReg.hashCode());
+	result = prime * result + ((District == null) ? 0 : District.hashCode());
+	result = prime * result + ((Email == null) ? 0 : Email.hashCode());
+	result = prime * result + ((FirstName == null) ? 0 : FirstName.hashCode());
+	result = prime * result + ((GSTNumber == null) ? 0 : GSTNumber.hashCode());
+	result = prime * result + Id;
+	result = prime * result + ((LastName == null) ? 0 : LastName.hashCode());
+	result = prime * result + ((Mandal == null) ? 0 : Mandal.hashCode());
+	result = prime * result + ((Mobile == null) ? 0 : Mobile.hashCode());
+	result = prime * result + Pincode;
+	result = prime * result + ((State == null) ? 0 : State.hashCode());
+	result = prime * result + ((Status == null) ? 0 : Status.hashCode());
+	result = prime * result + ((StorageCapacity == null) ? 0 : StorageCapacity.hashCode());
+	result = prime * result + ((TokenId == null) ? 0 : TokenId.hashCode());
+	result = prime * result + ((Units == null) ? 0 : Units.hashCode());
+	result = prime * result + ((Vegetables == null) ? 0 : Vegetables.hashCode());
+	result = prime * result + ((Village == null) ? 0 : Village.hashCode());
+	result = prime * result + ((aniHusbandry == null) ? 0 : aniHusbandry.hashCode());
+	result = prime * result + ((distance == null) ? 0 : distance.hashCode());
+	result = prime * result + ((strdateOfIncorp == null) ? 0 : strdateOfIncorp.hashCode());
+	return result;
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	StorageReg other = (StorageReg) obj;
+	if (Address == null) {
+		if (other.Address != null)
+			return false;
+	} else if (!Address.equals(other.Address))
+		return false;
+	if (CompanyName == null) {
+		if (other.CompanyName != null)
+			return false;
+	} else if (!CompanyName.equals(other.CompanyName))
+		return false;
+	if (Crops == null) {
+		if (other.Crops != null)
+			return false;
+	} else if (!Crops.equals(other.Crops))
+		return false;
+	if (Dairy == null) {
+		if (other.Dairy != null)
+			return false;
+	} else if (!Dairy.equals(other.Dairy))
+		return false;
+	if (DateOfIncorp == null) {
+		if (other.DateOfIncorp != null)
+			return false;
+	} else if (!DateOfIncorp.equals(other.DateOfIncorp))
+		return false;
+	if (DateOfReg == null) {
+		if (other.DateOfReg != null)
+			return false;
+	} else if (!DateOfReg.equals(other.DateOfReg))
+		return false;
+	if (District == null) {
+		if (other.District != null)
+			return false;
+	} else if (!District.equals(other.District))
+		return false;
+	if (Email == null) {
+		if (other.Email != null)
+			return false;
+	} else if (!Email.equals(other.Email))
+		return false;
+	if (FirstName == null) {
+		if (other.FirstName != null)
+			return false;
+	} else if (!FirstName.equals(other.FirstName))
+		return false;
+	if (GSTNumber == null) {
+		if (other.GSTNumber != null)
+			return false;
+	} else if (!GSTNumber.equals(other.GSTNumber))
+		return false;
+	if (Id != other.Id)
+		return false;
+	if (LastName == null) {
+		if (other.LastName != null)
+			return false;
+	} else if (!LastName.equals(other.LastName))
+		return false;
+	if (Mandal == null) {
+		if (other.Mandal != null)
+			return false;
+	} else if (!Mandal.equals(other.Mandal))
+		return false;
+	if (Mobile == null) {
+		if (other.Mobile != null)
+			return false;
+	} else if (!Mobile.equals(other.Mobile))
+		return false;
+	if (Pincode != other.Pincode)
+		return false;
+	if (State == null) {
+		if (other.State != null)
+			return false;
+	} else if (!State.equals(other.State))
+		return false;
+	if (Status == null) {
+		if (other.Status != null)
+			return false;
+	} else if (!Status.equals(other.Status))
+		return false;
+	if (StorageCapacity == null) {
+		if (other.StorageCapacity != null)
+			return false;
+	} else if (!StorageCapacity.equals(other.StorageCapacity))
+		return false;
+	if (TokenId == null) {
+		if (other.TokenId != null)
+			return false;
+	} else if (!TokenId.equals(other.TokenId))
+		return false;
+	if (Units == null) {
+		if (other.Units != null)
+			return false;
+	} else if (!Units.equals(other.Units))
+		return false;
+	if (Vegetables == null) {
+		if (other.Vegetables != null)
+			return false;
+	} else if (!Vegetables.equals(other.Vegetables))
+		return false;
+	if (Village == null) {
+		if (other.Village != null)
+			return false;
+	} else if (!Village.equals(other.Village))
+		return false;
+	if (aniHusbandry == null) {
+		if (other.aniHusbandry != null)
+			return false;
+	} else if (!aniHusbandry.equals(other.aniHusbandry))
+		return false;
+	if (distance == null) {
+		if (other.distance != null)
+			return false;
+	} else if (!distance.equals(other.distance))
+		return false;
+	if (strdateOfIncorp == null) {
+		if (other.strdateOfIncorp != null)
+			return false;
+	} else if (!strdateOfIncorp.equals(other.strdateOfIncorp))
+		return false;
+	return true;
+}
+
+
+
+
 
 
 
