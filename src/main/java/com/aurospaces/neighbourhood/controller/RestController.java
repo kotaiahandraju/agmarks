@@ -11,12 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.math.RoundingMode;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -26,13 +25,12 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 import org.castor.util.Base64Decoder;
 import org.castor.util.Base64Encoder;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +73,8 @@ import com.aurospaces.neighbourhood.db.dao.TraderRegDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
+import com.aurospaces.neighbourhood.util.JsonReader;
 import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
-import com.aurospaces.neighbourhood.util.SendAttachmentInEmail;
 import com.aurospaces.neighbourhood.util.SendSMS;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -112,6 +110,8 @@ public class RestController {
 	@Autowired FarmerTransactionsDao farmerTransactionsDao;
 	
 	@Autowired HttpServletRequest request ;
+	
+	@Autowired JsonReader jsonReader;
 	
 	
 
@@ -262,9 +262,26 @@ public class RestController {
 	public @ResponseBody String sendOtp(@RequestBody FarRegs farRegs,  HttpServletRequest request)  {
 		List<Map<String,Object>> list=null;
 		JSONObject objJSON = new JSONObject();
+		InputStream input = null;
+		
+		 Properties prop = new Properties();
+		
 		try{
-		String otp =CommonUtils.generatePIN();
-		SendSMS.sendSMS(otp, farRegs.getMobile(), objContext);
+			
+			 String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
+			 
+			 input = new FileInputStream(propertiespath);
+			 
+			 prop.load(input);
+			 
+			 String otp =CommonUtils.generatePIN();
+				String msg = prop.getProperty("otp");
+//				Thank you for registering with Agmarks \nYou are successfully registered as a _type_ \n Username:_phone_ \n PIN:_password_ \nFrom: www.agmarks.com
+				msg= msg.replaceAll("_otp_",otp );
+			 
+			 
+		
+		SendSMS.sendSMS(msg, farRegs.getMobile(), objContext);
 			
 			objJSON.put("otp", otp);
 			
@@ -1894,9 +1911,96 @@ private Set<StorageReg> getStoragedataByDistence(List<FarRegs> farregbean, Set<S
 }
 
 
+@RequestMapping(value = "/rest/weatherreport")
+public @ResponseBody String getWeatherReportByPincode(@RequestBody Users user,  HttpServletRequest request) throws JSONException, IOException  {
+	
+	 JSONObject  weatherJsonReport = new JSONObject();
+	 
+	 String picode=user.getUser_name().trim();
+	
+	String url ="http://maps.googleapis.com/maps/api/geocode/json?address="+picode+"&sensor=false";
+	
+	JSONObject json = jsonReader.readJsonFromUrl(url);
+	
+	 
+	  JSONArray jsonarray = json.getJSONArray("results");
+	  JSONObject obj =null;;
+	if (jsonarray.length() > 0) 
+	{
+           obj = jsonarray.getJSONObject(0);
+           
+	}
+	
+	  else
+	  {
+		  weatherJsonReport.put("weatherJsonReport", "invalidrequest");
+		  
+		  return String.valueOf(weatherJsonReport);
+	  }
+	  
+	
+	
+	 JSONObject obj1 =(JSONObject) obj.get("geometry");
+	 
+	 
+	 System.out.println(obj1.get("location"));
+	 
+	 JSONObject obj2 =(JSONObject) obj1.get("location");
+	 
+	 
+	 String lng = String.valueOf(obj2.get("lng"));
+	 
+	 String lat =String.valueOf(obj2.get("lat"));
+	 
+	 String url2 ="http://api.openweathermap.org/data/2.5/forecast?lat="+lng+"&lon="+lat+"&mode=json&appid=990274466483cd969f2a96f84311fb8d&units=metric";
+	 
+	 JSONObject weatherJson = jsonReader.readJsonFromUrl(url2);
+	 
+	 
+	 
+	 JSONArray  weatherObj = weatherJson.getJSONArray("list");
+	 System.out.println(weatherObj);
+	 
+	 //JSONObject  weatherJsonReport = new JSONObject();
+	 
+	 List<JSONObject>  weatherJsonList = new ArrayList<JSONObject>();
+	 
+	 
+	 for(int i=0; i<weatherObj.length(); i++)
+	 {
+		 JSONObject  weatherJsonobj = new JSONObject();
+		 
+		
+		 
+		 JSONObject     weatherJsonmain =   (JSONObject) weatherObj.getJSONObject(i).get("main");
+		 
+		 JSONArray     weatherJsonweatherarry =    weatherObj.getJSONObject(i).getJSONArray("weather");
+		 
+		 JSONObject     weatherJsonweather =   (JSONObject) weatherJsonweatherarry.getJSONObject(0);
+		 
+		 
+		 weatherJsonobj.put("weather",weatherJsonweather);
+		 weatherJsonobj.put("main",weatherJsonmain);
+		 
+		 weatherJsonList.add(weatherJsonobj);
+		 
+		 
+		 
+		
+		 
+	 }
+	 
+	
+	 weatherJsonReport.put("weatherJsonReport", weatherJsonList);
+	 
+	 
+	 
+	
+	
+	return String.valueOf(weatherJsonReport);
 
 
-    
+}
     	
     	
     	
