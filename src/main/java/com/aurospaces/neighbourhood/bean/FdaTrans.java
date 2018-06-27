@@ -60,6 +60,13 @@ protected String Status ;
 /** Field mapping. **/
 protected Date Date ;
 
+
+protected Date EDD; 
+
+protected String strEDD;
+
+
+
 public int getSNo()
 {
   return SNo;
@@ -172,5 +179,21 @@ public void setDate(final Date Date)
 {
   this.Date = Date;
 }
+public Date getEDD() {
+	return EDD;
+}
+public void setEDD(Date eDD) {
+	EDD = eDD;
+}
+public String getStrEDD() {
+	return strEDD;
+}
+public void setStrEDD(String strEDD) {
+	this.strEDD = strEDD;
+}
+
+
+
+
 
 }

@@ -26,7 +26,7 @@ public class BaseFdaTransDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO fda_trans( Token_id, Live_stock, Inputs, Variety, Quantity, Unit, Milk_yield, Price, Nearest_market, Comment, Transaction_type, Status, Date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO fda_trans( Token_id, Live_stock, Inputs, Variety, Quantity, Unit, Milk_yield, Price, Nearest_market, Comment, Transaction_type, Status, Date,EDD) values (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -51,7 +51,17 @@ public class BaseFdaTransDao{
 					}
 					java.sql.Timestamp Date = 
 						new java.sql.Timestamp(fdaTrans.getDate().getTime()); 
-							
+						
+					
+					if(fdaTrans.getEDD() == null)
+					{
+						fdaTrans.setEDD( new Date());
+					}
+					java.sql.Timestamp EDD = 
+						new java.sql.Timestamp(fdaTrans.getEDD().getTime()); 
+					
+					
+					
 					PreparedStatement ps =
 									connection.prepareStatement(INSERT_SQL,new String[]{"SNo"});
 	ps.setString(1, fdaTrans.getTokenId());
@@ -67,6 +77,8 @@ ps.setString(10, fdaTrans.getComment());
 ps.setString(11, fdaTrans.getTransactionType());
 ps.setString(12, fdaTrans.getStatus());
 ps.setTimestamp(13, Date);
+ps.setTimestamp(14, EDD);
+
 
 							return ps;
 						}

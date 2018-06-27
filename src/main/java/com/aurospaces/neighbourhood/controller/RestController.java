@@ -1239,12 +1239,16 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
 		return String.valueOf(objJSON);
     }
-
     @RequestMapping(value = "/rest/savefarmertransaction")
     public @ResponseBody String saveFarmerTransactions(@RequestBody FarmerTransactions  farmerTransactions,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
     	
     	try {
+    		
+    		if(StringUtils.isNotBlank(farmerTransactions.getStrEDD())){
+    			farmerTransactions.setEDD(KhaibarGasUtil.dateFormate(farmerTransactions.getStrEDD()));
+    		
+    		}
     		farmerTransactions.setStatus("inprocess");
 			farmerTransactionsDao.save(farmerTransactions);
 				objJSON.put("status", "success");
@@ -1406,12 +1410,16 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     }
     
     
-    
     @RequestMapping(value = "/rest/savefdatransaction")
     public @ResponseBody String saveFdaTransactions(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
     	JSONObject objJSON = new JSONObject();
     	
     	try {
+    		
+        		if(StringUtils.isNotBlank(fdaTrans.getStrEDD())){
+        			fdaTrans.setEDD(KhaibarGasUtil.dateFormate(fdaTrans.getStrEDD()));
+        		
+        		}
     		fdaTrans.setStatus("inprocess");
     		fdaTransDao.save(fdaTrans);
 				objJSON.put("status", "success");
@@ -1918,7 +1926,9 @@ public @ResponseBody String getWeatherReportByPincode(@RequestBody Users user,  
 	 
 	 String picode=user.getUser_name().trim();
 	
-	String url ="http://maps.googleapis.com/maps/api/geocode/json?address="+picode+"&sensor=false";
+	String url ="https://maps.googleapis.com/maps/api/geocode/json?address="+picode+"&sensor=false";
+	
+	System.out.println(url);
 	
 	JSONObject json = jsonReader.readJsonFromUrl(url);
 	
@@ -1952,8 +1962,10 @@ public @ResponseBody String getWeatherReportByPincode(@RequestBody Users user,  
 	 
 	 String lat =String.valueOf(obj2.get("lat"));
 	 
-	 String url2 ="http://api.openweathermap.org/data/2.5/forecast?lat="+lng+"&lon="+lat+"&mode=json&appid=990274466483cd969f2a96f84311fb8d&units=metric";
+	 String url2 ="https://api.openweathermap.org/data/2.5/forecast?lat="+lng+"&lon="+lat+"&mode=json&appid=990274466483cd969f2a96f84311fb8d&units=metric";
 	 
+	 
+	 System.out.println(url2);
 	 JSONObject weatherJson = jsonReader.readJsonFromUrl(url2);
 	 
 	 
@@ -1976,11 +1988,15 @@ public @ResponseBody String getWeatherReportByPincode(@RequestBody Users user,  
 		 
 		 JSONArray     weatherJsonweatherarry =    weatherObj.getJSONObject(i).getJSONArray("weather");
 		 
+		 String     weatherJsondt_txt =  (String) weatherObj.getJSONObject(i).get("dt_txt");
+		 
 		 JSONObject     weatherJsonweather =   (JSONObject) weatherJsonweatherarry.getJSONObject(0);
 		 
 		 
 		 weatherJsonobj.put("weather",weatherJsonweather);
 		 weatherJsonobj.put("main",weatherJsonmain);
+		 
+		 weatherJsonobj.put("dt_txt",weatherJsondt_txt);
 		 
 		 weatherJsonList.add(weatherJsonobj);
 		 

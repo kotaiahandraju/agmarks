@@ -135,6 +135,10 @@ protected String TokenId ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+protected String Country ;
+
+
+
 public int getId()
 {
   return Id;
@@ -462,6 +466,15 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+
+
+
+public String getCountry() {
+	return Country;
+}
+public void setCountry(String country) {
+	Country = country;
+}
 @Override
 public String toString() {
 	return "FarRegs [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", Dob=" + Dob + ", Mobile="
@@ -473,8 +486,9 @@ public String toString() {
 			+ ", AddVeg=" + AddVeg + ", AniHus=" + AniHus + ", AniHus1=" + AniHus1 + ", AniHus2=" + AniHus2
 			+ ", AniHus3=" + AniHus3 + ", AddAniHus=" + AddAniHus + ", Dairy=" + Dairy + ", Dairy1=" + Dairy1
 			+ ", Dairy2=" + Dairy2 + ", Dairy3=" + Dairy3 + ", AddDairy=" + AddDairy + ", TokenId=" + TokenId
-			+ ", DateOfReg=" + DateOfReg + "]";
+			+ ", DateOfReg=" + DateOfReg + ", Country=" + Country + "]";
 }
+
 
 
 
