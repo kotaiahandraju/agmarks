@@ -26,7 +26,7 @@ public class BaseProcRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO proc_reg( Token_id, First_name, Last_name, Company_name, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Status, Raw_material, Raw1, Raw2, Raw3, Add_raw, Fin_product, Packaging, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO proc_reg( Token_id, First_name, Last_name, Company_name, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Status, Raw_material, Raw1, Raw2, Raw3, Add_raw, Fin_product, Packaging, Date_of_reg,Ccode,My_plan,Trial_date) values (?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -84,6 +84,9 @@ ps.setString(20, procReg.getAddRaw());
 ps.setString(21, procReg.getFinProduct());
 ps.setString(22, procReg.getPackaging());
 ps.setTimestamp(23, DateOfReg);
+ps.setString(24, procReg.getCcode());
+ps.setString(25, procReg.getMyPlan());
+ps.setTimestamp(26, DateOfReg);
 
 							return ps;
 						}
@@ -98,9 +101,9 @@ ps.setTimestamp(23, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE proc_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Status = ? ,Raw_material = ? ,Raw1 = ? ,Raw2 = ? ,Raw3 = ? ,Add_raw = ? ,Fin_product = ? ,Packaging = ?  where Id = ? ";
+			String sql = "UPDATE proc_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Status = ? ,Raw_material = ? ,Raw1 = ? ,Raw2 = ? ,Raw3 = ? ,Add_raw = ? ,Fin_product = ? ,Packaging = ? ,Ccode =? , My_plan =? where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{procReg.getTokenId(),procReg.getFirstName(),procReg.getLastName(),procReg.getCompanyName(),procReg.getAddress(),procReg.getVillage(),procReg.getMandal(),procReg.getDistrict(),procReg.getState(),procReg.getPincode(),procReg.getEmail(),procReg.getMobile(),procReg.getDateOfIncorp(),procReg.getGSTNumber(),procReg.getStatus(),procReg.getRawMaterial(),procReg.getRaw1(),procReg.getRaw2(),procReg.getRaw3(),procReg.getAddRaw(),procReg.getFinProduct(),procReg.getPackaging(),procReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{procReg.getTokenId(),procReg.getFirstName(),procReg.getLastName(),procReg.getCompanyName(),procReg.getAddress(),procReg.getVillage(),procReg.getMandal(),procReg.getDistrict(),procReg.getState(),procReg.getPincode(),procReg.getEmail(),procReg.getMobile(),procReg.getDateOfIncorp(),procReg.getGSTNumber(),procReg.getStatus(),procReg.getRawMaterial(),procReg.getRaw1(),procReg.getRaw2(),procReg.getRaw3(),procReg.getAddRaw(),procReg.getFinProduct(),procReg.getPackaging(),procReg.getCcode(),procReg.getMyPlan(),procReg.getId()});
 		}
 	}
 		

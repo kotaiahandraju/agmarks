@@ -26,7 +26,7 @@ public class BaseLogisticsRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO logistics_reg( First_name, Last_name, Company_name, Date_of_incorp, Address, Status, Village, Mandal, District, State, Pincode, Mobile, Email, Vehicle_type, Vehicle_capacity, Vehicle_capcity_units, Token_id, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO logistics_reg( First_name, Last_name, Company_name, Date_of_incorp, Address, Status, Village, Mandal, District, State, Pincode, Mobile, Email, Vehicle_type, Vehicle_capacity, Vehicle_capcity_units, Token_id, Date_of_reg,Ccode,My_plan) values (?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -72,6 +72,8 @@ ps.setString(15, logisticsReg.getVehicleCapacity());
 ps.setString(16, logisticsReg.getVehicleCapcityUnits());
 ps.setString(17, logisticsReg.getTokenId());
 ps.setTimestamp(18, DateOfReg);
+ps.setString(19, logisticsReg.getCcode());
+ps.setString(20, logisticsReg.getMyPlan());
 
 							return ps;
 						}
@@ -86,9 +88,9 @@ ps.setTimestamp(18, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE logistics_reg  set First_name = ? ,Last_name = ? ,Company_name = ? ,Date_of_incorp = ? ,Address = ? ,Status = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Mobile = ? ,Email = ? ,Vehicle_type = ? ,Vehicle_capacity = ? ,Vehicle_capcity_units = ? ,Token_id = ?  where Id = ? ";
+			String sql = "UPDATE logistics_reg  set First_name = ? ,Last_name = ? ,Company_name = ? ,Date_of_incorp = ? ,Address = ? ,Status = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Mobile = ? ,Email = ? ,Vehicle_type = ? ,Vehicle_capacity = ? ,Vehicle_capcity_units = ? ,Token_id = ?, Ccode =? , My_plan =?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{logisticsReg.getFirstName(),logisticsReg.getLastName(),logisticsReg.getCompanyName(),logisticsReg.getDateOfIncorp(),logisticsReg.getAddress(),logisticsReg.getStatus(),logisticsReg.getVillage(),logisticsReg.getMandal(),logisticsReg.getDistrict(),logisticsReg.getState(),logisticsReg.getPincode(),logisticsReg.getMobile(),logisticsReg.getEmail(),logisticsReg.getVehicleType(),logisticsReg.getVehicleCapacity(),logisticsReg.getVehicleCapcityUnits(),logisticsReg.getTokenId(),logisticsReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{logisticsReg.getFirstName(),logisticsReg.getLastName(),logisticsReg.getCompanyName(),logisticsReg.getDateOfIncorp(),logisticsReg.getAddress(),logisticsReg.getStatus(),logisticsReg.getVillage(),logisticsReg.getMandal(),logisticsReg.getDistrict(),logisticsReg.getState(),logisticsReg.getPincode(),logisticsReg.getMobile(),logisticsReg.getEmail(),logisticsReg.getVehicleType(),logisticsReg.getVehicleCapacity(),logisticsReg.getVehicleCapcityUnits(),logisticsReg.getTokenId(),logisticsReg.getCcode(),logisticsReg.getMyPlan(),logisticsReg.getId()});
 		}
 	}
 		

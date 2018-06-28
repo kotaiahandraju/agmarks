@@ -78,6 +78,11 @@ protected String Dairy,strdateOfIncorp ;
 protected Date DateOfReg ;
 
 
+protected String Ccode ;
+
+protected String MyPlan ;
+
+
 public String getStrdateOfIncorp() {
 	return strdateOfIncorp;
 }
@@ -252,5 +257,20 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+public String getCcode() {
+	return Ccode;
+}
+public void setCcode(String ccode) {
+	Ccode = ccode;
+}
+public String getMyPlan() {
+	return MyPlan;
+}
+public void setMyPlan(String myPlan) {
+	MyPlan = myPlan;
+}
+
+
+
 
 }

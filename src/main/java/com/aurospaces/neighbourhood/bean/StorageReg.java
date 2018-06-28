@@ -86,6 +86,11 @@ protected String Units,strdateOfIncorp,distance ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+
+protected String Ccode ;
+
+protected String MyPlan ;
+
 public String getStrdateOfIncorp() {
 	return strdateOfIncorp;
 }
@@ -279,6 +284,22 @@ public String getDistance() {
 }
 public void setDistance(String distance) {
 	this.distance = distance;
+}
+
+
+
+
+public String getCcode() {
+	return Ccode;
+}
+public void setCcode(String ccode) {
+	Ccode = ccode;
+}
+public String getMyPlan() {
+	return MyPlan;
+}
+public void setMyPlan(String myPlan) {
+	MyPlan = myPlan;
 }
 @Override
 public String toString() {

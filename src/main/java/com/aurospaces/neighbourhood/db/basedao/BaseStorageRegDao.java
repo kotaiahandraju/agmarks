@@ -26,7 +26,7 @@ public class BaseStorageRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO storage_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Dairy, Storage_capacity, Units, Date_of_reg, Ani_husbandry) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO storage_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Dairy, Storage_capacity, Units, Date_of_reg, Ani_husbandry,Ccode,My_plan) values (?,?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -45,12 +45,12 @@ public class BaseStorageRegDao{
 					public PreparedStatement 
 					createPreparedStatement(Connection connection) throws SQLException {
 	
-					if(storageReg.getDateOfIncorp() == null)
+					/*if(storageReg.getDateOfIncorp() == null)
 					{
 					storageReg.setDateOfIncorp( new Date());
 					}
 					java.sql.Timestamp DateOfIncorp = 
-						new java.sql.Timestamp(storageReg.getDateOfIncorp().getTime()); 
+						new java.sql.Timestamp(storageReg.getDateOfIncorp().getTime()); */
 							
 					if(storageReg.getDateOfReg() == null)
 					{
@@ -74,7 +74,7 @@ ps.setString(10, storageReg.getState());
 ps.setInt(11, storageReg.getPincode());
 ps.setString(12, storageReg.getEmail());
 ps.setString(13, storageReg.getMobile());
-ps.setTimestamp(14, DateOfIncorp);
+ps.setString(14, storageReg.getStrdateOfIncorp());
 ps.setString(15, storageReg.getGSTNumber());
 ps.setString(16, storageReg.getCrops());
 ps.setString(17, storageReg.getVegetables());
@@ -83,6 +83,8 @@ ps.setString(19, storageReg.getStorageCapacity());
 ps.setString(20, storageReg.getUnits());
 ps.setTimestamp(21, DateOfReg);
 ps.setString(22, storageReg.getAniHusbandry());
+ps.setString(23, storageReg.getCcode());
+ps.setString(24, storageReg.getMyPlan());
 
 							return ps;
 						}
@@ -97,9 +99,9 @@ ps.setString(22, storageReg.getAniHusbandry());
 		else
 		{
 
-			String sql = "UPDATE storage_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Dairy = ? ,Storage_capacity = ? ,Units = ? ,setString = ? where Id = ? ";
+			String sql = "UPDATE storage_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Dairy = ? ,Storage_capacity = ? ,Units = ? ,setString = ? ,Ccode =? , My_plan =? where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{storageReg.getTokenId(),storageReg.getFirstName(),storageReg.getLastName(),storageReg.getCompanyName(),storageReg.getStatus(),storageReg.getAddress(),storageReg.getVillage(),storageReg.getMandal(),storageReg.getDistrict(),storageReg.getState(),storageReg.getPincode(),storageReg.getEmail(),storageReg.getMobile(),storageReg.getDateOfIncorp(),storageReg.getGSTNumber(),storageReg.getCrops(),storageReg.getVegetables(),storageReg.getDairy(),storageReg.getStorageCapacity(),storageReg.getUnits(),storageReg.getAniHusbandry(),storageReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{storageReg.getTokenId(),storageReg.getFirstName(),storageReg.getLastName(),storageReg.getCompanyName(),storageReg.getStatus(),storageReg.getAddress(),storageReg.getVillage(),storageReg.getMandal(),storageReg.getDistrict(),storageReg.getState(),storageReg.getPincode(),storageReg.getEmail(),storageReg.getMobile(),storageReg.getDateOfIncorp(),storageReg.getGSTNumber(),storageReg.getCrops(),storageReg.getVegetables(),storageReg.getDairy(),storageReg.getStorageCapacity(),storageReg.getUnits(),storageReg.getAniHusbandry(),storageReg.getCcode(),storageReg.getMyPlan(),storageReg.getId()});
 		}
 	}
 		

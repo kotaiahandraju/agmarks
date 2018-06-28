@@ -26,7 +26,7 @@ public class BaseSupplierRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO supplier_reg( Token_id, First_name, Last_name, Company_name, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Status, Bio, Botanical, Farm_machinery, Inorganic, Organic, Seed, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO supplier_reg( Token_id, First_name, Last_name, Company_name, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Status, Bio, Botanical, Farm_machinery, Inorganic, Organic, Seed, Date_of_reg,Ccode,My_plan) values (?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -45,12 +45,7 @@ public class BaseSupplierRegDao{
 					public PreparedStatement 
 					createPreparedStatement(Connection connection) throws SQLException {
 	
-					if(supplierReg.getDateOfIncorp() == null)
-					{
-					supplierReg.setDateOfIncorp( new Date());
-					}
-					java.sql.Timestamp DateOfIncorp = 
-						new java.sql.Timestamp(supplierReg.getDateOfIncorp().getTime()); 
+					
 							
 					if(supplierReg.getDateOfReg() == null)
 					{
@@ -73,7 +68,7 @@ ps.setString(9, supplierReg.getState());
 ps.setInt(10, supplierReg.getPincode());
 ps.setString(11, supplierReg.getEmail());
 ps.setString(12, supplierReg.getMobile());
-ps.setTimestamp(13, DateOfIncorp);
+ps.setString(13, supplierReg.getStrdateOfIncorp());
 ps.setString(14, supplierReg.getGSTNumber());
 ps.setString(15, supplierReg.getStatus());
 ps.setString(16, supplierReg.getBio());
@@ -83,6 +78,8 @@ ps.setString(19, supplierReg.getInorganic());
 ps.setString(20, supplierReg.getOrganic());
 ps.setString(21, supplierReg.getSeed());
 ps.setTimestamp(22, DateOfReg);
+ps.setString(23, supplierReg.getCcode());
+ps.setString(24, supplierReg.getMyPlan());
 
 							return ps;
 						}
@@ -97,9 +94,9 @@ ps.setTimestamp(22, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE supplier_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Status = ? ,Bio = ? ,Botanical = ? ,Farm_machinery = ? ,Inorganic = ? ,Organic = ? ,Seed = ?  where Id = ? ";
+			String sql = "UPDATE supplier_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Status = ? ,Bio = ? ,Botanical = ? ,Farm_machinery = ? ,Inorganic = ? ,Organic = ? ,Seed = ? ,Ccode =? , My_plan =? where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{supplierReg.getTokenId(),supplierReg.getFirstName(),supplierReg.getLastName(),supplierReg.getCompanyName(),supplierReg.getAddress(),supplierReg.getVillage(),supplierReg.getMandal(),supplierReg.getDistrict(),supplierReg.getState(),supplierReg.getPincode(),supplierReg.getEmail(),supplierReg.getMobile(),supplierReg.getDateOfIncorp(),supplierReg.getGSTNumber(),supplierReg.getStatus(),supplierReg.getBio(),supplierReg.getBotanical(),supplierReg.getFarmMachinery(),supplierReg.getInorganic(),supplierReg.getOrganic(),supplierReg.getSeed(),supplierReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{supplierReg.getTokenId(),supplierReg.getFirstName(),supplierReg.getLastName(),supplierReg.getCompanyName(),supplierReg.getAddress(),supplierReg.getVillage(),supplierReg.getMandal(),supplierReg.getDistrict(),supplierReg.getState(),supplierReg.getPincode(),supplierReg.getEmail(),supplierReg.getMobile(),supplierReg.getDateOfIncorp(),supplierReg.getGSTNumber(),supplierReg.getStatus(),supplierReg.getBio(),supplierReg.getBotanical(),supplierReg.getFarmMachinery(),supplierReg.getInorganic(),supplierReg.getOrganic(),supplierReg.getSeed(),supplierReg.getCcode(),supplierReg.getMyPlan(),supplierReg.getId()});
 		}
 	}
 		

@@ -26,7 +26,7 @@ public class BaseTraderRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO trader_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Ani_husbandry, Dairy, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO trader_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Crops, Vegetables, Ani_husbandry, Dairy, Date_of_reg, Ccode, My_plan) values (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -45,12 +45,12 @@ public class BaseTraderRegDao{
 					public PreparedStatement 
 					createPreparedStatement(Connection connection) throws SQLException {
 	
-					if(traderReg.getDateOfIncorp() == null)
+					/*if(traderReg.getDateOfIncorp() == null)
 					{
 					traderReg.setDateOfIncorp( new Date());
 					}
 					java.sql.Timestamp DateOfIncorp = 
-						new java.sql.Timestamp(traderReg.getDateOfIncorp().getTime()); 
+						new java.sql.Timestamp(traderReg.getDateOfIncorp().getTime()); */
 							
 					if(traderReg.getDateOfReg() == null)
 					{
@@ -74,13 +74,16 @@ ps.setString(10, traderReg.getState());
 ps.setInt(11, traderReg.getPincode());
 ps.setString(12, traderReg.getEmail());
 ps.setString(13, traderReg.getMobile());
-ps.setTimestamp(14, DateOfIncorp);
+ps.setString(14, traderReg.getStrdateOfIncorp());
 ps.setString(15, traderReg.getGSTNumber());
 ps.setString(16, traderReg.getCrops());
 ps.setString(17, traderReg.getVegetables());
 ps.setString(18, traderReg.getAniHusbandry());
 ps.setString(19, traderReg.getDairy());
 ps.setTimestamp(20, DateOfReg);
+
+ps.setString(21, traderReg.getCcode());
+ps.setString(22, traderReg.getMyPlan());
 
 							return ps;
 						}
@@ -95,9 +98,9 @@ ps.setTimestamp(20, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE trader_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Ani_husbandry = ? ,Dairy = ?  where Id = ? ";
+			String sql = "UPDATE trader_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Crops = ? ,Vegetables = ? ,Ani_husbandry = ? ,Dairy = ?,Ccode =? , My_plan =?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{traderReg.getTokenId(),traderReg.getFirstName(),traderReg.getLastName(),traderReg.getCompanyName(),traderReg.getStatus(),traderReg.getAddress(),traderReg.getVillage(),traderReg.getMandal(),traderReg.getDistrict(),traderReg.getState(),traderReg.getPincode(),traderReg.getEmail(),traderReg.getMobile(),traderReg.getDateOfIncorp(),traderReg.getGSTNumber(),traderReg.getCrops(),traderReg.getVegetables(),traderReg.getAniHusbandry(),traderReg.getDairy(),traderReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{traderReg.getTokenId(),traderReg.getFirstName(),traderReg.getLastName(),traderReg.getCompanyName(),traderReg.getStatus(),traderReg.getAddress(),traderReg.getVillage(),traderReg.getMandal(),traderReg.getDistrict(),traderReg.getState(),traderReg.getPincode(),traderReg.getEmail(),traderReg.getMobile(),traderReg.getDateOfIncorp(),traderReg.getGSTNumber(),traderReg.getCrops(),traderReg.getVegetables(),traderReg.getAniHusbandry(),traderReg.getDairy(),traderReg.getCcode(),traderReg.getMyPlan(),traderReg.getId()});
 		}
 	}
 		

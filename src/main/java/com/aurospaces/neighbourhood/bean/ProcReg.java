@@ -90,6 +90,15 @@ protected String Packaging ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+protected String Ccode ;
+
+protected String MyPlan ;
+
+protected Date Trial_date ;
+
+
+
+
 
 
 public String getStrdateOfIncorp() {
@@ -290,5 +299,27 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+public String getCcode() {
+	return Ccode;
+}
+public void setCcode(String ccode) {
+	Ccode = ccode;
+}
+public String getMyPlan() {
+	return MyPlan;
+}
+public void setMyPlan(String myPlan) {
+	MyPlan = myPlan;
+}
+public Date getTrial_date() {
+	return Trial_date;
+}
+public void setTrial_date(Date trial_date) {
+	Trial_date = trial_date;
+}
+
+
+
+
 
 }

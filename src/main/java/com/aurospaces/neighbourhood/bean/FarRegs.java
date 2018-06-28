@@ -135,7 +135,7 @@ protected String TokenId ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
-protected String Country ;
+protected String Ccode ;
 
 
 
@@ -469,11 +469,12 @@ public void setDateOfReg(final Date DateOfReg)
 
 
 
-public String getCountry() {
-	return Country;
+
+public String getCcode() {
+	return Ccode;
 }
-public void setCountry(String country) {
-	Country = country;
+public void setCcode(String ccode) {
+	Ccode = ccode;
 }
 @Override
 public String toString() {
@@ -486,8 +487,11 @@ public String toString() {
 			+ ", AddVeg=" + AddVeg + ", AniHus=" + AniHus + ", AniHus1=" + AniHus1 + ", AniHus2=" + AniHus2
 			+ ", AniHus3=" + AniHus3 + ", AddAniHus=" + AddAniHus + ", Dairy=" + Dairy + ", Dairy1=" + Dairy1
 			+ ", Dairy2=" + Dairy2 + ", Dairy3=" + Dairy3 + ", AddDairy=" + AddDairy + ", TokenId=" + TokenId
-			+ ", DateOfReg=" + DateOfReg + ", Country=" + Country + "]";
+			+ ", DateOfReg=" + DateOfReg + ", Ccode=" + Ccode + "]";
 }
+
+
+
 
 
 

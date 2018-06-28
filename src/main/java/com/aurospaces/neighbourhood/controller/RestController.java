@@ -453,6 +453,7 @@ public @ResponseBody String processorreg(@RequestBody ProcReg procReg,  HttpServ
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		procReg.setTokenId(tokenId);
+		procReg.setMyPlan("12121212");
 		procRegDao.save(procReg);
 		
 		List<Users> userBean = usersDao.mobiledata(procReg.getMobile());
@@ -520,10 +521,10 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 	String body = null;
 	 Properties prop = new Properties();
 	try{
-		if(StringUtils.isNotBlank(storageReg.getStrdateOfIncorp())){
+		/*if(StringUtils.isNotBlank(storageReg.getStrdateOfIncorp())){
 			storageReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(storageReg.getStrdateOfIncorp()));
 		
-		}
+		}*/
 		
 		
 		String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
@@ -542,6 +543,7 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		storageReg.setTokenId(tokenId);
+		storageReg.setMyPlan("12121212");
 		storageRegDao.save(storageReg);
 		
 		List<Users> userBean = usersDao.mobiledata(storageReg.getMobile());
@@ -608,10 +610,10 @@ public @ResponseBody String traderreg(@RequestBody TraderReg traderReg,  HttpSer
 	String body = null;
 	 Properties prop = new Properties();
 	try{
-		if(StringUtils.isNotBlank(traderReg.getStrdateOfIncorp())){
+		/*if(StringUtils.isNotBlank(traderReg.getStrdateOfIncorp())){
 			traderReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(traderReg.getStrdateOfIncorp()));
 		
-		}
+		}*/
 		
 		
 		String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
@@ -631,6 +633,7 @@ public @ResponseBody String traderreg(@RequestBody TraderReg traderReg,  HttpSer
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		traderReg.setTokenId(tokenId);
+		traderReg.setMyPlan("12121212");
 		traderRegDao.save(traderReg);
 		
 		List<Users> userBean = usersDao.mobiledata(traderReg.getMobile());
@@ -713,6 +716,7 @@ public @ResponseBody String vendorreg(@RequestBody VendorReg vendorReg,  HttpSer
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		vendorReg.setTokenId(tokenId);
+		vendorReg.setMyPlan("12121212");
 		vendorRegDao.save(vendorReg);
 		
 		List<Users> userBean = usersDao.mobiledata(vendorReg.getMobile());
@@ -779,11 +783,11 @@ public @ResponseBody String supplierreg(@RequestBody SupplierReg supplierReg,  H
 	String body = null;
 	 Properties prop = new Properties();
 	try{
-		
-		if(StringUtils.isNotBlank(supplierReg.getStrdateOfIncorp())){
-			supplierReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(supplierReg.getStrdateOfIncorp()));
-		
-		}
+//		
+//		if(StringUtils.isNotBlank(supplierReg.getStrdateOfIncorp())){
+//			supplierReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(supplierReg.getStrdateOfIncorp()));
+//		
+//		}
 		
 		String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
 		//String propertiespath = "C:\\PRO\\Database.properties";
@@ -800,6 +804,7 @@ public @ResponseBody String supplierreg(@RequestBody SupplierReg supplierReg,  H
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		supplierReg.setTokenId(tokenId);
+		supplierReg.setMyPlan("12121212");
 		supplierRegDao.save(supplierReg);
 		
 		List<Users> userBean = usersDao.mobiledata(supplierReg.getMobile());
@@ -897,6 +902,7 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 		KhaibarGasUtil utils=new KhaibarGasUtil();
 		String tokenId = utils.randNum(150);
 		logisticsReg.setTokenId(tokenId);
+		logisticsReg.setMyPlan("12121212");
 		logisticsRegDao.save(logisticsReg);
 		
 		List<Users> userBean = usersDao.mobiledata(logisticsReg.getMobile());

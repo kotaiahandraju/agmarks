@@ -70,6 +70,10 @@ protected String TokenId ;
 /** Field mapping. **/
 protected Date DateOfReg ;
 
+protected String Ccode ;
+
+protected String MyPlan ;
+
 
 
 public int getId()
@@ -224,6 +228,22 @@ public void setDateOfReg(final Date DateOfReg)
 {
   this.DateOfReg = DateOfReg;
 }
+
+
+
+
+public String getCcode() {
+	return Ccode;
+}
+public void setCcode(String ccode) {
+	Ccode = ccode;
+}
+public String getMyPlan() {
+	return MyPlan;
+}
+public void setMyPlan(String myPlan) {
+	MyPlan = myPlan;
+}
 @Override
 public String toString() {
 	return "LogisticsReg [Id=" + Id + ", FirstName=" + FirstName + ", LastName=" + LastName + ", CompanyName="
@@ -231,8 +251,11 @@ public String toString() {
 			+ ", Village=" + Village + ", Mandal=" + Mandal + ", District=" + District + ", State=" + State
 			+ ", Pincode=" + Pincode + ", Mobile=" + Mobile + ", Email=" + Email + ", VehicleType=" + VehicleType
 			+ ", VehicleCapacity=" + VehicleCapacity + ", VehicleCapcityUnits=" + VehicleCapcityUnits + ", TokenId="
-			+ TokenId + ", DateOfReg=" + DateOfReg + "]";
+			+ TokenId + ", DateOfReg=" + DateOfReg + ", Ccode=" + Ccode + ", MyPlan=" + MyPlan + "]";
 }
+
+
+
 
 
 

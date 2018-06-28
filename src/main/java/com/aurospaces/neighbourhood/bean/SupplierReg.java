@@ -88,6 +88,14 @@ protected Date DateOfReg ;
 
 protected String strdateOfIncorp ;
 
+
+
+protected String Ccode ;
+
+protected String MyPlan ;
+
+
+
 public int getId()
 {
   return Id;
@@ -277,6 +285,21 @@ public String getStrdateOfIncorp() {
 }
 public void setStrdateOfIncorp(String strdateOfIncorp) {
 	this.strdateOfIncorp = strdateOfIncorp;
+}
+
+
+
+public String getCcode() {
+	return Ccode;
+}
+public void setCcode(String ccode) {
+	Ccode = ccode;
+}
+public String getMyPlan() {
+	return MyPlan;
+}
+public void setMyPlan(String myPlan) {
+	MyPlan = myPlan;
 }
 @Override
 public String toString() {

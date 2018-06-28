@@ -26,7 +26,7 @@ public class BaseVendorRegDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO vendor_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Vegetables, Ani_hus, Dairy, Date_of_reg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO vendor_reg( Token_id, First_name, Last_name, Company_name, Status, Address, Village, Mandal, District, State, Pincode, Email, Mobile, Date_of_incorp, GST_number, Vegetables, Ani_hus, Dairy, Date_of_reg,Ccode,My_plan) values (?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
 
@@ -74,6 +74,9 @@ ps.setString(17, vendorReg.getAniHus());
 ps.setString(18, vendorReg.getDairy());
 ps.setTimestamp(19, DateOfReg);
 
+ps.setString(20, vendorReg.getCcode());
+ps.setString(21, vendorReg.getMyPlan());
+
 							return ps;
 						}
 				},
@@ -87,9 +90,9 @@ ps.setTimestamp(19, DateOfReg);
 		else
 		{
 
-			String sql = "UPDATE vendor_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Vegetables = ? ,Ani_hus = ? ,Dairy = ?  where Id = ? ";
+			String sql = "UPDATE vendor_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Status = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Vegetables = ? ,Ani_hus = ? ,Dairy = ? ,Ccode =? , My_plan =?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{vendorReg.getTokenId(),vendorReg.getFirstName(),vendorReg.getLastName(),vendorReg.getCompanyName(),vendorReg.getStatus(),vendorReg.getAddress(),vendorReg.getVillage(),vendorReg.getMandal(),vendorReg.getDistrict(),vendorReg.getState(),vendorReg.getPincode(),vendorReg.getEmail(),vendorReg.getMobile(),vendorReg.getDateOfIncorp(),vendorReg.getGSTNumber(),vendorReg.getVegetables(),vendorReg.getAniHus(),vendorReg.getDairy(),vendorReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{vendorReg.getTokenId(),vendorReg.getFirstName(),vendorReg.getLastName(),vendorReg.getCompanyName(),vendorReg.getStatus(),vendorReg.getAddress(),vendorReg.getVillage(),vendorReg.getMandal(),vendorReg.getDistrict(),vendorReg.getState(),vendorReg.getPincode(),vendorReg.getEmail(),vendorReg.getMobile(),vendorReg.getDateOfIncorp(),vendorReg.getGSTNumber(),vendorReg.getVegetables(),vendorReg.getAniHus(),vendorReg.getDairy(),vendorReg.getCcode(),vendorReg.getMyPlan(),vendorReg.getId()});
 		}
 	}
 		
