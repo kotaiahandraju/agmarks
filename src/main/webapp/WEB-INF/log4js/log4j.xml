@@ -2,15 +2,7 @@
 <!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
 
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<appender name="RollingFileAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name="File" value="D:\\SalesLog.txt" />
-		<param name="MaxFileSize" value="5MB" />
-		<param name="MaxBackupIndex" value="5" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="[%d][%p][%c][%m]%n" />
-		</layout>
-
-	</appender>
+	
 <!-- Appenders -->
 
 
@@ -34,14 +26,7 @@
 <logger name="org.springframework.web">
     <level value="debug" />
 </logger>
-	<appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
-    <param name="Target" value="System.out" />
-		<param name="Encoding" value="Cp866" />
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c:- %m%n" />
-		</layout>
-	</appender>
-
+	
 	<!-- 3rd Party Loggers -->
 
 	<logger name="org.springframework">
@@ -68,5 +53,7 @@
 		<appender-ref ref="RollingFileAppender" />
 			 <appender-ref ref="ConsoleAppender" /> 
 	</root>
+	
+	
 
 </log4j:configuration>

@@ -67,7 +67,7 @@ protected String Crop4 ;
 protected String Crop5 ;
 
 /** Field mapping. **/
-protected String AddCrop ;
+//protected String AddCrop ;
 
 /** Field mapping. **/
 protected String Vegetables ;
@@ -97,7 +97,7 @@ protected String Veg7 ;
 protected String Veg8 ;
 
 /** Field mapping. **/
-protected String AddVeg ;
+//protected String AddVeg ;
 
 /** Field mapping. **/
 protected String AniHus ;
@@ -112,7 +112,7 @@ protected String AniHus2 ;
 protected String AniHus3 ;
 
 /** Field mapping. **/
-protected String AddAniHus ;
+//protected String AddAniHus ;
 
 /** Field mapping. **/
 protected String Dairy ;
@@ -127,7 +127,7 @@ protected String Dairy2 ;
 protected String Dairy3 ;
 
 /** Field mapping. **/
-protected String AddDairy ;
+//protected String AddDairy ;
 
 /** Field mapping. **/
 protected String TokenId ;
@@ -282,14 +282,7 @@ public void setCrop5(final String Crop5)
 {
   this.Crop5 = Crop5;
 }
-public String getAddCrop()
-{
-  return AddCrop;
-}
-public void setAddCrop(final String AddCrop)
-{
-  this.AddCrop = AddCrop;
-}
+
 public String getVegetables()
 {
   return Vegetables;
@@ -362,14 +355,7 @@ public void setVeg8(final String Veg8)
 {
   this.Veg8 = Veg8;
 }
-public String getAddVeg()
-{
-  return AddVeg;
-}
-public void setAddVeg(final String AddVeg)
-{
-  this.AddVeg = AddVeg;
-}
+
 public String getAniHus()
 {
   return AniHus;
@@ -402,14 +388,7 @@ public void setAniHus3(final String AniHus3)
 {
   this.AniHus3 = AniHus3;
 }
-public String getAddAniHus()
-{
-  return AddAniHus;
-}
-public void setAddAniHus(final String AddAniHus)
-{
-  this.AddAniHus = AddAniHus;
-}
+
 public String getDairy()
 {
   return Dairy;
@@ -442,14 +421,7 @@ public void setDairy3(final String Dairy3)
 {
   this.Dairy3 = Dairy3;
 }
-public String getAddDairy()
-{
-  return AddDairy;
-}
-public void setAddDairy(final String AddDairy)
-{
-  this.AddDairy = AddDairy;
-}
+
 public String getTokenId()
 {
   return TokenId;
@@ -482,11 +454,10 @@ public String toString() {
 			+ Mobile + ", Aadhar=" + Aadhar + ", Address=" + Address + ", Village=" + Village + ", Mandal=" + Mandal
 			+ ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", CropType=" + CropType
 			+ ", Crop1=" + Crop1 + ", Crop2=" + Crop2 + ", Crop3=" + Crop3 + ", Crop4=" + Crop4 + ", Crop5=" + Crop5
-			+ ", AddCrop=" + AddCrop + ", Vegetables=" + Vegetables + ", Veg1=" + Veg1 + ", Veg2=" + Veg2 + ", Veg3="
-			+ Veg3 + ", Veg4=" + Veg4 + ", Veg5=" + Veg5 + ", Veg6=" + Veg6 + ", Veg7=" + Veg7 + ", Veg8=" + Veg8
-			+ ", AddVeg=" + AddVeg + ", AniHus=" + AniHus + ", AniHus1=" + AniHus1 + ", AniHus2=" + AniHus2
-			+ ", AniHus3=" + AniHus3 + ", AddAniHus=" + AddAniHus + ", Dairy=" + Dairy + ", Dairy1=" + Dairy1
-			+ ", Dairy2=" + Dairy2 + ", Dairy3=" + Dairy3 + ", AddDairy=" + AddDairy + ", TokenId=" + TokenId
+			+ ", Vegetables=" + Vegetables + ", Veg1=" + Veg1 + ", Veg2=" + Veg2 + ", Veg3=" + Veg3 + ", Veg4=" + Veg4
+			+ ", Veg5=" + Veg5 + ", Veg6=" + Veg6 + ", Veg7=" + Veg7 + ", Veg8=" + Veg8 + ", AniHus=" + AniHus
+			+ ", AniHus1=" + AniHus1 + ", AniHus2=" + AniHus2 + ", AniHus3=" + AniHus3 + ", Dairy=" + Dairy
+			+ ", Dairy1=" + Dairy1 + ", Dairy2=" + Dairy2 + ", Dairy3=" + Dairy3 + ", TokenId=" + TokenId
 			+ ", DateOfReg=" + DateOfReg + ", Ccode=" + Ccode + "]";
 }
 

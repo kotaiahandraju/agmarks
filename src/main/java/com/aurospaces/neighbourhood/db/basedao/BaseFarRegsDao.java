@@ -26,7 +26,7 @@ public class BaseFarRegsDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO far_regs( First_name, Last_name, Dob, Mobile, Aadhar, Address, Village, Mandal, District, State, Pincode, Crop_type, Crop1, Crop2, Crop3, Crop4, Crop5, Add_Crop, Vegetables, Veg1, Veg2, Veg3, Veg4, Veg5, Veg6, Veg7, Veg8, Add_veg, Ani_hus, Ani_hus1, Ani_hus2, Ani_hus3, Add_ani_hus, Dairy, Dairy1, Dairy2, Dairy3, Add_dairy, Token_id, Date_of_reg,Ccode) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO far_regs( First_name, Last_name, Dob, Mobile, Aadhar, Address, Village, Mandal, District, State, Pincode, Crop_type, Crop1, Crop2, Crop3, Crop4, Crop5,  Vegetables, Veg1, Veg2, Veg3, Veg4, Veg5, Veg6, Veg7, Veg8,  Ani_hus, Ani_hus1, Ani_hus2, Ani_hus3,  Dairy, Dairy1, Dairy2, Dairy3, Token_id, Date_of_reg,Ccode) values (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )"; 
 
 
 
@@ -71,30 +71,26 @@ ps.setString(14, farRegs.getCrop2());
 ps.setString(15, farRegs.getCrop3());
 ps.setString(16, farRegs.getCrop4());
 ps.setString(17, farRegs.getCrop5());
-ps.setString(18, farRegs.getAddCrop());
-ps.setString(19, farRegs.getVegetables());
-ps.setString(20, farRegs.getVeg1());
-ps.setString(21, farRegs.getVeg2());
-ps.setString(22, farRegs.getVeg3());
-ps.setString(23, farRegs.getVeg4());
-ps.setString(24, farRegs.getVeg5());
-ps.setString(25, farRegs.getVeg6());
-ps.setString(26, farRegs.getVeg7());
-ps.setString(27, farRegs.getVeg8());
-ps.setString(28, farRegs.getAddVeg());
-ps.setString(29, farRegs.getAniHus());
-ps.setString(30, farRegs.getAniHus1());
-ps.setString(31, farRegs.getAniHus2());
-ps.setString(32, farRegs.getAniHus3());
-ps.setString(33, farRegs.getAddAniHus());
-ps.setString(34, farRegs.getDairy());
-ps.setString(35, farRegs.getDairy1());
-ps.setString(36, farRegs.getDairy2());
-ps.setString(37, farRegs.getDairy3());
-ps.setString(38, farRegs.getAddDairy());
-ps.setString(39, farRegs.getTokenId());
-ps.setTimestamp(40, DateOfReg);
-ps.setString(41, farRegs.getCcode());
+ps.setString(18, farRegs.getVegetables());
+ps.setString(19, farRegs.getVeg1());
+ps.setString(20, farRegs.getVeg2());
+ps.setString(21, farRegs.getVeg3());
+ps.setString(22, farRegs.getVeg4());
+ps.setString(23, farRegs.getVeg5());
+ps.setString(24, farRegs.getVeg6());
+ps.setString(25, farRegs.getVeg7());
+ps.setString(26, farRegs.getVeg8());
+ps.setString(27, farRegs.getAniHus());
+ps.setString(28, farRegs.getAniHus1());
+ps.setString(29, farRegs.getAniHus2());
+ps.setString(30, farRegs.getAniHus3());
+ps.setString(31, farRegs.getDairy());
+ps.setString(32, farRegs.getDairy1());
+ps.setString(33, farRegs.getDairy2());
+ps.setString(34, farRegs.getDairy3());
+ps.setString(35, farRegs.getTokenId());
+ps.setTimestamp(36, DateOfReg);
+ps.setString(37, farRegs.getCcode());
 
 							return ps;
 						}
@@ -109,9 +105,9 @@ ps.setString(41, farRegs.getCcode());
 		else
 		{
 
-			String sql = "UPDATE far_regs  set First_name = ? ,Last_name = ? ,Dob = ? ,Mobile = ? ,Aadhar = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Crop_type = ? ,Crop1 = ? ,Crop2 = ? ,Crop3 = ? ,Crop4 = ? ,Crop5 = ? ,Add_Crop = ? ,Vegetables = ? ,Veg1 = ? ,Veg2 = ? ,Veg3 = ? ,Veg4 = ? ,Veg5 = ? ,Veg6 = ? ,Veg7 = ? ,Veg8 = ? ,Add_veg = ? ,Ani_hus = ? ,Ani_hus1 = ? ,Ani_hus2 = ? ,Ani_hus3 = ? ,Add_ani_hus = ? ,Dairy = ? ,Dairy1 = ? ,Dairy2 = ? ,Dairy3 = ? ,Add_dairy = ? ,Ccode = ?  where Id = ? ";
+			String sql = "UPDATE far_regs  set First_name = ? ,Last_name = ? ,Dob = ? ,Mobile = ? ,Aadhar = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Crop_type = ? ,Crop1 = ? ,Crop2 = ? ,Crop3 = ? ,Crop4 = ? ,Crop5 = ? ,Vegetables = ? ,Veg1 = ? ,Veg2 = ? ,Veg3 = ? ,Veg4 = ? ,Veg5 = ? ,Veg6 = ? ,Veg7 = ? ,Veg8 = ? ,Ani_hus = ? ,Ani_hus1 = ? ,Ani_hus2 = ? ,Ani_hus3 = ? ,Dairy = ? ,Dairy1 = ? ,Dairy2 = ? ,Dairy3 = ? ,Ccode = ?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{farRegs.getFirstName(),farRegs.getLastName(),farRegs.getDob(),farRegs.getMobile(),farRegs.getAadhar(),farRegs.getAddress(),farRegs.getVillage(),farRegs.getMandal(),farRegs.getDistrict(),farRegs.getState(),farRegs.getPincode(),farRegs.getCropType(),farRegs.getCrop1(),farRegs.getCrop2(),farRegs.getCrop3(),farRegs.getCrop4(),farRegs.getCrop5(),farRegs.getAddCrop(),farRegs.getVegetables(),farRegs.getVeg1(),farRegs.getVeg2(),farRegs.getVeg3(),farRegs.getVeg4(),farRegs.getVeg5(),farRegs.getVeg6(),farRegs.getVeg7(),farRegs.getVeg8(),farRegs.getAddVeg(),farRegs.getAniHus(),farRegs.getAniHus1(),farRegs.getAniHus2(),farRegs.getAniHus3(),farRegs.getAddAniHus(),farRegs.getDairy(),farRegs.getDairy1(),farRegs.getDairy2(),farRegs.getDairy3(),farRegs.getAddDairy(),farRegs.getCcode(),farRegs.getId()});
+			jdbcTemplate.update(sql, new Object[]{farRegs.getFirstName(),farRegs.getLastName(),farRegs.getDob(),farRegs.getMobile(),farRegs.getAadhar(),farRegs.getAddress(),farRegs.getVillage(),farRegs.getMandal(),farRegs.getDistrict(),farRegs.getState(),farRegs.getPincode(),farRegs.getCropType(),farRegs.getCrop1(),farRegs.getCrop2(),farRegs.getCrop3(),farRegs.getCrop4(),farRegs.getCrop5(),farRegs.getVegetables(),farRegs.getVeg1(),farRegs.getVeg2(),farRegs.getVeg3(),farRegs.getVeg4(),farRegs.getVeg5(),farRegs.getVeg6(),farRegs.getVeg7(),farRegs.getVeg8(),farRegs.getAniHus(),farRegs.getAniHus1(),farRegs.getAniHus2(),farRegs.getAniHus3(),farRegs.getDairy(),farRegs.getDairy1(),farRegs.getDairy2(),farRegs.getDairy3(),farRegs.getCcode(),farRegs.getId()});
 		}
 	}
 		
