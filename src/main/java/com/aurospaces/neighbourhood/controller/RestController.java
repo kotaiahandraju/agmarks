@@ -228,6 +228,11 @@ public class RestController {
 		return String.valueOf(objJSON);
 	}
 
+	/**  here generating commodities and veg prices based on picode
+	 * @param farRegs
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/rest/getmobileandpincode")
 	public @ResponseBody String getmobileandpincode(@RequestBody FarRegs farRegs,  HttpServletRequest request)  {
 		JSONObject objJSON = new JSONObject();
@@ -1738,8 +1743,12 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 			long millis = System.currentTimeMillis() % 1000;
 			filepath= id+millis+".png";
 
-		        String rootPath = request.getSession().getServletContext().getRealPath("/");
-		        File dir = new File(rootPath + File.separator + "img");
+		       // String rootPath = request.getSession().getServletContext().getRealPath("/");
+			
+			String rootPath = System.getProperty("catalina.base");
+		       // File dir = new File(rootPath + File.separator + "img");
+			
+			File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "img");
 		        if (!dir.exists()) {
 		            dir.mkdirs();
 		        }
@@ -1768,9 +1777,13 @@ private String  imgEncoder(String imgname) {
 	
     	String encodedfile = null;
 		Base64Encoder encoder =new Base64Encoder();
-         String rootPath = request.getSession().getServletContext().getRealPath("/");
+         //String rootPath = request.getSession().getServletContext().getRealPath("/");
+		
+		String rootPath = System.getProperty("catalina.base");
+		
+		File file = new File(rootPath + File.separator + "webapps"+ File.separator +imgname);
 		        
-		        File file = new File(rootPath + File.separator + imgname);
+		      //  File file = new File(rootPath + File.separator + imgname);
 		        
 		        System.out.println(file);
 		        
