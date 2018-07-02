@@ -62,8 +62,6 @@ protected Date DateOfIncorp ;
 /** Field mapping. **/
 protected String GSTNumber ;
 
-/** Field mapping. **/
-protected String Status ;
 
 /** Field mapping. **/
 protected String Bio ;
@@ -93,6 +91,16 @@ protected String strdateOfIncorp ;
 protected String Ccode ;
 
 protected String MyPlan ;
+
+
+protected String ActiveStatus ;
+
+protected String MasterCode ;
+
+protected String BranchCode ;
+
+protected String DistributorStatus ;
+
 
 
 
@@ -216,14 +224,7 @@ public void setGSTNumber(final String GSTNumber)
 {
   this.GSTNumber = GSTNumber;
 }
-public String getStatus()
-{
-  return Status;
-}
-public void setStatus(final String Status)
-{
-  this.Status = Status;
-}
+
 public String getBio()
 {
   return Bio;
@@ -301,16 +302,31 @@ public String getMyPlan() {
 public void setMyPlan(String myPlan) {
 	MyPlan = myPlan;
 }
-@Override
-public String toString() {
-	return "SupplierReg [Id=" + Id + ", TokenId=" + TokenId + ", FirstName=" + FirstName + ", LastName=" + LastName
-			+ ", CompanyName=" + CompanyName + ", Address=" + Address + ", Village=" + Village + ", Mandal=" + Mandal
-			+ ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", Email=" + Email + ", Mobile="
-			+ Mobile + ", DateOfIncorp=" + DateOfIncorp + ", GSTNumber=" + GSTNumber + ", Status=" + Status + ", Bio="
-			+ Bio + ", Botanical=" + Botanical + ", FarmMachinery=" + FarmMachinery + ", Inorganic=" + Inorganic
-			+ ", Organic=" + Organic + ", Seed=" + Seed + ", DateOfReg=" + DateOfReg + ", strdateOfIncorp="
-			+ strdateOfIncorp + "]";
+public String getActiveStatus() {
+	return ActiveStatus;
 }
+public void setActiveStatus(String activeStatus) {
+	ActiveStatus = activeStatus;
+}
+public String getMasterCode() {
+	return MasterCode;
+}
+public void setMasterCode(String masterCode) {
+	MasterCode = masterCode;
+}
+public String getBranchCode() {
+	return BranchCode;
+}
+public void setBranchCode(String branchCode) {
+	BranchCode = branchCode;
+}
+public String getDistributorStatus() {
+	return DistributorStatus;
+}
+public void setDistributorStatus(String distributorStatus) {
+	DistributorStatus = distributorStatus;
+}
+
 
 
 
