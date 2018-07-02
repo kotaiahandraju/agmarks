@@ -1,14 +1,28 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.ProcReg;
+import com.aurospaces.neighbourhood.bean.StorageReg;
+import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
 import com.aurospaces.neighbourhood.db.dao.FarmerTransactionsDao;
@@ -63,14 +77,21 @@ public class FarmerDashboardNearPanelController {
 	
 	
 	@RequestMapping(value = "/rest/processorAll")
-	public @ResponseBody String getcounts(  HttpServletRequest request) throws Exception {
-		int count=0;
+	public @ResponseBody String getAllProcessors(  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			
+			        
 				System.out.println("hello");
+				
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
 			
-			
+			if(processorList.isEmpty())
+			{
+				objJSON.put("processorList", "");
+			}else
+			{
+				objJSON.put("processorList", processorList);
+			}
 
 			
 		}catch(Exception e){
@@ -78,5 +99,117 @@ public class FarmerDashboardNearPanelController {
 		}
 		return String.valueOf(objJSON);
 	}
+	
+	
+	
+	@RequestMapping(value = "/rest/distanceprocessors")
+	public @ResponseBody String getprocessorsByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+			
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
+			
+			if(processorList.isEmpty())
+			{
+				objJSON.put("processors","");
+				
+			}else
+			{
+				Set<ProcReg> distanceStorageData=getProcessordataByDistence(farregbean,processorList);
+				
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+
+
+
+	private Set<ProcReg> getProcessordataByDistence(List<FarRegs> farregbean, List<ProcReg> processorList) throws IOException {
+		Set<ProcReg> distenceProcessorsSet  =new LinkedHashSet<ProcReg>();
+		
+		for(ProcReg entry :processorList)
+		{
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+	    
+	    
+	    URL obj = new URL(requestUrl);
+	    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	    // optional default is GET
+	    con.setRequestMethod("GET");
+	    //add request header
+	    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+	    int responseCode = con.getResponseCode();
+	    
+	    String distence[] =null;
+	    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    String inputLine;
+	    StringBuffer responses = new StringBuffer();
+	    while ((inputLine = in.readLine()) != null) {
+	    	//System.out.println(inputLine);
+	    	
+	    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+	    			{
+	    		distence =inputLine.split(":");
+	    		
+	    			}
+	    	
+	    	responses.append(inputLine);
+	    }
+	    
+	  
+	   // System.out.println(distence[1].length());
+	    
+	    
+	    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+	    
+	   // System.out.println(finaldistence);
+	    
+	    double d=Double.parseDouble(finaldistence);
+	    
+	    
+	    double distanceInKM =d*1.60934;        //converting distance miles to km .
+	    
+	    String result = String.format("%.2f", distanceInKM);
+	    
+	  
+	    entry.setDistance(result);   
+	    
+	    distenceProcessorsSet.add(entry);
+	    
+	    
+		}
+		return distenceProcessorsSet; 
+	}
+	
+	
+	@RequestMapping(value = "/rest/processorsbydisticwise")
+	public @ResponseBody String getProcessorsByStateAndDistic(@RequestBody ProcReg procReg, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg);
+			
+			if(processorList.isEmpty())
+			{
+				objJSON.put("processorList", "");
+			}else
+			{
+				objJSON.put("processorList", processorList);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+
 
 }

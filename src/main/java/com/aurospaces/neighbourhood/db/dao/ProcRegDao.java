@@ -52,6 +52,32 @@ public class ProcRegDao extends BaseProcRegDao
 			return retlist;
 		return null;
 	}
+
+
+
+	public List<ProcReg> getAllSupplierData() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from proc_reg ";
+		List<ProcReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return null;
+	}
+
+
+
+	public List<ProcReg> getProcessorsByStateAndDistic(ProcReg procReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from proc_reg  where State = '"+procReg.getState()+" ' and District ='"+procReg.getDistance()+"' ";
+		List<ProcReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return null;
+	}
 	
 
 }
