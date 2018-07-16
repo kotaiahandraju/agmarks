@@ -56,7 +56,7 @@ protected String Email ;
 protected String Mobile ;
 
 /** Field mapping. **/
-@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-MM-yyyy")
+//@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-MM-yyyy")
 protected Date DateOfIncorp ;
 
 /** Field mapping. **/

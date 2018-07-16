@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
-import com.aurospaces.neighbourhood.bean.TraderReg;
+import com.aurospaces.neighbourhood.bean.StorageReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
@@ -45,7 +45,7 @@ import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.util.JsonReader;
 
 @Controller
-public class FarmerDashboardNearPanelController {
+public class FarmerDashboardprocessorsController {
 	
 	@Autowired ServletContext objContext;
 	@Autowired CommPricesDao commPricesDao;
@@ -76,14 +76,14 @@ public class FarmerDashboardNearPanelController {
 	@Autowired JsonReader jsonReader;
 	
 	
-	@RequestMapping(value = "/rest/tradersAll")
+	@RequestMapping(value = "/rest/processorAll")
 	public @ResponseBody String getAllProcessors(  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 				System.out.println("hello");
 				
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
 			
 			if(processorList == null)
 			{
@@ -102,14 +102,14 @@ public class FarmerDashboardNearPanelController {
 	
 	
 	
-	@RequestMapping(value = "/rest/distancetraders")
+	@RequestMapping(value = "/rest/distanceprocessors")
 	public @ResponseBody String getprocessorsByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
 			
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
 			
 			if(processorList == null)
 			{
@@ -117,8 +117,7 @@ public class FarmerDashboardNearPanelController {
 				
 			}else
 			{
-				Set<TraderReg> distanceStorageData=gettradersdataByDistence(farregbean,processorList);
-				objJSON.put("processors",distanceStorageData);
+				Set<ProcReg> distanceStorageData=getProcessordataByDistence(farregbean,processorList);
 				
 			}
 			
@@ -130,10 +129,10 @@ public class FarmerDashboardNearPanelController {
 
 
 
-	private Set<TraderReg> gettradersdataByDistence(List<FarRegs> farregbean, List<TraderReg> processorList) throws IOException {
-		Set<TraderReg> distencetradersSet  =new LinkedHashSet<TraderReg>();
+	private Set<ProcReg> getProcessordataByDistence(List<FarRegs> farregbean, List<ProcReg> processorList) throws IOException {
+		Set<ProcReg> distenceProcessorsSet  =new LinkedHashSet<ProcReg>();
 		
-		for(TraderReg entry :processorList)
+		for(ProcReg entry :processorList)
 		{
 		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
 	    
@@ -180,28 +179,28 @@ public class FarmerDashboardNearPanelController {
 	  
 	    entry.setDistance(result);   
 	    
-	    distencetradersSet.add(entry);
+	    distenceProcessorsSet.add(entry);
 	    
 	    
 		}
-		return distencetradersSet; 
+		return distenceProcessorsSet; 
 	}
 	
 	
-	@RequestMapping(value = "/rest/tradersbydisticwise")
-	public @ResponseBody String gettradersByStateAndDistic(@RequestBody TraderReg traderReg, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/rest/processorsbydisticwise")
+	public @ResponseBody String getProcessorsByStateAndDistic(@RequestBody ProcReg procReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 				
-			List<TraderReg> tradersList =	traderRegDao.gettradersByStateAndDistic(traderReg);
+			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg);
 			
-			if(tradersList == null)
+			if(processorList == null)
 			{
-				objJSON.put("tradersList", "");
+				objJSON.put("processorList", "");
 			}else
 			{
-				objJSON.put("tradersList", tradersList);
+				objJSON.put("processorList", processorList);
 			}
 
 			

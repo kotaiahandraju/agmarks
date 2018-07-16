@@ -45,6 +45,7 @@ public class SendSMS {
         HttpURLConnection uc = (HttpURLConnection)url.openConnection();
          response = uc.getResponseMessage();
         System.out.println("SMS response:"+response);
+        System.out.println("SMS response:"+message);
         uc.disconnect();
 		 }catch( Exception e){
 			 e.printStackTrace();

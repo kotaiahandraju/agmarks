@@ -3,6 +3,7 @@ package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +44,15 @@ public class StorageRegDao extends BaseStorageRegDao
 	
 	
 	
-	public List<StorageReg> getStorageRegByMobile(String mobile) {
+	public List<Map<String, Object>> getStorageRegByMobile(String mobile) {
 		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> retlist=null;
 		String sql = "SELECT * from storage_reg where Mobile = '"+mobile+"'";
-		List<StorageReg> retlist = jdbcTemplate.query(sql,
+		/*List<StorageReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
-		ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+		ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));*/
+		
+		retlist =jdbcTemplate.queryForList(sql, new Object[]{});
 		if(retlist.size() > 0)
 			return retlist;
 		return null;

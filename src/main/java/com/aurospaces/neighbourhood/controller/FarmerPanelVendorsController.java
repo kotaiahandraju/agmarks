@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
-import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
+import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
 import com.aurospaces.neighbourhood.db.dao.FarmerTransactionsDao;
@@ -45,7 +45,7 @@ import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.util.JsonReader;
 
 @Controller
-public class FarmerDashboardNearPanelController {
+public class FarmerPanelVendorsController {
 	
 	@Autowired ServletContext objContext;
 	@Autowired CommPricesDao commPricesDao;
@@ -76,21 +76,22 @@ public class FarmerDashboardNearPanelController {
 	@Autowired JsonReader jsonReader;
 	
 	
-	@RequestMapping(value = "/rest/tradersAll")
-	public @ResponseBody String getAllProcessors(  HttpServletRequest request) throws Exception {
+	
+	@RequestMapping(value = "/rest/vendorsAll")
+	public @ResponseBody String getAllVendors(  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 				System.out.println("hello");
 				
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData();
 			
-			if(processorList == null)
+			if(vendorsList == null)
 			{
-				objJSON.put("processorList", "");
+				objJSON.put("vendorsList", "");
 			}else
 			{
-				objJSON.put("processorList", processorList);
+				objJSON.put("vendorsList", vendorsList);
 			}
 
 			
@@ -102,23 +103,22 @@ public class FarmerDashboardNearPanelController {
 	
 	
 	
-	@RequestMapping(value = "/rest/distancetraders")
+	@RequestMapping(value = "/rest/distancevendors")
 	public @ResponseBody String getprocessorsByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
 			
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData();
 			
-			if(processorList == null)
+			if(vendorsList == null)
 			{
-				objJSON.put("processors","");
+				objJSON.put("vendorsList","");
 				
 			}else
 			{
-				Set<TraderReg> distanceStorageData=gettradersdataByDistence(farregbean,processorList);
-				objJSON.put("processors",distanceStorageData);
+				Set<VendorReg> distanceStorageData=getVendorsdataByDistence(farregbean,vendorsList);
 				
 			}
 			
@@ -130,10 +130,10 @@ public class FarmerDashboardNearPanelController {
 
 
 
-	private Set<TraderReg> gettradersdataByDistence(List<FarRegs> farregbean, List<TraderReg> processorList) throws IOException {
-		Set<TraderReg> distencetradersSet  =new LinkedHashSet<TraderReg>();
+	private Set<VendorReg> getVendorsdataByDistence(List<FarRegs> farregbean, List<VendorReg> processorList) throws IOException {
+		Set<VendorReg> distenceVendorsSet  =new LinkedHashSet<VendorReg>();
 		
-		for(TraderReg entry :processorList)
+		for(VendorReg entry :processorList)
 		{
 		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
 	    
@@ -180,28 +180,28 @@ public class FarmerDashboardNearPanelController {
 	  
 	    entry.setDistance(result);   
 	    
-	    distencetradersSet.add(entry);
+	    distenceVendorsSet.add(entry);
 	    
 	    
 		}
-		return distencetradersSet; 
+		return distenceVendorsSet; 
 	}
 	
 	
-	@RequestMapping(value = "/rest/tradersbydisticwise")
-	public @ResponseBody String gettradersByStateAndDistic(@RequestBody TraderReg traderReg, HttpServletRequest request) throws Exception {
+	@RequestMapping(value = "/rest/vendorsbydisticwise")
+	public @ResponseBody String getProcessorsByStateAndDistic(@RequestBody VendorReg vendorReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 				
-			List<TraderReg> tradersList =	traderRegDao.gettradersByStateAndDistic(traderReg);
+			List<VendorReg> vendorsList =	vendorRegDao.getVendorsByStateAndDistic(vendorReg);
 			
-			if(tradersList == null)
+			if(vendorsList == null)
 			{
-				objJSON.put("tradersList", "");
+				objJSON.put("vendorsList", "");
 			}else
 			{
-				objJSON.put("tradersList", tradersList);
+				objJSON.put("vendorsList", vendorsList);
 			}
 
 			
@@ -211,6 +211,5 @@ public class FarmerDashboardNearPanelController {
 		return String.valueOf(objJSON);
 	}
 	
-
 
 }

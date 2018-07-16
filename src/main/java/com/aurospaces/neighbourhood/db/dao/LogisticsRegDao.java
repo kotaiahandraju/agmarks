@@ -2,6 +2,7 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -9,8 +10,6 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.LogisticsReg;
-import com.aurospaces.neighbourhood.bean.StorageReg;
-import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseLogisticsRegDao;
 
@@ -42,12 +41,14 @@ public class LogisticsRegDao extends BaseLogisticsRegDao
 	}
 	
 	
-	public List<LogisticsReg> getLogisticsRegByMobile(String mobile) {
+	public List<Map<String, Object>> getLogisticsRegByMobile(String mobile) {
 		jdbcTemplate = custom.getJdbcTemplate();
+		List<Map<String,Object>> retlist=null;
 		String sql = "SELECT * from logistics_reg where Mobile = '"+mobile+"'";
-		List<LogisticsReg> retlist = jdbcTemplate.query(sql,
+		/*List<LogisticsReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
-		ParameterizedBeanPropertyRowMapper.newInstance(LogisticsReg.class));
+		ParameterizedBeanPropertyRowMapper.newInstance(LogisticsReg.class));*/
+		retlist =jdbcTemplate.queryForList(sql, new Object[]{});
 		if(retlist.size() > 0)
 			return retlist;
 		return null;

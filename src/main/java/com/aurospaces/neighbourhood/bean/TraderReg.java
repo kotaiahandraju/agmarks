@@ -57,7 +57,7 @@ protected String Email ;
 protected String Mobile ;
 
 /** Field mapping. **/
-protected Date DateOfIncorp ;
+protected String DateOfIncorp ;
 
 /** Field mapping. **/
 protected String GSTNumber ;
@@ -81,6 +81,8 @@ protected Date DateOfReg ;
 protected String Ccode ;
 
 protected String MyPlan ;
+
+protected String distance ;
 
 
 public String getStrdateOfIncorp() {
@@ -201,14 +203,7 @@ public void setMobile(final String Mobile)
 {
   this.Mobile = Mobile;
 }
-public Date getDateOfIncorp()
-{
-  return DateOfIncorp;
-}
-public void setDateOfIncorp(final Date DateOfIncorp)
-{
-  this.DateOfIncorp = DateOfIncorp;
-}
+
 public String getGSTNumber()
 {
   return GSTNumber;
@@ -268,6 +263,41 @@ public String getMyPlan() {
 }
 public void setMyPlan(String myPlan) {
 	MyPlan = myPlan;
+}
+public String getDistance() {
+	return distance;
+}
+public void setDistance(String distance) {
+	this.distance = distance;
+}
+
+
+
+public String getDateOfIncorp() {
+	return DateOfIncorp;
+}
+public void setDateOfIncorp(String dateOfIncorp) {
+	DateOfIncorp = dateOfIncorp;
+}
+@Override
+public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + Id;
+	return result;
+}
+@Override
+public boolean equals(Object obj) {
+	if (this == obj)
+		return true;
+	if (obj == null)
+		return false;
+	if (getClass() != obj.getClass())
+		return false;
+	TraderReg other = (TraderReg) obj;
+	if (Id != other.Id)
+		return false;
+	return true;
 }
 
 

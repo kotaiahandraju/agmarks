@@ -2,15 +2,14 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.aurospaces.neighbourhood.bean.LogisticsReg;
 import com.aurospaces.neighbourhood.bean.ProcReg;
-import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseProcRegDao;
 
@@ -42,12 +41,17 @@ public class ProcRegDao extends BaseProcRegDao
 	
 	
 	
-	public List<ProcReg> getProcreggByMobile(String mobile) {
+	public List<Map<String, Object>> getProcreggByMobile(String mobile) {
 		jdbcTemplate = custom.getJdbcTemplate();
+		
+		List<Map<String,Object>> retlist=null;
+
 		String sql = "SELECT * from proc_reg where Mobile = '"+mobile+"'";
-		List<ProcReg> retlist = jdbcTemplate.query(sql,
+		/*ist<ProcReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
-		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));
+		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));*/
+		
+		retlist =jdbcTemplate.queryForList(sql, new Object[]{});
 		if(retlist.size() > 0)
 			return retlist;
 		return null;

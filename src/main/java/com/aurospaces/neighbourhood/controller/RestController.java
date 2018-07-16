@@ -959,16 +959,28 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 	
 	
 	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+	List<Map<String,Object>> listcommonprices =null;
 	
-	 List<Map<String,Object>> listcommonprices =commPricesDao.getCommoditiesList(farregbean.get(0));
-	 List<Map<String,Object>> vegitablespriceslist =vegPricesDao.getVegitablePrices(farregbean.get(0));
-	 
-	 if(listcommonprices.isEmpty())
+	List<Map<String,Object>> vegitablespriceslist =null;
+	
+	if(farregbean == null)
+	{
+	 listcommonprices =  null;
+	 vegitablespriceslist =null;
+	}
+	
+	else
+	{
+		 listcommonprices =commPricesDao.getCommoditiesList(farregbean.get(0));
+		  vegitablespriceslist =vegPricesDao.getVegitablePrices(farregbean.get(0));
+		
+	}
+	 if(listcommonprices == null)
 		 objJSON.put("listcommonprices","");
 	 else
 		 objJSON.put("commoditiespriceslist",listcommonprices);
 	 
-	 if(vegitablespriceslist.isEmpty())
+	 if(vegitablespriceslist == null)
 		 objJSON.put("vegitablespriceslist","");
 	 else
 		 objJSON.put("vegitablespriceslist",vegitablespriceslist);
@@ -1588,7 +1600,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     }
     
 
-    @RequestMapping(value = "/rest/forgetpassword")
+    @SuppressWarnings("unused")
+	@RequestMapping(value = "/rest/forgetpassword")
     public @ResponseBody String forgetpassword(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
     	InputStream input = null; 
@@ -1609,7 +1622,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	
     	try {
-    		if(list.isEmpty())
+    		if(list == null)
     		{
     			objJSON.put("status", "notFound");
     		}
@@ -1638,7 +1651,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 				if(plantClinicTransactionslist.isEmpty())
 				{
     		
-    		objJSON.put("clinicpostings", "");
+    		objJSON.put("clinicpostings", plantClinicTransactionslist);
 				}
 				else
 				{
@@ -1674,7 +1687,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     		List<PlantClinic>	clinicTransactionslist =plantClinicDao.getplantClinicTransactionsHistory(plantClinic);
 				if(clinicTransactionslist.isEmpty())
 				{
-					objJSON.put("clinichistory", "");
+					objJSON.put("clinichistory", clinicTransactionslist);
 				}
 				else
 				{

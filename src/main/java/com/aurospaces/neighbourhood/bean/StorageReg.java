@@ -61,7 +61,7 @@ protected String Email ;
 protected String Mobile ;
 
 /** Field mapping. **/
-protected Date DateOfIncorp ;
+protected String DateOfIncorp ;
 
 /** Field mapping. **/
 protected String GSTNumber ;
@@ -209,14 +209,7 @@ public void setMobile(final String Mobile)
 {
   this.Mobile = Mobile;
 }
-public Date getDateOfIncorp()
-{
-  return DateOfIncorp;
-}
-public void setDateOfIncorp(final Date DateOfIncorp)
-{
-  this.DateOfIncorp = DateOfIncorp;
-}
+
 public String getGSTNumber()
 {
   return GSTNumber;
@@ -301,15 +294,12 @@ public String getMyPlan() {
 public void setMyPlan(String myPlan) {
 	MyPlan = myPlan;
 }
-@Override
-public String toString() {
-	return "StorageReg [Id=" + Id + ", TokenId=" + TokenId + ", FirstName=" + FirstName + ", LastName=" + LastName
-			+ ", CompanyName=" + CompanyName + ", Status=" + Status + ", Address=" + Address + ", Village=" + Village
-			+ ", Mandal=" + Mandal + ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", Email="
-			+ Email + ", Mobile=" + Mobile + ", DateOfIncorp=" + DateOfIncorp + ", GSTNumber=" + GSTNumber + ", Crops="
-			+ Crops + ", Vegetables=" + Vegetables + ", aniHusbandry=" + aniHusbandry + ", Dairy=" + Dairy
-			+ ", StorageCapacity=" + StorageCapacity + ", Units=" + Units + ", strdateOfIncorp=" + strdateOfIncorp
-			+ ", distance=" + distance + ", DateOfReg=" + DateOfReg + "]";
+
+public String getDateOfIncorp() {
+	return DateOfIncorp;
+}
+public void setDateOfIncorp(String dateOfIncorp) {
+	DateOfIncorp = dateOfIncorp;
 }
 @Override
 public int hashCode() {
@@ -471,6 +461,16 @@ public boolean equals(Object obj) {
 	} else if (!strdateOfIncorp.equals(other.strdateOfIncorp))
 		return false;
 	return true;
+}
+@Override
+public String toString() {
+	return "StorageReg [Id=" + Id + ", TokenId=" + TokenId + ", FirstName=" + FirstName + ", LastName=" + LastName
+			+ ", CompanyName=" + CompanyName + ", Status=" + Status + ", Address=" + Address + ", Village=" + Village
+			+ ", Mandal=" + Mandal + ", District=" + District + ", State=" + State + ", Pincode=" + Pincode + ", Email="
+			+ Email + ", Mobile=" + Mobile + ", DateOfIncorp=" + DateOfIncorp + ", GSTNumber=" + GSTNumber + ", Crops="
+			+ Crops + ", Vegetables=" + Vegetables + ", aniHusbandry=" + aniHusbandry + ", Dairy=" + Dairy
+			+ ", StorageCapacity=" + StorageCapacity + ", Units=" + Units + ", strdateOfIncorp=" + strdateOfIncorp
+			+ ", distance=" + distance + ", DateOfReg=" + DateOfReg + ", Ccode=" + Ccode + ", MyPlan=" + MyPlan + "]";
 }
 
 
