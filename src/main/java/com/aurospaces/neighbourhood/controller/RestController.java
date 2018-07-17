@@ -350,7 +350,7 @@ public @ResponseBody String farRegistation(@RequestBody FarRegs farRegs,  HttpSe
 			Users usersBean = new Users(); 
 			usersBean.setMobile(farRegs.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(farRegs.getMobile());
+			usersBean.setUser_name(farRegs.getFirstName());
 			usersBean.setStatus1("Farmer");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -479,7 +479,7 @@ public @ResponseBody String processorreg(@RequestBody ProcReg procReg,  HttpServ
 			Users usersBean = new Users(); 
 			usersBean.setMobile(procReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(procReg.getMobile());
+			usersBean.setUser_name(procReg.getFirstName());
 			usersBean.setStatus1("Processor");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -569,7 +569,7 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 			Users usersBean = new Users(); 
 			usersBean.setMobile(storageReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(storageReg.getMobile());
+			usersBean.setUser_name(storageReg.getFirstName());
 			usersBean.setStatus1("Stroage");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -659,7 +659,7 @@ public @ResponseBody String traderreg(@RequestBody TraderReg traderReg,  HttpSer
 			Users usersBean = new Users(); 
 			usersBean.setMobile(traderReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(traderReg.getMobile());
+			usersBean.setUser_name(traderReg.getFirstName());
 			usersBean.setStatus1("Trader");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -742,7 +742,7 @@ public @ResponseBody String vendorreg(@RequestBody VendorReg vendorReg,  HttpSer
 			Users usersBean = new Users(); 
 			usersBean.setMobile(vendorReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(vendorReg.getMobile());
+			usersBean.setUser_name(vendorReg.getFirstName());
 			usersBean.setStatus1("Vendor");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -830,7 +830,7 @@ public @ResponseBody String supplierreg(@RequestBody SupplierReg supplierReg,  H
 			Users usersBean = new Users(); 
 			usersBean.setMobile(supplierReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(supplierReg.getMobile());
+			usersBean.setUser_name(supplierReg.getFirstName());
 			usersBean.setStatus1("Supplier");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
@@ -928,7 +928,7 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 			Users usersBean = new Users(); 
 			usersBean.setMobile(logisticsReg.getMobile());
 			usersBean.setTokenId(tokenId);
-			usersBean.setUser_name(logisticsReg.getMobile());
+			usersBean.setUser_name(logisticsReg.getFirstName());
 			usersBean.setStatus1("Logistics");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersDao.save(usersBean);
