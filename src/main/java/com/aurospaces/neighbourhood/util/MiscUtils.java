@@ -1,7 +1,10 @@
 package com.aurospaces.neighbourhood.util;
 
+import java.util.Date;
+import java.util.Random;
+import java.util.StringTokenizer;
+
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
 public class MiscUtils
 {
 	public static long getTimeNow() {

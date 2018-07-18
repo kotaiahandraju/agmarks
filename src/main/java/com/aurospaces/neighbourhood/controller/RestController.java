@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -353,6 +352,7 @@ public @ResponseBody String farRegistation(@RequestBody FarRegs farRegs,  HttpSe
 			usersBean.setUser_name(farRegs.getFirstName());
 			usersBean.setStatus1("Farmer");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(farRegs.getCcode());
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_", usersBean.getPassword());
 		}
@@ -482,6 +482,7 @@ public @ResponseBody String processorreg(@RequestBody ProcReg procReg,  HttpServ
 			usersBean.setUser_name(procReg.getFirstName());
 			usersBean.setStatus1("Processor");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(procReg.getCcode());
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_", usersBean.getPassword());
 		}
@@ -572,6 +573,8 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 			usersBean.setUser_name(storageReg.getFirstName());
 			usersBean.setStatus1("Stroage");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(storageReg.getCcode());
+			
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_", usersBean.getPassword());
 		}
@@ -662,6 +665,7 @@ public @ResponseBody String traderreg(@RequestBody TraderReg traderReg,  HttpSer
 			usersBean.setUser_name(traderReg.getFirstName());
 			usersBean.setStatus1("Trader");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(traderReg.getCcode());
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_",usersBean.getPassword());
 		}
@@ -745,6 +749,7 @@ public @ResponseBody String vendorreg(@RequestBody VendorReg vendorReg,  HttpSer
 			usersBean.setUser_name(vendorReg.getFirstName());
 			usersBean.setStatus1("Vendor");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(vendorReg.getCcode());
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_",usersBean.getPassword());
 		}
@@ -833,6 +838,7 @@ public @ResponseBody String supplierreg(@RequestBody SupplierReg supplierReg,  H
 			usersBean.setUser_name(supplierReg.getFirstName());
 			usersBean.setStatus1("Supplier");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(supplierReg.getCcode());
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_",usersBean.getPassword());
 		}
@@ -931,6 +937,8 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 			usersBean.setUser_name(logisticsReg.getFirstName());
 			usersBean.setStatus1("Logistics");
 			usersBean.setPassword(CommonUtils.generatePIN());
+			usersBean.setCcode(logisticsReg.getCcode());
+			
 			usersDao.save(usersBean);
 			msg= msg.replaceAll("_password_",usersBean.getPassword());
 		}

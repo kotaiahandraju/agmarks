@@ -25,7 +25,7 @@ public class BaseUsersDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO users( Token_id, Mobile, Email, User_name, Password, Status1, Status2, Status3, Status4) values (?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO users( Token_id, Mobile, Email, User_name, Password, Status1, Status2, Status3, Status4,Ccode) values (?, ?, ?, ?, ?, ?, ?, ?, ?,?)"; 
 
 
 
@@ -55,6 +55,7 @@ ps.setString(6, users.getStatus1());
 ps.setString(7, users.getStatus2());
 ps.setString(8, users.getStatus3());
 ps.setString(9, users.getStatus4());
+ps.setString(10, users.getCcode());
 
 							return ps;
 						}

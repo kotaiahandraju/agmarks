@@ -3,11 +3,7 @@ package com.aurospaces.neighbourhood.db.callback;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.jdbc.core.RowCallbackHandler;

@@ -1,9 +1,19 @@
 package com.aurospaces.neighbourhood.service1;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import javax.naming.*;
-import javax.naming.directory.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+import javax.naming.NamingEnumeration;
+import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.DirContext;
+import javax.naming.directory.InitialDirContext;
 
 public class EmailValidationSrvImpl0 implements  EmailValidationSrv {
    private static int hear( BufferedReader in ) throws IOException {

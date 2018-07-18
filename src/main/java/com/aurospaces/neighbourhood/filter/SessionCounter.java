@@ -1,10 +1,11 @@
 package com.aurospaces.neighbourhood.filter;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.ArrayList;
 
 public class SessionCounter implements HttpSessionListener {
     private List<String> sessions = new ArrayList<>();

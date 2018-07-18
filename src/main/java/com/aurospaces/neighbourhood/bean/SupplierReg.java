@@ -3,8 +3,6 @@ package com.aurospaces.neighbourhood.bean;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 /**
  *

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
-import com.aurospaces.neighbourhood.bean.ProcReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
@@ -33,6 +32,7 @@ import com.aurospaces.neighbourhood.db.dao.MasAhDao;
 import com.aurospaces.neighbourhood.db.dao.MasComDao;
 import com.aurospaces.neighbourhood.db.dao.MasDairyDao;
 import com.aurospaces.neighbourhood.db.dao.MasVegDao;
+import com.aurospaces.neighbourhood.db.dao.PanchangamDao;
 import com.aurospaces.neighbourhood.db.dao.PincodedataDao;
 import com.aurospaces.neighbourhood.db.dao.PlantClinicDao;
 import com.aurospaces.neighbourhood.db.dao.ProcRegDao;
@@ -42,7 +42,6 @@ import com.aurospaces.neighbourhood.db.dao.TraderRegDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
-import com.aurospaces.neighbourhood.util.JsonReader;
 
 @Controller
 public class FarmerPanelVendorsController {
@@ -73,7 +72,7 @@ public class FarmerPanelVendorsController {
 	
 	@Autowired HttpServletRequest request ;
 	
-	@Autowired JsonReader jsonReader;
+	@Autowired PanchangamDao panchangamDao;
 	
 	
 	

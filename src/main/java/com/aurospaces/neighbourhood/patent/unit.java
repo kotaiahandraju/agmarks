@@ -1,6 +1,4 @@
-package com.aurospaces.neighbourhood.patent; 
-import java.util.ArrayList;
-
+package com.aurospaces.neighbourhood.patent;
 
 public class unit {
 		 int type;
