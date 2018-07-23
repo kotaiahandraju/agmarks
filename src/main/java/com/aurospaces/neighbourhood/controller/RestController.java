@@ -963,7 +963,7 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpServletRequest request)  {
 	JSONObject objJSON = new JSONObject();
 	try{
-	List<Users>	list = usersDao.getUserByUsernameAndPassword(user.getUser_name(), user.getPassword());
+	List<Users>	list = usersDao.getUserByUsernameAndPassword(user.getUser_name(), user.getPassword(),user.getCcode());
 	
 	
 	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
@@ -1000,7 +1000,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 	Object  status4 =null;
 	
 		if(list != null){
-			objJSON.put("status", "success ");
+			objJSON.put("status", "success");
 			objJSON.put("userbean",list);
 			 
 			if(list.get(0).getStatus1() != null)

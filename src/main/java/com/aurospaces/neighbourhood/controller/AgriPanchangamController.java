@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurospaces.neighbourhood.bean.AnimalPanchangam;
+import com.aurospaces.neighbourhood.bean.CostCultivationCrops;
+import com.aurospaces.neighbourhood.bean.CostCultivationVeg;
+import com.aurospaces.neighbourhood.bean.InnovativeCrops;
 import com.aurospaces.neighbourhood.bean.Panchangam;
-import com.aurospaces.neighbourhood.bean.Users;
+import com.aurospaces.neighbourhood.bean.SeedTesting;
+import com.aurospaces.neighbourhood.bean.SoilTesting;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
 import com.aurospaces.neighbourhood.db.dao.FarmerTransactionsDao;
@@ -120,6 +125,260 @@ public class AgriPanchangamController {
 		}
 		return String.valueOf(objJSON);
 	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getanimalandbreed")
+	public @ResponseBody String getAnimalAndBreed(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				System.out.println("hello");
+				
+			List<AnimalPanchangam> animalPanchangamList =	panchangamDao.getAnimalAndBreed();
+			
+			if(animalPanchangamList == null)
+			{
+				objJSON.put("animalPanchangamList", "");
+			}else
+			{
+				objJSON.put("animalPanchangamList", animalPanchangamList);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getanimalpanchangam")
+	public @ResponseBody String getAnimalPanchangamDetails( @RequestBody AnimalPanchangam animalPanchangam, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				System.out.println("hello");
+				
+			List<AnimalPanchangam> animalPanchangamList =	panchangamDao.getAnimalPanchangam(animalPanchangam);
+			
+			if(animalPanchangamList == null)
+			{
+				objJSON.put("animalPanchangamList", "");
+			}else
+			{
+				objJSON.put("animalPanchangamList", animalPanchangamList);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	@RequestMapping(value = "/rest/getcropnamesforcost")
+	public @ResponseBody String getCropsforCostCultivationCrops(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<CostCultivationCrops> cropsNames =	panchangamDao.getCropsNamesForCostCultivationCrops();
+			
+			if(cropsNames == null)
+			{
+				objJSON.put("cropsNames", "");
+			}else
+			{
+				objJSON.put("cropsNames", cropsNames);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getCostDetails")
+	public @ResponseBody String getDetailsoOfCost( @RequestBody CostCultivationCrops costCultivationCrops, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<CostCultivationCrops> cropcostdetails =	panchangamDao.getDetailsForCostCultivationCrops(costCultivationCrops);
+			
+			if(cropcostdetails == null)
+			{
+				objJSON.put("cropcostdetails", "");
+			}else
+			{
+				objJSON.put("cropcostdetails", cropcostdetails);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+
+	@RequestMapping(value = "/rest/getcropnamesforvegcost")
+	public @ResponseBody String getCropsforCostCultivationVeg(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<CostCultivationVeg> cropsNames =	panchangamDao.getCropsNamesForCostCultivationVeg();
+			
+			if(cropsNames == null)
+			{
+				objJSON.put("cropsNames", "");
+			}else
+			{
+				objJSON.put("cropsNames", cropsNames);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getCostDetailsVeg")
+	public @ResponseBody String getDetailsoOfCostVeg( @RequestBody CostCultivationVeg costCultivationVeg, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<CostCultivationVeg> cropcostdetails =	panchangamDao.getDetailsForCostCultivationveg(costCultivationVeg);
+			
+			if(cropcostdetails == null)
+			{
+				objJSON.put("cropcostdetails", "");
+			}else
+			{
+				objJSON.put("cropcostdetails", cropcostdetails);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/rest/getInnovativeCrops")
+	public @ResponseBody String getInnovativeCrops(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<InnovativeCrops> innovativeCropsDetails =	panchangamDao.getInnovativeCrops();
+			
+			if(innovativeCropsDetails == null)
+			{
+				objJSON.put("innovativeCropsDetails", "");
+			}else
+			{
+				objJSON.put("innovativeCropsDetails", innovativeCropsDetails);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getSeedTestingLabs")
+	public @ResponseBody String getSeedTestingLabs(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<SeedTesting> seedTestingLabs =	panchangamDao.getSeedTestingLabs();
+			
+			if(seedTestingLabs == null)
+			{
+				objJSON.put("seedTestingLabs", "");
+			}else
+			{
+				objJSON.put("seedTestingLabs", seedTestingLabs);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/getDistrictandVillage")
+	public @ResponseBody String getSoilTestingDistrictandVillage(  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<SoilTesting> soilTestingLabs =	panchangamDao.getSoilTestingDistrictAndVillage();
+			
+			if(soilTestingLabs == null)
+			{
+				objJSON.put("soilTestingLabs", "");
+			}else
+			{
+				objJSON.put("soilTestingLabs", soilTestingLabs);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	@RequestMapping(value = "/rest/getsoiltestinglabs")
+	public @ResponseBody String getSoilTestingLabs( @RequestBody SoilTesting soilTesting, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			        
+				
+			List<SoilTesting> soiltestlabsDetails =	panchangamDao.getSoilTestingLabsDetails(soilTesting);
+			
+			if(soiltestlabsDetails == null)
+			{
+				objJSON.put("soiltestlabsDetails", "");
+			}else
+			{
+				objJSON.put("soiltestlabsDetails", soiltestlabsDetails);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
 	
 
 }

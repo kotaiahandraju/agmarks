@@ -95,9 +95,9 @@ public class UsersDao extends BaseUsersDao
 	
 	
 
-	 public List<Users> getUserByUsernameAndPassword(String username,String password) {
+	 public List<Users> getUserByUsernameAndPassword(String username,String password, String ccode) {
 			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from users where Mobile = '"+username+"' and Password ='"+password+" '";
+			String sql = "SELECT * from users where Mobile = '"+username+"' and Password ='"+password+" '   and Ccode='"+ccode+" '";
 			List<Users> retlist = jdbcTemplate.query(sql,
 			new Object[]{},
 			ParameterizedBeanPropertyRowMapper.newInstance(Users.class));
