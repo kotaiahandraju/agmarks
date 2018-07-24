@@ -35,6 +35,24 @@ public class PincodedataDao extends BasePincodedataDao
 		return list;
 		
 	}
+	
+	
+	
+	
+	public List<Map<String,Object>> getPincodes(Pincodedata pincodedata){
+		List<Map<String,Object>> list=null;
+		
+		try{
+			jdbcTemplate = custom.getJdbcTemplate();
+			String sql =" SELECT * FROM `pincodes` WHERE `Pincode`=? ";
+			list =jdbcTemplate.queryForList(sql, new Object[]{pincodedata.getPincode()});
+			System.out.println(sql);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+		
+	}
 
 }
 

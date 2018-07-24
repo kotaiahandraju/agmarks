@@ -123,7 +123,7 @@ public class PanchangamDao {
 	
 	public List<CostCultivationVeg> getDetailsForCostCultivationveg(CostCultivationVeg CostCultivationVeg) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "select * from `cost_cultivation_fruits&veg` where Crop_name='"+CostCultivationVeg.getCropName()+" '" ;
+		String sql = "select *,`Yield(MT/Hec)` as YieldMTHec from `cost_cultivation_fruits&veg` where Crop_name='"+CostCultivationVeg.getCropName()+" '" ;
 		System.out.println(sql);
 		List<CostCultivationVeg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},

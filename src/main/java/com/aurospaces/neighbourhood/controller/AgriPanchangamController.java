@@ -1,10 +1,12 @@
 package com.aurospaces.neighbourhood.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,16 +15,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.AnimalPanchangam;
+import com.aurospaces.neighbourhood.bean.ContractBusiness;
+import com.aurospaces.neighbourhood.bean.ContractFarmer;
 import com.aurospaces.neighbourhood.bean.CostCultivationCrops;
 import com.aurospaces.neighbourhood.bean.CostCultivationVeg;
+import com.aurospaces.neighbourhood.bean.ImportExport;
 import com.aurospaces.neighbourhood.bean.InnovativeCrops;
 import com.aurospaces.neighbourhood.bean.Panchangam;
+import com.aurospaces.neighbourhood.bean.Pincodedata;
 import com.aurospaces.neighbourhood.bean.SeedTesting;
 import com.aurospaces.neighbourhood.bean.SoilTesting;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
+import com.aurospaces.neighbourhood.db.dao.ContractBusinessDao;
+import com.aurospaces.neighbourhood.db.dao.ContractFarmerDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
 import com.aurospaces.neighbourhood.db.dao.FarmerTransactionsDao;
 import com.aurospaces.neighbourhood.db.dao.FdaTransDao;
+import com.aurospaces.neighbourhood.db.dao.ImportsAndExportsDao;
 import com.aurospaces.neighbourhood.db.dao.InputDao;
 import com.aurospaces.neighbourhood.db.dao.LogisticsRegDao;
 import com.aurospaces.neighbourhood.db.dao.MasAhDao;
@@ -64,6 +73,7 @@ public class AgriPanchangamController {
 	@Autowired LogisticsRegDao logisticsRegDao;
 	@Autowired PlantClinicDao plantClinicDao;
 	@Autowired FdaTransDao fdaTransDao;
+	@Autowired ImportsAndExportsDao importsAndExportsDao;
 	
 	@Autowired CommPricesDao CommPricesDao;
 	
@@ -74,6 +84,10 @@ public class AgriPanchangamController {
 	@Autowired JsonReader jsonReader;
 	
 	@Autowired PanchangamDao panchangamDao;
+	@Autowired ContractBusinessDao contractBusinessDao;
+	
+	@Autowired ContractFarmerDao ContractFarmerDao;
+	
 	
 	
 
@@ -369,6 +383,81 @@ public class AgriPanchangamController {
 			}else
 			{
 				objJSON.put("soiltestlabsDetails", soiltestlabsDetails);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/saveimports")
+	public @ResponseBody String saveImportsAndExports( @RequestBody ImportExport importExport, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+				importsAndExportsDao.save(importExport);
+
+			objJSON.put("ImportExportDaoList", "insertedSuccesfully");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	@RequestMapping(value = "/rest/saveContractBusiness")
+    public @ResponseBody String saveContractBusiness(@RequestBody ContractBusiness  contractBusiness,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		
+    		
+    		contractBusinessDao.save(contractBusiness);
+				objJSON.put("status", "success");
+		} catch (JSONException e) {
+			objJSON.put("status", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+	
+	
+	@RequestMapping(value = "/rest/savecontractfarmer")
+    public @ResponseBody String saveContractFarmer(@RequestBody ContractFarmer  contractFarmer,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		
+    		
+    		ContractFarmerDao.save(contractFarmer);
+				objJSON.put("status", "success");
+		} catch (JSONException e) {
+			objJSON.put("status", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+	
+	@RequestMapping(value = "/rest/getPincodes")
+	public @ResponseBody String getPincodeData(@RequestBody Pincodedata pincodedata,  HttpServletRequest request) throws Exception {
+		List<Map<String,Object>> list=null;
+		JSONObject objJSON = new JSONObject();
+		try{
+			list = pincodedataDao.getPincodes(pincodedata);
+			if(list != null){
+				objJSON.put("pincodes", list);
+				
+			}else{
+				objJSON.put("pincodes", "");
 			}
 
 			
