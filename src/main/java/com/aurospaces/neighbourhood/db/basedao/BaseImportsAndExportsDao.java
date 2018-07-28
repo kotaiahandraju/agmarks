@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -21,7 +22,7 @@ public class BaseImportsAndExportsDao {
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO import_export(Company_name, Ccode, Contact_number, Address, Village, District, State, Pincode, Crop_name, Variety,Quantity,Units,Quality,Packaging,Transport_type,Vehicle_type,Import_date,Export_date,Comment,Status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO import_export(Company_name, Ccode, Contact_number, Address, Village, District, State, Pincode, Crop_name, Variety,Quantity,Units,Quality,Packaging,Transport_type,Vehicle_type,Import_date,Export_date,Comment,Status,Mandal) values (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -33,6 +34,8 @@ public class BaseImportsAndExportsDao {
 	{
 		jdbcTemplate = custom.getJdbcTemplate();
 	if(importExport.getSNo() == 0)	{
+		
+	
 
 	KeyHolder keyHolder = new GeneratedKeyHolder();
 	int update = jdbcTemplate.update(
@@ -63,10 +66,38 @@ ps.setString(13, importExport.getQuality());
 ps.setString(14, importExport.getPackaging());
 ps.setString(15, importExport.getTransportType());
 ps.setString(16, importExport.getVehicleType());
-ps.setDate(17, new java.sql.Date(System.currentTimeMillis()));
-ps.setDate(18, new java.sql.Date(System.currentTimeMillis()));
+
+
+if(importExport.getImportDate()!= null)
+{
+	ps.setDate(17, new java.sql.Date(importExport.getImportDate().getTime()));
+	
+}
+else
+{
+	ps.setNull(17, java.sql.Types.DATE);
+	
+}
+
+if(importExport.getExportDate() != null)
+{
+	
+	ps.setDate(18, new java.sql.Date(importExport.getExportDate().getTime()));
+	
+}
+else
+{
+	ps.setNull(18, java.sql.Types.DATE);
+	
+}
+
+
+
+
+
 ps.setString(19, importExport.getComment());
 ps.setString(20, importExport.getStatus());
+ps.setString(21, importExport.getMandal());
 
 
 							return ps;

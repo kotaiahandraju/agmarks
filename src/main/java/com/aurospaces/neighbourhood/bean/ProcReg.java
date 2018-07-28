@@ -53,7 +53,7 @@ protected String Email ;
 protected String Mobile ;
 
 /** Field mapping. **/
-protected Date DateOfIncorp ;
+protected String DateOfIncorp ;
 
 protected String strdateOfIncorp ;
 /** Field mapping. **/
@@ -208,14 +208,6 @@ public void setMobile(final String Mobile)
 {
   this.Mobile = Mobile;
 }
-public Date getDateOfIncorp()
-{
-  return DateOfIncorp;
-}
-public void setDateOfIncorp(final Date DateOfIncorp)
-{
-  this.DateOfIncorp = DateOfIncorp;
-}
 public String getGSTNumber()
 {
   return GSTNumber;
@@ -321,6 +313,14 @@ public void setDistance(String distance) {
 	this.distance = distance;
 }
 
+
+
+public String getDateOfIncorp() {
+	return DateOfIncorp;
+}
+public void setDateOfIncorp(String dateOfIncorp) {
+	DateOfIncorp = dateOfIncorp;
+}
 @Override
 public int hashCode() {
 	final int prime = 31;

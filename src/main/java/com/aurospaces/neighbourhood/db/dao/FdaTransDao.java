@@ -24,7 +24,7 @@ public class FdaTransDao extends BaseFdaTransDao
 	JdbcTemplate jdbcTemplate;
 	public List<Map<String, Object>> getFarmerTransactions(FarmerTransactions fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' ";
+		String hql =" select *,Date(Date) as Date from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='In Process' ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		//System.out.println(retlist);
 		return retlist;
@@ -32,7 +32,7 @@ public class FdaTransDao extends BaseFdaTransDao
 	
 	public List<Map<String, Object>> getFarmerTransactionsHistory(FarmerTransactions fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date  from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed'   ";
+		String hql =" select *,Date(Date) as Date  from farmer_transactions where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='Completed'   ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		//System.out.println(retlist);
 		return retlist;
@@ -40,14 +40,14 @@ public class FdaTransDao extends BaseFdaTransDao
 	
 	public List<Map<String, Object>> getFdaTransactions(FdaTrans fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='inprocess' ";
+		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='In Process' ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		//System.out.println(retlist);
 		return retlist;
 	}
 	public List<Map<String, Object>> getFdaTransactionsHistory(FdaTrans fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='completed'   ";
+		String hql =" select *,Date(Date) as Date  from fda_trans where Token_id='"+ fdaTrans.getTokenId()+" ' and   Status ='Completed'   ";
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		//System.out.println(retlist);
 		return retlist;

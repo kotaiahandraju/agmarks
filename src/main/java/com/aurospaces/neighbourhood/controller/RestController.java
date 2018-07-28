@@ -438,10 +438,7 @@ public @ResponseBody String processorreg(@RequestBody ProcReg procReg,  HttpServ
 	String body = null;
 	 Properties prop = new Properties();
 	try{
-		if(StringUtils.isNotBlank(procReg.getStrdateOfIncorp())){
-			procReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(procReg.getStrdateOfIncorp()));
 		
-		}
 		
 		String propertiespath = objContext.getRealPath("Resources" +File.separator+"DataBase.properties");
 		//String propertiespath = "C:\\PRO\\Database.properties";
@@ -1280,7 +1277,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     			farmerTransactions.setEDD(KhaibarGasUtil.dateFormate(farmerTransactions.getStrEDD()));
     		
     		}
-    		farmerTransactions.setStatus("inprocess");
+    		farmerTransactions.setStatus("In Process");
 			farmerTransactionsDao.save(farmerTransactions);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1305,7 +1302,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	//System.out.println(plantClinic.getImgName());
     	
     	try {
-    		plantClinic.setStatus("inprocess");
+    		plantClinic.setStatus("In Process");
     		//decoder(plantClinic.getImgName(), request,ramdomString);
     		String impgpath = imgdecoder(plantClinic.getImgName(),request);
     		
@@ -1451,7 +1448,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
         			fdaTrans.setEDD(KhaibarGasUtil.dateFormate(fdaTrans.getStrEDD()));
         		
         		}
-    		fdaTrans.setStatus("inprocess");
+    		fdaTrans.setStatus("In Process");
     		fdaTransDao.save(fdaTrans);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1541,7 +1538,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	JSONObject objJSON = new JSONObject();
     	
     	try {
-    		farmerTransactions.setStatus("completed");
+    		farmerTransactions.setStatus("Completed");
 			farmerTransactionsDao.save(farmerTransactions);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1594,7 +1591,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	JSONObject objJSON = new JSONObject();
     	
     	try {
-    		fdaTrans.setStatus("completed");
+    		fdaTrans.setStatus("Completed");
 			fdaTransDao.save(fdaTrans);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1625,8 +1622,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 
     	List<Users>	list = usersDao.getUserByUsername(user.getUser_name());
     	
-    	 msg =msg.replace("_phone_", list.get(0).getMobile());
-		 msg =msg.replace("_password_", list.get(0).getPassword());
+    	 
     	
     	
     	try {
@@ -1635,6 +1631,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     			objJSON.put("status", "notFound");
     		}
     		else{
+    			msg =msg.replace("_phone_", list.get(0).getMobile());
+    			 msg =msg.replace("_password_", list.get(0).getPassword());
 			SendSMS.sendSMS(msg, user.getUser_name(), objContext);
 			objJSON.put("status", "success");
     		}
@@ -1731,7 +1729,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	JSONObject objJSON = new JSONObject();
     	
     	try {
-    		plantClinic.setStatus("completed");
+    		plantClinic.setStatus("Completed");
     		plantClinicDao.save(plantClinic);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {

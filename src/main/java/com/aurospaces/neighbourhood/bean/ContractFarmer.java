@@ -30,6 +30,9 @@ public class ContractFarmer {
 	protected String Comments ;
 	protected String Status ;
 	
+	protected String Mandal;
+	
+	
 	protected String Other ;
 	public int getSNo() {
 		return SNo;
@@ -124,13 +127,25 @@ public class ContractFarmer {
 	public void setOther(String other) {
 		Other = other;
 	}
+	
+	
+	
+	public String getMandal() {
+		return Mandal;
+	}
+	public void setMandal(String mandal) {
+		Mandal = mandal;
+	}
 	@Override
 	public String toString() {
 		return "ContractFarmer [SNo=" + SNo + ", FarmerName=" + FarmerName + ", Ccode=" + Ccode + ", Mobile=" + Mobile
 				+ ", Address=" + Address + ", Village=" + Village + ", District=" + District + ", State=" + State
 				+ ", Pincode=" + Pincode + ", CultivableLand=" + CultivableLand + ", Place=" + Place + ", CropToGrown="
-				+ CropToGrown + ", Comments=" + Comments + ", Status=" + Status + "]";
+				+ CropToGrown + ", Comments=" + Comments + ", Status=" + Status + ", Mandal=" + Mandal + ", Other="
+				+ Other + "]";
 	}
+	
+	
 	
 	
 	

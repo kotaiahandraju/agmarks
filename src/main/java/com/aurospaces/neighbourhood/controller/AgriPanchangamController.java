@@ -1,11 +1,13 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +51,7 @@ import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.util.JsonReader;
+import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
 
 @Controller
 public class AgriPanchangamController {
@@ -398,6 +401,19 @@ public class AgriPanchangamController {
 	public @ResponseBody String saveImportsAndExports( @RequestBody ImportExport importExport, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
+			if(StringUtils.isNotBlank(importExport.getStrImportDate())){
+				
+				
+				Date date1=KhaibarGasUtil.dateFormate(importExport.getStrImportDate());
+				importExport.setImportDate(date1);
+			}
+			
+			
+       if(StringUtils.isNotBlank(importExport.getStrExportDate())){
+				
+				Date date1=KhaibarGasUtil.dateFormate(importExport.getStrExportDate());
+				importExport.setExportDate(date1);
+			}
 				importsAndExportsDao.save(importExport);
 
 			objJSON.put("ImportExportDaoList", "insertedSuccesfully");

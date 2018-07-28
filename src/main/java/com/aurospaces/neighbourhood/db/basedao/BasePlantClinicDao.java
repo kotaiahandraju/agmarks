@@ -26,7 +26,7 @@ public class BasePlantClinicDao{
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO plant_clinic( Farmer_name, Mobile, Token_Id, Type, Img_name, Status, Comment, Date) values (?, ?, ?, ?, ?, ?, ?, ?)"; 
+	public final String INSERT_SQL = "INSERT INTO plant_clinic( Farmer_name, Mobile, Token_Id, Type, Img_name, Status, Comment, Date,Transaction_type) values (?, ?, ?, ?, ?, ?, ?, ?,?)"; 
 
 
 
@@ -62,6 +62,7 @@ ps.setString(5, plantClinic.getImgName());
 ps.setString(6, plantClinic.getStatus());
 ps.setString(7, plantClinic.getComment());
 ps.setTimestamp(8, Date);
+ps.setString(9, plantClinic.getTransactionType());
 
 							return ps;
 						}
@@ -76,9 +77,9 @@ ps.setTimestamp(8, Date);
 		else
 		{
 
-			String sql = "UPDATE plant_clinic  set Farmer_name = ? ,Mobile = ? ,Token_Id = ? ,Type = ? ,Status = ? ,Comment = ?  where S_no = ? ";
+			String sql = "UPDATE plant_clinic  set Farmer_name = ? ,Mobile = ? ,Token_Id = ? ,Type = ? ,Status = ? ,Comment = ? ,Transaction_type =? where S_no = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{plantClinic.getFarmerName(),plantClinic.getMobile(),plantClinic.getTokenId(),plantClinic.getType(),plantClinic.getStatus(),plantClinic.getComment(),plantClinic.getSNo()});
+			jdbcTemplate.update(sql, new Object[]{plantClinic.getFarmerName(),plantClinic.getMobile(),plantClinic.getTokenId(),plantClinic.getType(),plantClinic.getStatus(),plantClinic.getComment(),plantClinic.getTransactionType(),plantClinic.getSNo()});
 		}
 	}
 		

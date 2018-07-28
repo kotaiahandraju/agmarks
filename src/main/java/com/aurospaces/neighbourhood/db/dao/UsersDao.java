@@ -148,7 +148,7 @@ public class UsersDao extends BaseUsersDao
 	}
 	public List<Users> getUserByUsername(String username) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from users where User_name = '"+username+"' ";
+		String sql = "SELECT * from users where Mobile = '"+username+"' ";
 		List<Users> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(Users.class));

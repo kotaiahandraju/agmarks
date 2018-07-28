@@ -23,7 +23,7 @@ public class PlantClinicDao extends BasePlantClinicDao
 	JdbcTemplate jdbcTemplate;
 	public List<PlantClinic> getplantClinicTransactions(PlantClinic plantClinic) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='inprocess' ";
+		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+" ' and   Status ='In Process' ";
 				//List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		
 		System.out.println(hql);
@@ -37,7 +37,7 @@ public class PlantClinicDao extends BasePlantClinicDao
 	}
 	public List<PlantClinic> getplantClinicTransactionsHistory(PlantClinic plantClinic) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+"' and   Status ='completed'   ";
+		String hql =" select *,Date(Date) as strdate  from plant_clinic where Token_id='"+ plantClinic.getTokenId()+"' and   Status ='Completed'   ";
 				//List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 				
 		System.out.println(hql);

@@ -41,6 +41,8 @@ protected String ImgName ;
 /** Field mapping. **/
 protected String Status ;
 
+protected String TransactionType ;
+
 /** Field mapping. **/
 protected String Comment ,strdate;
 
@@ -124,6 +126,12 @@ public String getStrdate() {
 }
 public void setStrdate(String strdate) {
 	this.strdate = strdate;
+}
+public String getTransactionType() {
+	return TransactionType;
+}
+public void setTransactionType(String transactionType) {
+	TransactionType = transactionType;
 }
 
 

@@ -1,5 +1,6 @@
 package com.aurospaces.neighbourhood.bean;
 
+
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,14 @@ public class ImportExport {
 	protected Date ExportDate ;
 	protected String Comment ;
 	protected String Status ;
+	
+	protected String Mandal ;
+	
+	protected String strImportDate ;
+	protected String strExportDate ;
+	
+	
+	
 	public int getSNo() {
 		return SNo;
 	}
@@ -157,6 +166,19 @@ public class ImportExport {
 	public void setStatus(String status) {
 		Status = status;
 	}
+	
+	
+	
+	
+	
+	public String getMandal() {
+		return Mandal;
+	}
+	public void setMandal(String mandal) {
+		Mandal = mandal;
+	}
+	
+	
 	public Date getImportDate() {
 		return ImportDate;
 	}
@@ -168,6 +190,21 @@ public class ImportExport {
 	}
 	public void setExportDate(Date exportDate) {
 		ExportDate = exportDate;
+	}
+	
+	
+	
+	public String getStrImportDate() {
+		return strImportDate;
+	}
+	public void setStrImportDate(String strImportDate) {
+		this.strImportDate = strImportDate;
+	}
+	public String getStrExportDate() {
+		return strExportDate;
+	}
+	public void setStrExportDate(String strExportDate) {
+		this.strExportDate = strExportDate;
 	}
 	@Override
 	public String toString() {
