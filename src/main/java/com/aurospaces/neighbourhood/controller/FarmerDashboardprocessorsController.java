@@ -76,13 +76,14 @@ public class FarmerDashboardprocessorsController {
 	
 	
 	@RequestMapping(value = "/rest/processorAll")
-	public @ResponseBody String getAllProcessors(  HttpServletRequest request) throws Exception {
+	public @ResponseBody String getAllProcessors(  @RequestBody Users user,HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
+			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
 			        
 				System.out.println("hello");
 				
-			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData(farregbean);
 			
 			if(processorList == null)
 			{
@@ -105,10 +106,11 @@ public class FarmerDashboardprocessorsController {
 	public @ResponseBody String getprocessorsByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			        
-			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+		     FarRegs	farreg  =farRegsDao.getById(user.getUserId());
 			
-			List<ProcReg> processorList =	procRegDao.getAllSupplierData();
+		//	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+			
+			List<ProcReg> processorList =	procRegDao.getAllSupplierData(farreg);
 			
 			if(processorList == null)
 			{
@@ -116,7 +118,8 @@ public class FarmerDashboardprocessorsController {
 				
 			}else
 			{
-				Set<ProcReg> distanceStorageData=getProcessordataByDistence(farregbean,processorList);
+				Set<ProcReg> distanceStorageData=getProcessordataByDistence(farreg,processorList);
+				objJSON.put("processors",distanceStorageData);
 				
 			}
 			
@@ -128,12 +131,12 @@ public class FarmerDashboardprocessorsController {
 
 
 
-	private Set<ProcReg> getProcessordataByDistence(List<FarRegs> farregbean, List<ProcReg> processorList) throws IOException {
+	private Set<ProcReg> getProcessordataByDistence(FarRegs farreg, List<ProcReg> processorList) throws IOException {
 		Set<ProcReg> distenceProcessorsSet  =new LinkedHashSet<ProcReg>();
 		
 		for(ProcReg entry :processorList)
 		{
-		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farreg.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
 	    
 	    
 	    URL obj = new URL(requestUrl);
@@ -190,9 +193,9 @@ public class FarmerDashboardprocessorsController {
 	public @ResponseBody String getProcessorsByStateAndDistic(@RequestBody ProcReg procReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			        
+			FarRegs	farregbean  =farRegsDao.getById(procReg.getId());      
 				
-			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg);
+			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg,farregbean);
 			
 			if(processorList == null)
 			{

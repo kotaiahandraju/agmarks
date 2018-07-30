@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseProcRegDao;
@@ -59,9 +60,20 @@ public class ProcRegDao extends BaseProcRegDao
 
 
 
-	public List<ProcReg> getAllSupplierData() {
+	public List<ProcReg> getAllSupplierData(FarRegs farregbean) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from proc_reg ";
+		
+		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
+		String sql2 = "SELECT * from proc_reg in("+cmts+") ";
+		
+		
+		 String      sql="  SELECT * from  proc_reg  where "
+             +"FIND_IN_SET  (Raw1,'"+cmts+" ')  or FIND_IN_SET  (Raw2,'"+cmts+" ')";
+
+				      
+		
+		System.out.println(sql);
+		
 		List<ProcReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));
@@ -72,9 +84,14 @@ public class ProcRegDao extends BaseProcRegDao
 
 
 
-	public List<ProcReg> getProcessorsByStateAndDistic(ProcReg procReg) {
+	public List<ProcReg> getProcessorsByStateAndDistic(ProcReg procReg,FarRegs farregbean) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from proc_reg  where State = '"+procReg.getState()+" ' and District ='"+procReg.getDistance()+"' ";
+		
+		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
+		String sql = "SELECT * from proc_reg  where State = '"+procReg.getState()+" ' and District ='"+procReg.getDistrict()+"' "
+				              +" and FIND_IN_SET  (Raw1,'"+cmts+" ')  or FIND_IN_SET  (Raw2,'"+cmts+" ')";
+		
+		
 		List<ProcReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));

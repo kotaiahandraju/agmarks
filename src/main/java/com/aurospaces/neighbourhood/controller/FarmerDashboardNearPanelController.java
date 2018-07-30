@@ -76,20 +76,21 @@ public class FarmerDashboardNearPanelController {
 	
 	
 	@RequestMapping(value = "/rest/tradersAll")
-	public @ResponseBody String getAllProcessors(  HttpServletRequest request) throws Exception {
+	public @ResponseBody String getAllProcessors( @RequestBody Users user, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
+			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
 			        
 				System.out.println("hello");
 				
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			Set<TraderReg> tradersList =	traderRegDao.getAlltradersData(farregbean);
 			
-			if(processorList == null)
+			if(tradersList == null)
 			{
-				objJSON.put("processorList", "");
+				objJSON.put("tradersList", "");
 			}else
 			{
-				objJSON.put("processorList", processorList);
+				objJSON.put("tradersList", tradersList);
 			}
 
 			
@@ -106,18 +107,20 @@ public class FarmerDashboardNearPanelController {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
-			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+			//List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
 			
-			List<TraderReg> processorList =	traderRegDao.getAlltradersData();
+			FarRegs	farreg  =farRegsDao.getById(user.getUserId());
 			
-			if(processorList == null)
+			Set<TraderReg> tradeorsList =	traderRegDao.getAlltradersData(farreg);
+			
+			if(tradeorsList == null)
 			{
-				objJSON.put("processors","");
+				objJSON.put("tradeorsList","");
 				
 			}else
 			{
-				Set<TraderReg> distanceStorageData=gettradersdataByDistence(farregbean,processorList);
-				objJSON.put("processors",distanceStorageData);
+				Set<TraderReg> distanceStorageData=gettradersdataByDistence(farreg,tradeorsList);
+				objJSON.put("tradeorsList",distanceStorageData);
 				
 			}
 			
@@ -129,12 +132,12 @@ public class FarmerDashboardNearPanelController {
 
 
 
-	private Set<TraderReg> gettradersdataByDistence(List<FarRegs> farregbean, List<TraderReg> processorList) throws IOException {
+	private Set<TraderReg> gettradersdataByDistence(FarRegs farreg, Set<TraderReg> tradeorsList) throws IOException {
 		Set<TraderReg> distencetradersSet  =new LinkedHashSet<TraderReg>();
 		
-		for(TraderReg entry :processorList)
+		for(TraderReg entry :tradeorsList)
 		{
-		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farreg.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
 	    
 	    
 	    URL obj = new URL(requestUrl);
@@ -191,9 +194,9 @@ public class FarmerDashboardNearPanelController {
 	public @ResponseBody String gettradersByStateAndDistic(@RequestBody TraderReg traderReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			        
+			FarRegs	farregbean  =farRegsDao.getById(traderReg.getId());     
 				
-			List<TraderReg> tradersList =	traderRegDao.gettradersByStateAndDistic(traderReg);
+			List<TraderReg> tradersList =	traderRegDao.gettradersByStateAndDistic(traderReg,farregbean);
 			
 			if(tradersList == null)
 			{
