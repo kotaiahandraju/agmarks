@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseVendorRegDao;
@@ -55,9 +56,31 @@ public class VendorRegDao extends BaseVendorRegDao
 		return null;
 	}
 
-	public List<VendorReg> getAllVendorsData() {
+	public List<VendorReg> getAllVendorsData(Users user) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from vendor_reg ";
+		//String sql = "SELECT * from vendor_reg ";
+		
+		int id =user.getUserId();
+		
+		String sql ="SELECT * from  vendor_reg v  where "
+            +" FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
+            + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg4 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg5 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg6 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg7 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg8 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus1 from  far_regs f where f.id="+id+"),v.Ani_hus) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus2 from  far_regs f where f.id="+id+"),v.Ani_hus) " 
+            + " or   FIND_IN_SET  ((select f.Ani_hus3 from  far_regs f where f.id="+id+"),v.Ani_hus) "
+            + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy)" ;
+		
+		System.out.println(sql);
+		
+		
 		List<VendorReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(VendorReg.class));
@@ -68,7 +91,30 @@ public class VendorRegDao extends BaseVendorRegDao
 
 	public List<VendorReg>  getVendorsByStateAndDistic(VendorReg vendorReg) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from vendor_reg  where State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistance()+"' ";
+		//String sql = "SELECT * from vendor_reg  where State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistance()+"' ";
+		
+		int id =vendorReg.getId();
+		
+		String sql ="SELECT * from  vendor_reg v  where  State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistrict()+"' and "
+            +"( FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
+            + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg4 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg5 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg6 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg7 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg8 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus1 from  far_regs f where f.id="+id+"),v.Ani_hus) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus2 from  far_regs f where f.id="+id+"),v.Ani_hus) " 
+            + " or   FIND_IN_SET  ((select f.Ani_hus3 from  far_regs f where f.id="+id+"),v.Ani_hus) "
+            + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy) )" ;
+		
+		System.out.println(sql);
+		
+		
+		
 		List<VendorReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(VendorReg.class));

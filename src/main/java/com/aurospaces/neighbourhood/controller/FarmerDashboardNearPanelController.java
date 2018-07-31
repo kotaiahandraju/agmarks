@@ -83,7 +83,7 @@ public class FarmerDashboardNearPanelController {
 			        
 				System.out.println("hello");
 				
-			Set<TraderReg> tradersList =	traderRegDao.getAlltradersData(farregbean);
+			List<TraderReg> tradersList =	traderRegDao.getAlltradersData(user);
 			
 			if(tradersList == null)
 			{
@@ -111,7 +111,7 @@ public class FarmerDashboardNearPanelController {
 			
 			FarRegs	farreg  =farRegsDao.getById(user.getUserId());
 			
-			Set<TraderReg> tradeorsList =	traderRegDao.getAlltradersData(farreg);
+			List<TraderReg> tradeorsList =	traderRegDao.getAlltradersData(user);
 			
 			if(tradeorsList == null)
 			{
@@ -132,7 +132,7 @@ public class FarmerDashboardNearPanelController {
 
 
 
-	private Set<TraderReg> gettradersdataByDistence(FarRegs farreg, Set<TraderReg> tradeorsList) throws IOException {
+	private Set<TraderReg> gettradersdataByDistence(FarRegs farreg, List<TraderReg> tradeorsList) throws IOException {
 		Set<TraderReg> distencetradersSet  =new LinkedHashSet<TraderReg>();
 		
 		for(TraderReg entry :tradeorsList)

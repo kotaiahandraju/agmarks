@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.TraderReg;
+import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseTraderRegDao;
 
@@ -63,50 +64,43 @@ public class TraderRegDao extends BaseTraderRegDao
 
 
 
-	public Set<TraderReg> getAlltradersData(FarRegs farregbean) {
+	public List<TraderReg> getAlltradersData(Users user) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		//String sql = "SELECT * from trader_reg ";
 		
-		Set<TraderReg> tradersSet =new LinkedHashSet<TraderReg>();
 		
-		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
-		    
-		String farStrings[]  = cmts.split(",");
+		int id =user.getUserId();
+		
+		String sql ="SELECT * from  trader_reg v  where "
+            +" FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
+            + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg4 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg5 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg6 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg7 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg8 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus1 from  far_regs f where f.id="+id+"),v.Ani_husbandry) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus2 from  far_regs f where f.id="+id+"),v.Ani_husbandry) " 
+            + " or   FIND_IN_SET  ((select f.Ani_hus3 from  far_regs f where f.id="+id+"),v.Ani_husbandry) "
+            + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy)" 
+            + " or   FIND_IN_SET  ((select f.Crop1 from  far_regs f where f.id="+id+"),v.Crops) " 
+            + " or   FIND_IN_SET  ((select f.Crop2 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop3 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop4 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop5 from  far_regs f where f.id="+id+"),v.Crops)" ;
 		
 		
-		
-		 String      sql="  SELECT * from  trader_reg   ";
-             
-		 System.out.println(sql);
+		System.out.println(sql);
 		 
 		List<TraderReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
 		ParameterizedBeanPropertyRowMapper.newInstance(TraderReg.class));
-		
 		if(retlist.size() > 0)
-		{
-		for(TraderReg  entry : retlist)
-		{
-			String allValues =entry.getCrops()+","+entry.getVegetables()+","+entry.getAniHusbandry()+","+entry.getDairy();
-			for(String entry2:farStrings)
-			{
-				if(allValues.contains(entry2))
-				{
-					tradersSet.add(entry);
-				}
-				
-			}
-			
-		}
-		}
-		else
-		{
-			return null;
-			
-		}
-		
-		
-		return tradersSet;
+			return retlist;
+		return null;
 	}
 
 
@@ -115,10 +109,30 @@ public class TraderRegDao extends BaseTraderRegDao
 		//String sql = "SELECT * from trader_reg  where State = '"+traderReg.getState()+" ' and District ='"+traderReg.getDistrict()+"' ";
 		
 
-		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
-		String sql = "SELECT * from trader_reg  where State = '"+traderReg.getState()+" ' and District ='"+traderReg.getDistrict()+"' "
-				 +"FIND_IN_SET  (Crops,'"+cmts+" ')  or FIND_IN_SET  (Vegetables,'"+cmts+" ') or FIND_IN_SET  (Ani_husbandry,'"+cmts+" ') or FIND_IN_SET  (Vegetables,'"+cmts+" ')";
 
+		int id =traderReg.getId();
+		
+		String sql ="SELECT * from  trader_reg v  where State = '"+traderReg.getState()+" ' and District ='"+traderReg.getDistrict()+"' and "
+            +"( FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
+            + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg4 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg5 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg6 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg7 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Veg8 from  far_regs f where f.id="+id+"),v.Vegetables) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus1 from  far_regs f where f.id="+id+"),v.Ani_husbandry) "
+            + " or   FIND_IN_SET  ((select f.Ani_hus2 from  far_regs f where f.id="+id+"),v.Ani_husbandry) " 
+            + " or   FIND_IN_SET  ((select f.Ani_hus3 from  far_regs f where f.id="+id+"),v.Ani_husbandry) "
+            + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
+            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy)" 
+            + " or   FIND_IN_SET  ((select f.Crop1 from  far_regs f where f.id="+id+"),v.Crops) " 
+            + " or   FIND_IN_SET  ((select f.Crop2 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop3 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop4 from  far_regs f where f.id="+id+"),v.Crops) "
+            + " or   FIND_IN_SET  ((select f.Crop5 from  far_regs f where f.id="+id+"),v.Crops) )" ;
+			
 		
 		List<TraderReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},

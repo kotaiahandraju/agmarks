@@ -77,13 +77,13 @@ public class FarmerPanelVendorsController {
 	
 	
 	@RequestMapping(value = "/rest/vendorsAll")
-	public @ResponseBody String getAllVendors(  HttpServletRequest request) throws Exception {
+	public @ResponseBody String getAllVendors(@RequestBody Users user, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
 				System.out.println("hello");
 				
-			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData();
+			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData(user);
 			
 			if(vendorsList == null)
 			{
@@ -107,9 +107,9 @@ public class FarmerPanelVendorsController {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
-			List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
+			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
 			
-			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData();
+			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData(user);
 			
 			if(vendorsList == null)
 			{
@@ -118,6 +118,7 @@ public class FarmerPanelVendorsController {
 			}else
 			{
 				Set<VendorReg> distanceStorageData=getVendorsdataByDistence(farregbean,vendorsList);
+				objJSON.put("vendorsList",distanceStorageData);
 				
 			}
 			
@@ -129,12 +130,12 @@ public class FarmerPanelVendorsController {
 
 
 
-	private Set<VendorReg> getVendorsdataByDistence(List<FarRegs> farregbean, List<VendorReg> processorList) throws IOException {
+	private Set<VendorReg> getVendorsdataByDistence(FarRegs farregbean, List<VendorReg> processorList) throws IOException {
 		Set<VendorReg> distenceVendorsSet  =new LinkedHashSet<VendorReg>();
 		
 		for(VendorReg entry :processorList)
 		{
-		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+farregbean.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
 	    
 	    
 	    URL obj = new URL(requestUrl);
