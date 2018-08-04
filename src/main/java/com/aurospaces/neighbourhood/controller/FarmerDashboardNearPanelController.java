@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,7 +88,7 @@ public class FarmerDashboardNearPanelController {
 			
 			if(tradersList == null)
 			{
-				objJSON.put("tradersList", "");
+				objJSON.put("tradersList", Collections.emptyList());
 			}else
 			{
 				objJSON.put("tradersList", tradersList);
@@ -109,18 +110,18 @@ public class FarmerDashboardNearPanelController {
 			        
 			//List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
 			
-			FarRegs	farreg  =farRegsDao.getById(user.getUserId());
+			FarRegs	farreg  =farRegsDao.getByTokenId(user.getTokenId());
 			
 			List<TraderReg> tradeorsList =	traderRegDao.getAlltradersData(user);
 			
 			if(tradeorsList == null)
 			{
-				objJSON.put("tradeorsList","");
+				objJSON.put("tradersList", Collections.emptyList());
 				
 			}else
 			{
 				Set<TraderReg> distanceStorageData=gettradersdataByDistence(farreg,tradeorsList);
-				objJSON.put("tradeorsList",distanceStorageData);
+				objJSON.put("tradersList",distanceStorageData);
 				
 			}
 			
@@ -200,7 +201,7 @@ public class FarmerDashboardNearPanelController {
 			
 			if(tradersList == null)
 			{
-				objJSON.put("tradersList", "");
+				objJSON.put("tradersList",  Collections.emptyList());
 			}else
 			{
 				objJSON.put("tradersList", tradersList);

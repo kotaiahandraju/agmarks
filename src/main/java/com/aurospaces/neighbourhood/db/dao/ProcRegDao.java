@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
+import com.aurospaces.neighbourhood.bean.ProcessorTransActions;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseProcRegDao;
 
@@ -62,13 +63,11 @@ public class ProcRegDao extends BaseProcRegDao
 
 	public List<ProcReg> getAllSupplierData(FarRegs farregbean) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		
-		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
-		String sql2 = "SELECT * from proc_reg in("+cmts+") ";
-		
-		
-		 String      sql="  SELECT * from  proc_reg  where "
-             +"FIND_IN_SET  (Raw1,'"+cmts+" ')  or FIND_IN_SET  (Raw2,'"+cmts+" ')";
+		 
+		 
+		 String sql  ="select pr.*  from proc_transactions pt, far_regs fr,proc_reg pr where pr.Token_id=pt.Token_id and FIND_IN_SET  (pt.Name, concat(fr.Crop_type,',',fr.Vegetables)) and pt.Status ='In Process' and T_status like '%buy%' " 
+                      + " and fr.Token_id ='"+farregbean.getTokenId()+"' group by pt.Token_id ";
+
 
 				      
 		
@@ -87,10 +86,11 @@ public class ProcRegDao extends BaseProcRegDao
 	public List<ProcReg> getProcessorsByStateAndDistic(ProcReg procReg,FarRegs farregbean) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		
-		String cmts =farregbean.getCropType()+","+farregbean.getVegetables()+","+farregbean.getAniHus()+","+farregbean.getDairy();
-		String sql = "SELECT * from proc_reg  where State = '"+procReg.getState()+" ' and District ='"+procReg.getDistrict()+"' "
-				              +" and FIND_IN_SET  (Raw1,'"+cmts+" ')  or FIND_IN_SET  (Raw2,'"+cmts+" ')";
-		
+		 
+		 String sql  ="select pr.*  from proc_transactions pt, far_regs fr,proc_reg pr where pr.Token_id=pt.Token_id and FIND_IN_SET  (pt.Name, concat(fr.Crop_type,',',fr.Vegetables)) and pt.Status ='In Process' and T_status like '%buy%' " 
+                     + "  and pr.State = '"+procReg.getState()+" ' and pr.District ='"+procReg.getDistrict()+"' and fr.Token_id ='"+farregbean.getTokenId()+"' group by pt.Token_id ";
+
+		 System.out.println(sql);
 		
 		List<ProcReg> retlist = jdbcTemplate.query(sql,
 		new Object[]{},

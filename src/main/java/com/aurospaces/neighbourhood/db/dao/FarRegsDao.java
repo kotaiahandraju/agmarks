@@ -50,6 +50,19 @@ public class FarRegsDao extends BaseFarRegsDao
 			return retlist;
 		return null;
 	}
+
+
+	public FarRegs getByTokenId(String tokenId) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from far_regs where  Token_id= '"+tokenId+"'";
+		System.out.println(sql);
+		List<FarRegs> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+		if(retlist.size() > 0)
+			return retlist.get(0);
+		return null;
+	}
 	
 	
 	

@@ -483,6 +483,26 @@ public class AgriPanchangamController {
 		return String.valueOf(objJSON);
 	}
 	
+	@RequestMapping(value = "/rest/getregcounts")
+	public @ResponseBody String getRegistrationsCounts( HttpServletRequest request) throws Exception {
+		List<Map<String,Object>> list=null;
+		JSONObject objJSON = new JSONObject();
+		try{
+			list = panchangamDao.getRegistrationsCounts();
+			if(list != null){
+				objJSON.put("getregcounts", list);
+				
+			}else{
+				objJSON.put("getregcounts", "");
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
 	
 	
 

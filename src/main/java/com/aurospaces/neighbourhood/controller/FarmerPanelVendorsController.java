@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -87,7 +88,7 @@ public class FarmerPanelVendorsController {
 			
 			if(vendorsList == null)
 			{
-				objJSON.put("vendorsList", "");
+				objJSON.put("vendorsList", Collections.emptyList());
 			}else
 			{
 				objJSON.put("vendorsList", vendorsList);
@@ -107,13 +108,13 @@ public class FarmerPanelVendorsController {
 		JSONObject objJSON = new JSONObject();
 		try{
 			        
-			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
+			FarRegs	farregbean  =farRegsDao.getByTokenId(user.getTokenId());
 			
 			List<VendorReg> vendorsList =	vendorRegDao.getAllVendorsData(user);
 			
 			if(vendorsList == null)
 			{
-				objJSON.put("vendorsList","");
+				objJSON.put("vendorsList", Collections.emptyList());
 				
 			}else
 			{
@@ -198,7 +199,7 @@ public class FarmerPanelVendorsController {
 			
 			if(vendorsList == null)
 			{
-				objJSON.put("vendorsList", "");
+				objJSON.put("vendorsList",  Collections.emptyList());
 			}else
 			{
 				objJSON.put("vendorsList", vendorsList);

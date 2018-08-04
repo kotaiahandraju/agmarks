@@ -1,6 +1,8 @@
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -183,6 +185,31 @@ public class PanchangamDao {
 		if(retlist.size() > 0)
 			return retlist;
 		return null;
+	}
+
+
+	public List<Map<String, Object>> getRegistrationsCounts() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "select count(*) as counts ,'Farmer' as registeras from users where Status1='Farmer' or  Status2='Farmer' or  Status3='Farmer' or  Status4='Farmer' "
+     +" union all "
+     +" select count(*) as counts ,'Processor' as registeras from users where Status1='Processor' or  Status2='Processor' or  Status3='Processor' or  Status4='Processor' "
+     +" union all  "
+     +" select count(*) as counts ,'Supplier' as registeras from users where Status1='Supplier' or  Status2='Supplier' or  Status3='Supplier' or  Status4='Supplier' "
+     +" union all "
+     +" select count(*) as counts ,'Stroage' as registeras from users where Status1='Stroage' or  Status2='Stroage' or  Status3='Stroage' or  Status4='Stroage' "
+     +" union all "
+     +" select count(*) as counts ,'Trader' as registeras from users where Status1='Trader' or  Status2='Trader' or  Status3='Trader' or  Status4='Trader' "
+     +" union all "
+     +" select count(*) as counts ,'Vendor' as registeras from users where Status1='Vendor' or  Status2='Vendor' or  Status3='Vendor' or  Status4='Vendor' "
+     +" union all "
+     +" select count(*) as counts ,'Logistics' as registeras from users where Status1='Logistics' or  Status2='Logistics' or  Status3='Logistics' or  Status4='Logistics' ";
+
+		System.out.println(sql);
+		List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
+		
+		
+		return retlist;
+			
 	}
 	
 

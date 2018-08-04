@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
+import com.aurospaces.neighbourhood.bean.ProcessorTransActions;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
@@ -76,10 +78,10 @@ public class FarmerDashboardprocessorsController {
 	
 	
 	@RequestMapping(value = "/rest/processorAll")
-	public @ResponseBody String getAllProcessors(  @RequestBody Users user,HttpServletRequest request) throws Exception {
+	public @ResponseBody String getAllProcessors(  @RequestBody FarRegs farregbean,HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
+			//FarRegs	farregbean  =farRegsDao.getById(user.getTokenId());
 			        
 				System.out.println("hello");
 				
@@ -87,7 +89,7 @@ public class FarmerDashboardprocessorsController {
 			
 			if(processorList == null)
 			{
-				objJSON.put("processorList", "");
+				objJSON.put("processorList",Collections.emptyList());
 			}else
 			{
 				objJSON.put("processorList", processorList);
@@ -106,7 +108,7 @@ public class FarmerDashboardprocessorsController {
 	public @ResponseBody String getprocessorsByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-		     FarRegs	farreg  =farRegsDao.getById(user.getUserId());
+		     FarRegs	farreg  =farRegsDao.getByTokenId(user.getTokenId());
 			
 		//	List<FarRegs>	farregbean  =farRegsDao.getFarRegsByMobile(user.getUser_name());
 			
@@ -114,7 +116,7 @@ public class FarmerDashboardprocessorsController {
 			
 			if(processorList == null)
 			{
-				objJSON.put("processors","");
+				objJSON.put("processors",Collections.emptyList());
 				
 			}else
 			{
@@ -193,13 +195,15 @@ public class FarmerDashboardprocessorsController {
 	public @ResponseBody String getProcessorsByStateAndDistic(@RequestBody ProcReg procReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			FarRegs	farregbean  =farRegsDao.getById(procReg.getId());      
+			//FarRegs	farregbean  =farRegsDao.getById(procReg.getId());  
+			
+			 FarRegs	farreg  =farRegsDao.getByTokenId(procReg.getTokenId());
 				
-			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg,farregbean);
+			List<ProcReg> processorList =	procRegDao.getProcessorsByStateAndDistic(procReg,farreg);
 			
 			if(processorList == null)
 			{
-				objJSON.put("processorList", "");
+				objJSON.put("processorList", Collections.emptyList());
 			}else
 			{
 				objJSON.put("processorList", processorList);

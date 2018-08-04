@@ -1299,16 +1299,21 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	String ramdomString =String.valueOf(randomPIN);
     	
+    	String impgpath ="";
+    	
     	//System.out.println(plantClinic.getImgName());
     	
     	try {
     		plantClinic.setStatus("In Process");
     		//decoder(plantClinic.getImgName(), request,ramdomString);
-    		String impgpath = imgdecoder(plantClinic.getImgName(),request);
+    		if(!plantClinic.getImgName().isEmpty())
+    		{
+    		 impgpath = imgdecoder(plantClinic.getImgName(),request);
     		
     		System.out.println(impgpath);
-    		
     		plantClinic.setImgName(impgpath);
+    		}
+    		
     		plantClinicDao.save(plantClinic);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {

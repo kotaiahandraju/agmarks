@@ -62,7 +62,7 @@ public class VendorRegDao extends BaseVendorRegDao
 		
 		int id =user.getUserId();
 		
-		String sql ="SELECT * from  vendor_reg v  where "
+		/*String sql ="SELECT * from  vendor_reg v  where "
             +" FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
             + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
             + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
@@ -76,7 +76,18 @@ public class VendorRegDao extends BaseVendorRegDao
             + " or   FIND_IN_SET  ((select f.Ani_hus3 from  far_regs f where f.id="+id+"),v.Ani_hus) "
             + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
             + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
-            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy)" ;
+            + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy)" ;*/
+		
+		
+		String sql = "select vr.* from vendor_transactions vt, far_regs fr,vendor_reg vr where vr.Token_id=vt.Token_id and FIND_IN_SET  (vt.Crop_name, fr.Vegetables) and vt.Status ='In Process' and Transaction_type like '%buy%' "
+				+" and fr.Token_id ='"+user.getTokenId()+"' group by vt.Token_id "
+
+				+" union all "
+
+
+			 +"	select vr.* from vda_trans vdt, far_regs fr,vendor_reg vr where vr.Token_id=vdt.Token_id and FIND_IN_SET  (vdt.Live_stock, concat(fr.Ani_hus,',',fr.Dairy)) and vdt.Status ='In Process' and vdt.Transaction_type like '%buy%' "
+			+"	and fr.Token_id ='"+user.getTokenId()+"' group by vdt.Token_id ";
+
 		
 		System.out.println(sql);
 		
@@ -95,7 +106,7 @@ public class VendorRegDao extends BaseVendorRegDao
 		
 		int id =vendorReg.getId();
 		
-		String sql ="SELECT * from  vendor_reg v  where  State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistrict()+"' and "
+		/*String sql ="SELECT * from  vendor_reg v  where  State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistrict()+"' and "
             +"( FIND_IN_SET  ((select f.Veg1 from  far_regs f where f.id="+id+"),v.Vegetables)  "
             + " or   FIND_IN_SET  ((select f.Veg2 from  far_regs f where f.id="+id+"),v.Vegetables) "
             + " or   FIND_IN_SET  ((select f.Veg3 from  far_regs f where f.id="+id+"),v.Vegetables) "
@@ -110,8 +121,22 @@ public class VendorRegDao extends BaseVendorRegDao
             + " or   FIND_IN_SET  ((select f.Dairy1 from  far_regs f where f.id="+id+"),v.Dairy) "
             + " or   FIND_IN_SET  ((select f.Dairy2 from  far_regs f where f.id="+id+"),v.Dairy) "
             + " or   FIND_IN_SET  ((select f.Dairy3 from  far_regs f where f.id="+id+"),v.Dairy) )" ;
+		*/
+		
+		
+		
+		String sql = "select vr.* from vendor_transactions vt, far_regs fr,vendor_reg vr where vr.Token_id=vt.Token_id and FIND_IN_SET  (vt.Crop_name, fr.Vegetables) and vt.Status ='In Process' and Transaction_type like '%buy%' "
+				+" and vr.State = '"+vendorReg.getState()+" ' and vr.District ='"+vendorReg.getDistrict()+"' and fr.Token_id ='"+vendorReg.getTokenId()+" ' group by vt.Token_id "
+
+				+" union all "
+
+
+			 +"	select vr.* from vda_trans vdt, far_regs fr,vendor_reg vr where vr.Token_id=vdt.Token_id and FIND_IN_SET  (vdt.Live_stock, concat(fr.Ani_hus,',',fr.Dairy)) and vdt.Status ='In Process' and vdt.Transaction_type like '%buy%' "
+			+"	and  vr.State = '"+vendorReg.getState()+" ' and vr.District ='"+vendorReg.getDistrict()+"' and fr.Token_id ='"+vendorReg.getTokenId()+"' group by vdt.Token_id ";
+
 		
 		System.out.println(sql);
+		
 		
 		
 		

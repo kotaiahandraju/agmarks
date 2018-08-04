@@ -68,7 +68,7 @@ public class TraderRegDao extends BaseTraderRegDao
 		jdbcTemplate = custom.getJdbcTemplate();
 		//String sql = "SELECT * from trader_reg ";
 		
-		
+		/*
 		int id =user.getUserId();
 		
 		String sql ="SELECT * from  trader_reg v  where "
@@ -91,7 +91,18 @@ public class TraderRegDao extends BaseTraderRegDao
             + " or   FIND_IN_SET  ((select f.Crop3 from  far_regs f where f.id="+id+"),v.Crops) "
             + " or   FIND_IN_SET  ((select f.Crop4 from  far_regs f where f.id="+id+"),v.Crops) "
             + " or   FIND_IN_SET  ((select f.Crop5 from  far_regs f where f.id="+id+"),v.Crops)" ;
+		*/
 		
+		
+		String sql = "select tr.* from trader_transactions tt, far_regs fr,trader_reg tr where tr.Token_id=tt.Token_id and FIND_IN_SET  (tt.Crop_name,  concat(fr.Crop_type,',',fr.Vegetables)) and tt.Status ='inprocess' and Transaction_type like '%buy%' "
+					+" and fr.Token_id ='"+user.getTokenId()+"' group by tt.Token_id "
+
+					+" union all"
+
+
+				+" select tr.* from tda_trans tdt, far_regs fr,trader_reg tr where tr.Token_id=tdt.Token_id and FIND_IN_SET  (tdt.Live_stock, concat(fr.Ani_hus,',',fr.Dairy)) and tdt.Status ='inprocess' and tdt.Transaction_type like '%buy%' " 
+				+"and fr.Token_id ='"+user.getTokenId()+"' group by tdt.Token_id ";
+
 		
 		System.out.println(sql);
 		 
@@ -108,7 +119,7 @@ public class TraderRegDao extends BaseTraderRegDao
 		jdbcTemplate = custom.getJdbcTemplate();
 		//String sql = "SELECT * from trader_reg  where State = '"+traderReg.getState()+" ' and District ='"+traderReg.getDistrict()+"' ";
 		
-
+/*
 
 		int id =traderReg.getId();
 		
@@ -132,6 +143,22 @@ public class TraderRegDao extends BaseTraderRegDao
             + " or   FIND_IN_SET  ((select f.Crop3 from  far_regs f where f.id="+id+"),v.Crops) "
             + " or   FIND_IN_SET  ((select f.Crop4 from  far_regs f where f.id="+id+"),v.Crops) "
             + " or   FIND_IN_SET  ((select f.Crop5 from  far_regs f where f.id="+id+"),v.Crops) )" ;
+		*/
+		
+		
+		
+		
+		String sql = "select tr.* from trader_transactions tt, far_regs fr,trader_reg tr where   tr.State = '"+traderReg.getState()+" ' and tr.District ='"+traderReg.getDistrict()+"' and tr.Token_id=tt.Token_id and FIND_IN_SET  (tt.Crop_name, fr.Dairy) and tt.Status ='inprocess' and Transaction_type like '%buy%' "
+				+" and fr.Token_id ='"+traderReg.getTokenId()+"' group by tt.Token_id "
+
+				+" union all"
+
+
+			+" select tr.* from tda_trans tdt, far_regs fr,trader_reg tr where  tr.State = '"+traderReg.getState()+" ' and tr.District ='"+traderReg.getDistrict()+"' and  tr.Token_id=tdt.Token_id and FIND_IN_SET  (tdt.Live_stock, concat(fr.Ani_hus,',',fr.Dairy)) and tdt.Status ='inprocess' and tdt.Transaction_type like '%buy%' " 
+			+"and fr.Token_id ='"+traderReg.getTokenId()+"' group by tdt.Token_id ";
+
+	
+	System.out.println(sql);
 			
 		
 		List<TraderReg> retlist = jdbcTemplate.query(sql,
