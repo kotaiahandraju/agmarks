@@ -1,6 +1,7 @@
 
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.AddProduct;
 import com.aurospaces.neighbourhood.bean.SupplierReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseSupplierRegDao;
@@ -63,5 +65,43 @@ public class SupplierRegDao extends BaseSupplierRegDao
 		
 		
 	}
+
+
+
+	public void removeSupplier(SupplierReg supplierReg) {
+		// TODO Auto-generated method stub
+		jdbcTemplate = custom.getJdbcTemplate();
+		String hql="update supplier_reg set Active_status='"+supplierReg.getActiveStatus()+"' where Id='"+supplierReg.getId()+"' ";
+		jdbcTemplate.update(hql, new Object[]{});
+	}
+
+
+
+	public List<SupplierReg> searchsupplier(SupplierReg supplierReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String hql="select * from supplier_reg where Branch_code='"+supplierReg.getBranchCode()+"' and Mobile='"+supplierReg.getMobile()+"' and Active_status='Active'  limit 1";
+		List<SupplierReg> retlist = jdbcTemplate.query(hql,
+				new Object[]{},
+				ParameterizedBeanPropertyRowMapper.newInstance(SupplierReg.class));
+		
+		System.out.println(retlist); 
+		
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
+		
+	}
+
+
+
+	public List<Map<String, Object>> getAllUnitSuppliers() {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String hql="select * from supplier_reg where   Active_status='Active' ";
+		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
+		return retlist;
+	}
+
+
+
 }
 
