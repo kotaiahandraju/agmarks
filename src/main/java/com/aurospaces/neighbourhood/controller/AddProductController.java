@@ -38,7 +38,7 @@ public class AddProductController
 				addproduct.setImage(imgpath);
 			}
 			addProductDao.save(addproduct);
-			objJSON.put("status", "insertedSuccesfully");
+			objJSON.put("status", "success");
 		}catch(Exception e){
 			e.printStackTrace();
 		}

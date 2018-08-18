@@ -44,7 +44,7 @@ public class SupplierDashboardController {
 		JSONObject objJSON = new JSONObject();
 		
 		try{
-			List<SupplierReg> supplier =supplierRegDao.searchsupplier(supplierReg);
+			List<Map<String, Object>> supplier =supplierRegDao.searchsupplier(supplierReg);
 			objJSON.put("supplier", supplier);
 		}catch(Exception e){
 		
@@ -83,7 +83,7 @@ public class SupplierDashboardController {
 		try{
 			
 			supplierReceiptsDao.save(supplierReceipt);
-			objJSON.put("status", "insertedSuccesfully");
+			objJSON.put("status", "success");
 		}catch(Exception e){
 			e.printStackTrace();
 		}

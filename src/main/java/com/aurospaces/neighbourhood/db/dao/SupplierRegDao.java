@@ -77,12 +77,12 @@ public class SupplierRegDao extends BaseSupplierRegDao
 
 
 
-	public List<SupplierReg> searchsupplier(SupplierReg supplierReg) {
+	public List<Map<String, Object>> searchsupplier(SupplierReg supplierReg) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		String hql="select * from supplier_reg where Branch_code='"+supplierReg.getBranchCode()+"' and Mobile='"+supplierReg.getMobile()+"' and Active_status='Active'  limit 1";
-		List<SupplierReg> retlist = jdbcTemplate.query(hql,
-				new Object[]{},
-				ParameterizedBeanPropertyRowMapper.newInstance(SupplierReg.class));
+		
+		
+		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
 		
 		System.out.println(retlist); 
 		
