@@ -22,7 +22,7 @@ public class BaseSupplierissuesDao {
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate;
 
-	public final String INSERT_SQL = "INSERT INTO supplier_issues(Master_code,Branch_code,Consumer_name,Mobile,Address,Os_number,In_stock,Brand,Product_id,Product_code,Product_name,Variant,Issue_stock,Units,Price,due_amount,Token_id,Status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO supplier_issues(Master_code,Branch_code,Consumer_name,Mobile,Address,Issue_date,Os_number,In_stock,Brand,Product_id,Product_code,Product_name,Variant,Issue_stock,Units,Price,due_amount,Token_id,Status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?)"; 
 
 
 

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.AddProduct;
+import com.aurospaces.neighbourhood.bean.SupplierReceipt;
 import com.aurospaces.neighbourhood.bean.SupplierReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseSupplierRegDao;
@@ -99,6 +100,22 @@ public class SupplierRegDao extends BaseSupplierRegDao
 		String hql="select * from supplier_reg where   Active_status='Active' ";
 		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
 		return retlist;
+	}
+
+
+
+	public List<Map<String, Object>> searchsupplierAddReceipt(SupplierReceipt supplierReceipt) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String hql="select * from supplier_receipts where Mobile='"+supplierReceipt.getMobile()+"' limit 1";
+		
+		
+		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
+		
+		System.out.println(retlist); 
+		
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
 	}
 
 

@@ -22,7 +22,7 @@ public class BaseStockLedgerDao {
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO stock_ledger( Master_code,Mobile,Branch_code,Product_code,Opening_balance,Receipts,Issues,Closing_balance,Pay_amount,Bill_amoun,Re_Bal,Token_id,Date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO stock_ledger( Master_code,Mobile,Branch_code,Product_code,Opening_balance,Receipts,Issues,Closing_balance,Pay_amount,Bill_amoun,Re_Bal,Token_id,Date) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)"; 
 
 
 
@@ -57,7 +57,7 @@ ps.setString(9, stockLedger.getPayAmount());
 ps.setString(10, stockLedger.getBillAmoun());
 ps.setString(11, stockLedger.getReBal());
 ps.setString(12, stockLedger.getTokenId());
-//ps.setDate(13, stockLedger.getDate())));
+ps.setDate(13, java.sql.Date.valueOf(stockLedger.getStrdate()));
 
 
 

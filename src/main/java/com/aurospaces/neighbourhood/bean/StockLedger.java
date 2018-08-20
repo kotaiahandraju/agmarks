@@ -12,6 +12,7 @@ public class StockLedger {
 	protected int SNo   = 0;
 	protected String MasterCode,Mobile,BranchCode,ProductCode,OpeningBalance,Receipts,Issues,ClosingBalance,PayAmount,BillAmoun,ReBal,TokenId;
 	protected Date date;
+	protected String  strdate;
 	public int getSNo() {
 		return SNo;
 	}
@@ -95,6 +96,14 @@ public class StockLedger {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	
+	public String getStrdate() {
+		return strdate;
+	}
+	public void setStrdate(String strdate) {
+		this.strdate = strdate;
 	}
 	@Override
 	public String toString() {
