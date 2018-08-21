@@ -161,10 +161,10 @@ public class AddProductController
 		
 		
 		@RequestMapping(value = "/rest/productsCatalog")
-		public @ResponseBody String listOfProductCatalogs( HttpServletRequest request) throws Exception {
+		public @ResponseBody String listOfProductCatalogs(  @RequestBody AddProduct addproduct,HttpServletRequest request) throws Exception {
 			JSONObject objJSON = new JSONObject();
 			try{
-				List<Map<String, Object>> products =addProductDao.listOfProductCatalogs();
+				List<Map<String, Object>> products =addProductDao.listOfProductCatalogs(addproduct);
 				objJSON.put("productcatalog", products);
 			}catch(Exception e){
 				e.printStackTrace();

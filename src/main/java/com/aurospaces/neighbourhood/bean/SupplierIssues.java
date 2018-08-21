@@ -18,6 +18,13 @@ public class SupplierIssues {
 	
 	protected String  MasterCode,BranchCode,ConsumerName,Mobile,Address,OsNumber,InStock,Brand,ProductId,ProductCode,ProductName,Variant,IssueStock,Units,Price,dueAmount,TokenId,Status;
 
+	
+	protected String payAmount;
+	
+	protected String fromdate;
+	
+	protected String todate;
+	
 	public int getSNo() {
 		return SNo;
 	}
@@ -192,6 +199,30 @@ public class SupplierIssues {
 
 	public void setTokenId(String tokenId) {
 		TokenId = tokenId;
+	}
+
+	public String getPayAmount() {
+		return payAmount;
+	}
+
+	public void setPayAmount(String payAmount) {
+		this.payAmount = payAmount;
+	}
+
+	public String getFromdate() {
+		return fromdate;
+	}
+
+	public void setFromdate(String fromdate) {
+		this.fromdate = fromdate;
+	}
+
+	public String getTodate() {
+		return todate;
+	}
+
+	public void setTodate(String todate) {
+		this.todate = todate;
 	}
 
 	

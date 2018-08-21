@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurospaces.neighbourhood.bean.AnalyticsPojo;
 import com.aurospaces.neighbourhood.bean.StockLedger;
 import com.aurospaces.neighbourhood.bean.SupplierIssues;
 import com.aurospaces.neighbourhood.bean.SupplierReceipt;
@@ -82,7 +83,6 @@ public class SupplierDashboardController {
 	public @ResponseBody String saveSupplierReceipt( @RequestBody SupplierReceipt supplierReceipt, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		
-		
 		String strdate =supplierReceipt.getStrReceiptDate();
 		
 		
@@ -148,7 +148,7 @@ public class SupplierDashboardController {
 	public @ResponseBody String saveSupplierIssue( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		
-		
+		supplierIssues.setDueAmount(supplierIssues.getPrice());
 		String strdate =supplierIssues.getStrIssueDate();
 		
 		
@@ -241,17 +241,106 @@ public class SupplierDashboardController {
 	
 	
 	@RequestMapping(value = "/rest/getledgerdata")
-	public @ResponseBody String getledgerData( HttpServletRequest request) throws Exception {
+	public @ResponseBody String getledgerData( @RequestBody SupplierReceipt supplierReceipt,HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		
 		try{
-			List<Map<String, Object>> supplier =SupplierStockLedgerDao.getLedgerData();
+			List<Map<String, Object>> supplier =SupplierStockLedgerDao.getLedgerData(supplierReceipt);
 			objJSON.put("status", supplier);
 		}catch(Exception e){
 		
 			e.printStackTrace();
 		}
 		return String.valueOf(objJSON);
+	}
+	
+	
+
+	@RequestMapping(value = "/rest/issuedueamt")
+	public @ResponseBody String saveDueAmtOnSupplierissue( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		
+		SupplierIssues sIssue =	supplierrIssuesDao.getBySNo(supplierIssues.getSNo());
+		Integer dueAmount =Integer.parseInt(sIssue.getDueAmount());
+		
+		Integer currentAmount  = Integer.parseInt(supplierIssues.getPayAmount());
+		
+		String finalAmount =String.valueOf(dueAmount-currentAmount);
+		
+		if(finalAmount.equals("0"))
+		{
+			supplierIssues.setStatus("Completed");
+		}else
+		{
+			supplierIssues.setStatus("In Process");
+			
+		}
+		supplierIssues.setDueAmount(finalAmount);
+		
+		try{
+			supplierrIssuesDao.saveDueAmount(supplierIssues);
+			objJSON.put("status", "success");
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "/rest/issuedueamtlist")
+	public @ResponseBody String showListOfPaymnetPendingIssues( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getDueAmtListsenderwise(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	
+	
+
+	@RequestMapping(value = "/rest/productsbyissues")
+	public @ResponseBody String showProductsbasedOnissues( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getProductsByIssues(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+
+	@RequestMapping(value = "/rest/analyticscharts")
+	public @ResponseBody String analyticsCharts( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplierReceipts =supplierrIssuesDao.getAnalaticsData(supplierIssues);
+			
+			List<Map<String, Object>> supplierissueschartdata =supplierReceiptsDao.getAnalaticsDataFor(supplierIssues);
+			
+			objJSON.put("receiptschartdata", supplierReceipts);
+			objJSON.put("issueschartdata", supplierissueschartdata);
+			
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
 	}
 
 

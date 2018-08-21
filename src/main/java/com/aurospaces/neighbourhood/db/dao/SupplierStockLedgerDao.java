@@ -25,7 +25,7 @@ public class SupplierStockLedgerDao extends BaseStockLedgerDao {
 	JdbcTemplate jdbcTemplate;
 	public List<StockLedger> getLedgerByProductCode(SupplierReceipt supplierReceipt) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierReceipt.getProductCode()+" ' and Master_code ='"+supplierReceipt.getMasterCode()+"' ";
+		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierReceipt.getProductCode()+" ' and Master_code ='"+supplierReceipt.getMasterCode()+"' order by S_no desc  limit 1 ";
 		
 	
 		List<StockLedger> retlist = jdbcTemplate.query(sql,new Object[]{},
@@ -36,7 +36,7 @@ public class SupplierStockLedgerDao extends BaseStockLedgerDao {
 	}
 	public List<StockLedger> getLedgerByProductCodeforIssues(SupplierIssues supplierIssues) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierIssues.getProductCode()+" 'and Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'";
+		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierIssues.getProductCode()+" 'and Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' order by S_no desc  limit 1";
 		
 		System.out.println(sql);
 		
@@ -46,9 +46,9 @@ public class SupplierStockLedgerDao extends BaseStockLedgerDao {
 			return retlist;
 		return Collections.emptyList();
 	}
-	public List<Map<String, Object>> getLedgerData() {
+	public List<Map<String, Object>> getLedgerData(SupplierReceipt supplierReceipt) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql="select * from stock_ledger  order by S_no desc";
+		String hql="select * from stock_ledger where  Master_code ='"+supplierReceipt.getMasterCode()+"' order by S_no desc";
 		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
 		return retlist;
 	

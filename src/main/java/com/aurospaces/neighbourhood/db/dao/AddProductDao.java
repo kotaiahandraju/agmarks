@@ -39,9 +39,9 @@ public class AddProductDao extends BaseAddProductDao
 		String hql="update catalogue set status='"+addproduct.getStatus()+"' where S_no='"+addproduct.getSNo()+"' ";
 		jdbcTemplate.update(hql, new Object[]{});
 	}
-	public List<Map<String, Object>> listOfProductCatalogs() {
+	public List<Map<String, Object>> listOfProductCatalogs(AddProduct addproduct) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql="select * from catalogue where Status='Active' ";
+		String hql="select * from catalogue where Status='Active' and Mobile= '"+addproduct.getMobile()+"'";
 		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
 		return retlist;
 	} 
