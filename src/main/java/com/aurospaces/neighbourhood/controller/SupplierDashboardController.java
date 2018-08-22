@@ -61,11 +61,11 @@ public class SupplierDashboardController {
 	
 	
 	@RequestMapping(value = "/rest/unitsuppliers")
-	public @ResponseBody String listOfUnits( HttpServletRequest request) throws Exception {
+	public @ResponseBody String listOfUnits( @RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		
 		try{
-			List<Map<String, Object>> suppliers =supplierRegDao.getAllUnitSuppliers();
+			List<Map<String, Object>> suppliers =supplierRegDao.getAllUnitSuppliers(supplierReg);
 			objJSON.put("supplier", suppliers);
 		}catch(Exception e){
 		
@@ -342,6 +342,221 @@ public class SupplierDashboardController {
 		return String.valueOf(objJSON);
 		
 	}
+	
+	
+	@RequestMapping(value = "/rest/branchq1")
+	public @ResponseBody String showIssuesBranchQuarter1( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesBybranchQ1(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/branchq2")
+	public @ResponseBody String showIssuesBranchQuarter2( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesBybranchQ2(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/branchq3")
+	public @ResponseBody String showIssuesBranchQuarter3( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesBybranchQ3(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	@RequestMapping(value = "/rest/branchq4")
+	public @ResponseBody String showIssuesBranchQuarter4( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesBybranchQ4(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/branchh1")
+	public @ResponseBody String showIssuesBranchHalf1( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByBranchH1(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/branchh2")
+	public @ResponseBody String showIssuesBranchHalf2( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByBranchH2(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	@RequestMapping(value = "/rest/branchhyearly")
+	public @ResponseBody String showIssuesBranchyearly( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByBranchYearly(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	@RequestMapping(value = "/rest/productq1")
+	public @ResponseBody String showIssuesProductQuarter1( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductQ1(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/productq2")
+	public @ResponseBody String showIssuesProductQuarter2( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductQ2(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/productq3")
+	public @ResponseBody String showIssuesProductQuarter3( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductQ3(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	@RequestMapping(value = "/rest/product4")
+	public @ResponseBody String showIssuesProductQuarter4( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductQ4(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	
+	@RequestMapping(value = "/rest/producth1")
+	public @ResponseBody String showIssuesProductHalf1( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductH1(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	@RequestMapping(value = "/rest/producth2")
+	public @ResponseBody String showIssuesProductHalf2( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductH2(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
+	@RequestMapping(value = "/rest/productyearly")
+	public @ResponseBody String showIssuesProductyearly( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getIssuesByProductYearly(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+
+
+
+
 
 
 }
