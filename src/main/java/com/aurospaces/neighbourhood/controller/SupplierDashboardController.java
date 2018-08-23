@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aurospaces.neighbourhood.bean.AnalyticsPojo;
 import com.aurospaces.neighbourhood.bean.StockLedger;
 import com.aurospaces.neighbourhood.bean.SupplierIssues;
 import com.aurospaces.neighbourhood.bean.SupplierReceipt;
@@ -305,6 +304,21 @@ public class SupplierDashboardController {
 	}
 	
 	
+	@RequestMapping(value = "/rest/statesenderwise")
+	public @ResponseBody String stateSenderWise( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getDueAmtListSenderwise(supplierIssues);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
+	
 	
 	
 
@@ -445,6 +459,23 @@ public class SupplierDashboardController {
 		return String.valueOf(objJSON);
 		
 	}
+	
+	
+	
+	@RequestMapping(value = "/rest/quentitychecking")
+	public @ResponseBody String quentityChecking( @RequestBody StockLedger stockLedger, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			List<Map<String, Object>> supplier =supplierrIssuesDao.getClosingBalOfProduct(stockLedger);
+			objJSON.put("status", supplier);
+		}catch(Exception e){
+		
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+		
+	}
+	
 	
 	
 	

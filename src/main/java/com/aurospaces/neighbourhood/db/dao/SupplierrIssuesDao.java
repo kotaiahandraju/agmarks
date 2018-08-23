@@ -6,10 +6,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.StockLedger;
 import com.aurospaces.neighbourhood.bean.SupplierIssues;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseSupplierissuesDao;
@@ -26,8 +28,16 @@ public class SupplierrIssuesDao extends BaseSupplierissuesDao {
 	{
 	
 	jdbcTemplate = custom.getJdbcTemplate();
-	String sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' and Status ='in Process'";
+	String sql ="";
 	
+	if( StringUtils.isBlank(supplierIssues.getBranchCode()))
+	{
+ sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"'  and Status ='in Process'";
+	}
+	else
+	{
+		sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' and Status ='in Process'";
+	}
 	System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -84,7 +94,7 @@ public class SupplierrIssuesDao extends BaseSupplierissuesDao {
 
 	public List<Map<String, Object>> getDueAmtListSenderwise(SupplierIssues supplierIssues) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from supplier_issues where  Mobile ='"+supplierIssues.getMobile()+"' ";
+		String sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Mobile ='"+supplierIssues.getMobile()+"' ";
 		
 		System.out.println(sql);
 		
@@ -130,13 +140,13 @@ System.out.println(sql);
 	    String financiyalYearTo="";
 	    if(CurrentMonth<4) 
 	    {
-	        financiyalYearFrom= (CurrentYear)+"04-01";
-	        financiyalYearTo= (CurrentYear)+"06-30";
+	        financiyalYearFrom= (CurrentYear-1)+"-04-01";
+	        financiyalYearTo= (CurrentYear-1)+"-06-30";
 	    }
 	    else
 	    {
-	        financiyalYearFrom=(CurrentYear+1)+"04-01";
-	        financiyalYearTo=(CurrentYear+1)+"06-31";
+	        financiyalYearFrom=(CurrentYear)+"-04-01";
+	        financiyalYearTo=(CurrentYear)+"-06-31";
 	    }
 		
 		
@@ -161,13 +171,13 @@ public List<Map<String, Object>> getIssuesBybranchQ2(SupplierIssues supplierIssu
 	    String financiyalYearTo="";
 	    if(CurrentMonth<4) 
 	    {
-	        financiyalYearFrom= (CurrentYear)+"07-01";
-	        financiyalYearTo= (CurrentYear)+"09-30";
+	        financiyalYearFrom= (CurrentYear-1)+"-07-01";
+	        financiyalYearTo= (CurrentYear-1)+"-09-30";
 	    }
 	    else
 	    {
-	        financiyalYearFrom=(CurrentYear+1)+"01-01";
-	        financiyalYearTo=(CurrentYear+1)+"03-31";
+	        financiyalYearFrom=(CurrentYear)+"-07-01";
+	        financiyalYearTo=(CurrentYear)+"-09-31";
 	    }
 		
 		String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
@@ -190,13 +200,13 @@ public List<Map<String, Object>> getIssuesBybranchQ3(SupplierIssues supplierIssu
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"10-01";
-        financiyalYearTo= (CurrentYear)+"12-31";
+        financiyalYearFrom= (CurrentYear-1)+"-10-01";
+        financiyalYearTo= (CurrentYear-1)+"-12-31";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"01-01";
-        financiyalYearTo=(CurrentYear+1)+"03-31";
+        financiyalYearFrom=(CurrentYear)+"-10-01";
+        financiyalYearTo=(CurrentYear)+"-12-31";
     }
     
 	
@@ -222,13 +232,13 @@ public List<Map<String, Object>> getIssuesBybranchQ4(SupplierIssues supplierIssu
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"01-01";
-        financiyalYearTo= (CurrentYear)+"03-31";
+        financiyalYearFrom= (CurrentYear)+"-01-01";
+        financiyalYearTo= (CurrentYear)+"-03-31";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"01-01";
-        financiyalYearTo=(CurrentYear+1)+"03-31";
+        financiyalYearFrom=(CurrentYear+1)+"-01-01";
+        financiyalYearTo=(CurrentYear+1)+"-03-31";
     }
     
     
@@ -236,7 +246,7 @@ public List<Map<String, Object>> getIssuesBybranchQ4(SupplierIssues supplierIssu
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"";
+	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -257,21 +267,21 @@ jdbcTemplate = custom.getJdbcTemplate();
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"04-01";
-        financiyalYearTo= (CurrentYear)+"09-30";
+        financiyalYearFrom= (CurrentYear)+"-04-01";
+        financiyalYearTo= (CurrentYear)+"-09-30";
    
     }
     else
     {
-    	 financiyalYearFrom= (CurrentYear-1)+"04-01";
-         financiyalYearTo= (CurrentYear-1)+"09-30";
+    	 financiyalYearFrom= (CurrentYear-1)+"-04-01";
+         financiyalYearTo= (CurrentYear-1)+"-09-30";
     	
     }
 	
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"";
+	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -291,14 +301,14 @@ jdbcTemplate = custom.getJdbcTemplate();
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear-1)+"09-01";
-        financiyalYearTo= (CurrentYear)+"03-31";
+        financiyalYearFrom= (CurrentYear-1)+"-09-01";
+        financiyalYearTo= (CurrentYear)+"-03-31";
     
     }
     else
     {
-    	financiyalYearFrom= (CurrentYear)+"09-01";
-        financiyalYearTo= (CurrentYear+1)+"03-31";
+    	financiyalYearFrom= (CurrentYear)+"-09-01";
+        financiyalYearTo= (CurrentYear+1)+"-03-31";
     	
     }
     
@@ -306,7 +316,7 @@ jdbcTemplate = custom.getJdbcTemplate();
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"";
+	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -327,20 +337,20 @@ jdbcTemplate = custom.getJdbcTemplate();
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear-1)+"04-01";
-        financiyalYearTo= (CurrentYear)+"03-31";
+        financiyalYearFrom= (CurrentYear-1)+"-04-01";
+        financiyalYearTo= (CurrentYear)+"-03-31";
     
     }
     
 	else
 	{
-		 financiyalYearFrom= (CurrentYear)+"04-01";
-	        financiyalYearTo= (CurrentYear+1)+"03-31";
+		 financiyalYearFrom= (CurrentYear)+"-04-01";
+	        financiyalYearTo= (CurrentYear+1)+"-03-31";
 	}
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"";
+	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -369,13 +379,13 @@ public List<Map<String, Object>> getIssuesByProductQ1(SupplierIssues supplierIss
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"04-01";
-        financiyalYearTo= (CurrentYear)+"06-30";
+        financiyalYearFrom= (CurrentYear)+"-04-01";
+        financiyalYearTo= (CurrentYear)+"-06-30";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"04-01";
-        financiyalYearTo=(CurrentYear+1)+"06-31";
+        financiyalYearFrom=(CurrentYear+1)+"-04-01";
+        financiyalYearTo=(CurrentYear+1)+"-06-31";
     }
 	
 	
@@ -400,13 +410,13 @@ public List<Map<String, Object>> getIssuesByProductQ2(SupplierIssues supplierIss
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"07-01";
-        financiyalYearTo= (CurrentYear)+"09-30";
+        financiyalYearFrom= (CurrentYear)+"-07-01";
+        financiyalYearTo= (CurrentYear)+"-09-30";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"01-01";
-        financiyalYearTo=(CurrentYear+1)+"03-31";
+        financiyalYearFrom=(CurrentYear+1)+"-01-01";
+        financiyalYearTo=(CurrentYear+1)+"-03-31";
     }
 	
 	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
@@ -429,13 +439,13 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear)+"10-01";
-    financiyalYearTo= (CurrentYear)+"12-31";
+    financiyalYearFrom= (CurrentYear)+"-10-01";
+    financiyalYearTo= (CurrentYear)+"-12-31";
 }
 else
 {
-    financiyalYearFrom=(CurrentYear+1)+"01-01";
-    financiyalYearTo=(CurrentYear+1)+"03-31";
+    financiyalYearFrom=(CurrentYear+1)+"-01-01";
+    financiyalYearTo=(CurrentYear+1)+"-03-31";
 }
 
 
@@ -461,13 +471,13 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear)+"01-01";
-    financiyalYearTo= (CurrentYear)+"03-31";
+    financiyalYearFrom= (CurrentYear)+"-01-01";
+    financiyalYearTo= (CurrentYear)+"-03-31";
 }
 else
 {
-    financiyalYearFrom=(CurrentYear+1)+"01-01";
-    financiyalYearTo=(CurrentYear+1)+"03-31";
+    financiyalYearFrom=(CurrentYear+1)+"-01-01";
+    financiyalYearTo=(CurrentYear+1)+"-03-31";
 }
 
 
@@ -496,14 +506,14 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear)+"04-01";
-    financiyalYearTo= (CurrentYear)+"09-30";
+    financiyalYearFrom= (CurrentYear)+"-04-01";
+    financiyalYearTo= (CurrentYear)+"-09-30";
 
 }
 else
 {
-	 financiyalYearFrom= (CurrentYear-1)+"04-01";
-     financiyalYearTo= (CurrentYear-1)+"09-30";
+	 financiyalYearFrom= (CurrentYear-1)+"-04-01";
+     financiyalYearTo= (CurrentYear-1)+"-09-30";
 	
 }
 
@@ -530,14 +540,14 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear-1)+"09-01";
-    financiyalYearTo= (CurrentYear)+"03-31";
+    financiyalYearFrom= (CurrentYear-1)+"-09-01";
+    financiyalYearTo= (CurrentYear)+"-03-31";
 
 }
 else
 {
-	financiyalYearFrom= (CurrentYear)+"09-01";
-    financiyalYearTo= (CurrentYear+1)+"03-31";
+	financiyalYearFrom= (CurrentYear)+"-09-01";
+    financiyalYearTo= (CurrentYear+1)+"-03-31";
 	
 }
 
@@ -566,15 +576,15 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear-1)+"04-01";
-    financiyalYearTo= (CurrentYear)+"03-31";
+    financiyalYearFrom= (CurrentYear-1)+"-04-01";
+    financiyalYearTo= (CurrentYear)+"-03-31";
 
 }
 
 else
 {
-	 financiyalYearFrom= (CurrentYear)+"04-01";
-        financiyalYearTo= (CurrentYear+1)+"03-31";
+	 financiyalYearFrom= (CurrentYear)+"-04-01";
+        financiyalYearTo= (CurrentYear+1)+"-03-31";
 }
 
 
@@ -586,6 +596,25 @@ List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
 
 	return retlist;
 }
+
+
+
+public List<Map<String, Object>> getClosingBalOfProduct(StockLedger stockLedger) {
+	jdbcTemplate = custom.getJdbcTemplate();
+	//String sql = "SELECT * from stock_ledger where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' ";
+	String sql = "SELECT * from stock_ledger where  Master_code ='"+stockLedger.getMasterCode()+"' and Product_code ='"+stockLedger.getProductCode()+"' order by S_no desc limit 1 ";
+	
+	
+	System.out.println(sql);
+	
+	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
+	
+		return retlist;
+}
+
+
+
+
 
 
 
