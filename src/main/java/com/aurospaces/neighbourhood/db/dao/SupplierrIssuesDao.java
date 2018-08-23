@@ -267,14 +267,14 @@ jdbcTemplate = custom.getJdbcTemplate();
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"-04-01";
-        financiyalYearTo= (CurrentYear)+"-09-30";
+        financiyalYearFrom= (CurrentYear-1)+"-04-01";
+        financiyalYearTo= (CurrentYear-1)+"-09-30";
    
     }
     else
     {
-    	 financiyalYearFrom= (CurrentYear-1)+"-04-01";
-         financiyalYearTo= (CurrentYear-1)+"-09-30";
+    	 financiyalYearFrom= (CurrentYear)+"-04-01";
+         financiyalYearTo= (CurrentYear)+"-09-30";
     	
     }
 	
@@ -379,13 +379,13 @@ public List<Map<String, Object>> getIssuesByProductQ1(SupplierIssues supplierIss
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"-04-01";
-        financiyalYearTo= (CurrentYear)+"-06-30";
+        financiyalYearFrom= (CurrentYear-1)+"-04-01";
+        financiyalYearTo= (CurrentYear-1)+"-06-30";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"-04-01";
-        financiyalYearTo=(CurrentYear+1)+"-06-31";
+        financiyalYearFrom=(CurrentYear)+"-04-01";
+        financiyalYearTo=(CurrentYear)+"-06-31";
     }
 	
 	
@@ -410,13 +410,13 @@ public List<Map<String, Object>> getIssuesByProductQ2(SupplierIssues supplierIss
     String financiyalYearTo="";
     if(CurrentMonth<4) 
     {
-        financiyalYearFrom= (CurrentYear)+"-07-01";
-        financiyalYearTo= (CurrentYear)+"-09-30";
+        financiyalYearFrom= (CurrentYear-1)+"-07-01";
+        financiyalYearTo= (CurrentYear-1)+"-09-30";
     }
     else
     {
-        financiyalYearFrom=(CurrentYear+1)+"-01-01";
-        financiyalYearTo=(CurrentYear+1)+"-03-31";
+        financiyalYearFrom=(CurrentYear)+"-01-01";
+        financiyalYearTo=(CurrentYear)+"-03-31";
     }
 	
 	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
@@ -439,13 +439,13 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear)+"-10-01";
-    financiyalYearTo= (CurrentYear)+"-12-31";
+    financiyalYearFrom= (CurrentYear-1)+"-10-01";
+    financiyalYearTo= (CurrentYear-1)+"-12-31";
 }
 else
 {
-    financiyalYearFrom=(CurrentYear+1)+"-01-01";
-    financiyalYearTo=(CurrentYear+1)+"-03-31";
+    financiyalYearFrom=(CurrentYear)+"-10-01";
+    financiyalYearTo=(CurrentYear)+"-12-31";
 }
 
 
@@ -506,14 +506,14 @@ String financiyalYearFrom="";
 String financiyalYearTo="";
 if(CurrentMonth<4) 
 {
-    financiyalYearFrom= (CurrentYear)+"-04-01";
-    financiyalYearTo= (CurrentYear)+"-09-30";
+    financiyalYearFrom= (CurrentYear-1)+"-04-01";
+    financiyalYearTo= (CurrentYear-1)+"-09-30";
 
 }
 else
 {
-	 financiyalYearFrom= (CurrentYear-1)+"-04-01";
-     financiyalYearTo= (CurrentYear-1)+"-09-30";
+	 financiyalYearFrom= (CurrentYear)+"-04-01";
+     financiyalYearTo= (CurrentYear)+"-09-30";
 	
 }
 
