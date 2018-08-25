@@ -15,6 +15,8 @@ public class WarehouseCapacity {
 	
 	protected  String TokenId,TotalCapacity,Occupancy,AvailCapacity,AskPrice;
 	protected Date date;
+	
+	protected String strdate;
 	public int getSNo() {
 		return SNo;
 	}
@@ -56,6 +58,15 @@ public class WarehouseCapacity {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	
+	
+	
+	public String getStrdate() {
+		return strdate;
+	}
+	public void setStrdate(String strdate) {
+		this.strdate = strdate;
 	}
 	@Override
 	public String toString() {

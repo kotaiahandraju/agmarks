@@ -53,6 +53,7 @@ import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VegPrices;
 import com.aurospaces.neighbourhood.bean.VendorReg;
+import com.aurospaces.neighbourhood.bean.WarehouseCapacity;
 import com.aurospaces.neighbourhood.db.dao.CommPricesDao;
 import com.aurospaces.neighbourhood.db.dao.FarRegsDao;
 import com.aurospaces.neighbourhood.db.dao.FarmerTransactionsDao;
@@ -72,6 +73,7 @@ import com.aurospaces.neighbourhood.db.dao.TraderRegDao;
 import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
+import com.aurospaces.neighbourhood.db.dao.WarehouseCapacityDao;
 import com.aurospaces.neighbourhood.util.JsonReader;
 import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
 import com.aurospaces.neighbourhood.util.SendSMS;
@@ -111,6 +113,7 @@ public class RestController {
 	@Autowired HttpServletRequest request ;
 	
 	@Autowired JsonReader jsonReader;
+	@Autowired WarehouseCapacityDao warehouseCapacityDao;
 	
 	
 
@@ -519,10 +522,10 @@ public @ResponseBody String stroageduplicatecheck(@RequestBody StorageReg storag
 public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  HttpServletRequest request)  {
 	List<Map<String,Object>> list=null;
 	JSONObject objJSON = new JSONObject();
-	System.out.println();
 	InputStream input = null;
 	String body = null;
 	 Properties prop = new Properties();
+	 
 	try{
 		/*if(StringUtils.isNotBlank(storageReg.getStrdateOfIncorp())){
 			storageReg.setDateOfIncorp(KhaibarGasUtil.dateFormate(storageReg.getStrdateOfIncorp()));
@@ -573,6 +576,15 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 			usersBean.setCcode(storageReg.getCcode());
 			
 			usersDao.save(usersBean);
+			WarehouseCapacity storageCapacity =new WarehouseCapacity();
+			storageCapacity.setTokenId(storageReg.getTokenId());
+			storageCapacity.setTotalCapacity(storageReg.getStorageCapacity());
+			storageCapacity.setAskPrice("100");
+			storageCapacity.setOccupancy("0");
+			storageCapacity.setAvailCapacity(storageReg.getStorageCapacity());
+			
+			
+			warehouseCapacityDao.save(storageCapacity);
 			msg= msg.replaceAll("_password_", usersBean.getPassword());
 		}
 		

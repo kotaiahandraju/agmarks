@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.StockLedger;
 import com.aurospaces.neighbourhood.bean.SupplierIssues;
+import com.aurospaces.neighbourhood.bean.SupplierPA;
 import com.aurospaces.neighbourhood.bean.SupplierReceipt;
 import com.aurospaces.neighbourhood.bean.SupplierReg;
+import com.aurospaces.neighbourhood.db.dao.SupplierPaDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierReceiptsDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierRegDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierStockLedgerDao;
@@ -28,6 +30,8 @@ public class SupplierDashboardController {
 	@Autowired SupplierReceiptsDao supplierReceiptsDao;
 	@Autowired SupplierStockLedgerDao SupplierStockLedgerDao;
 	@Autowired SupplierrIssuesDao supplierrIssuesDao;
+	@Autowired SupplierPaDao supplierPaDao;
+	
 	
 	@RequestMapping(value = "/rest/removesupplier")
 	public @ResponseBody String saveAddProducts(@RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
@@ -193,6 +197,46 @@ public class SupplierDashboardController {
 				ledgerRecept.setClosingBalance(total);
 				ledgerRecept.setTokenId(supplierIssues.getTokenId());
 				ledgerRecept.setStrdate(strdate);
+				
+				
+				
+				SupplierPA supplierPA =new SupplierPA();
+				
+				
+				supplierPA.setMasterCode(supplierIssues.getMasterCode());
+				supplierPA.setBranchCode(supplierIssues.getBranchCode());
+				supplierPA.setBranchName("testing");
+				supplierPA.setConsumerName(supplierIssues.getConsumerName());
+				supplierPA.setInchargeMobile(supplierIssues.getMobile());
+				supplierPA.setAddress(supplierIssues.getAddress());
+				supplierPA.setStrtdate(strdate);
+				supplierPA.setBrand(supplierIssues.getBrand());
+				supplierPA.setProductId(supplierIssues.getProductId());
+				supplierPA.setProductCode(supplierIssues.getProductCode());
+				
+				supplierPA.setProductName(supplierIssues.getProductName());
+
+				
+				supplierPA.setIssues(supplierIssues.getIssueStock());
+				
+				supplierPA.setUnits(supplierIssues.getUnits());
+				supplierPA.setTotalPrice(supplierIssues.getPrice());
+				supplierPA.setInStock(total);
+				
+				supplierPA.setReceipts(ledger.getClosingBalance());
+				
+				
+				supplierPaDao.save(supplierPA);
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 				
 			}
@@ -526,7 +570,7 @@ public class SupplierDashboardController {
 	}
 	
 	
-	@RequestMapping(value = "/rest/product4")
+	@RequestMapping(value = "/rest/productq4")
 	public @ResponseBody String showIssuesProductQuarter4( @RequestBody SupplierIssues supplierIssues, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
@@ -584,8 +628,6 @@ public class SupplierDashboardController {
 		return String.valueOf(objJSON);
 		
 	}
-
-
 
 
 
