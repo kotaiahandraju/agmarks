@@ -94,8 +94,8 @@ ps.setString(19, supplierIssues.getStatus());
 
 	 public SupplierIssues getBySNo(int id) {
 			jdbcTemplate = custom.getJdbcTemplate();
-			String sql = "SELECT * from supplier_issues where SNo = ? ";
-			List<SupplierIssues> retlist = jdbcTemplate.query(sql,new Object[]{},
+			String sql = "SELECT * from supplier_issues where S_no = ? ";
+			List<SupplierIssues> retlist = jdbcTemplate.query(sql,new Object[]{id},
 			ParameterizedBeanPropertyRowMapper.newInstance(SupplierIssues.class));
 			if(retlist.size() > 0)
 				return retlist.get(0);

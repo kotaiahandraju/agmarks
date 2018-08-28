@@ -25,6 +25,9 @@ public class SupplierIssues {
 	
 	protected String todate;
 	
+	protected String branchName;
+	
+	
 	public int getSNo() {
 		return SNo;
 	}
@@ -225,9 +228,17 @@ public class SupplierIssues {
 		this.todate = todate;
 	}
 
+	public String getBranchName() {
+		return branchName;
+	}
+
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
 	
 	
-	
+
 	
 	
 	

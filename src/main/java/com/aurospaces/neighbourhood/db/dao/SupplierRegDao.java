@@ -97,7 +97,7 @@ public class SupplierRegDao extends BaseSupplierRegDao
 
 	public List<Map<String, Object>> getAllUnitSuppliers(SupplierReg supplierReg) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String hql="select * from supplier_reg where   Active_status='Active' and  Master_code ='"+supplierReg.getMasterCode()+"' ";
+		String hql="select * from supplier_reg where   Active_status='Active' and  Master_code ='"+supplierReg.getMasterCode()+"' and Distributor_status <> 'Central Distributor' ";
 		List<Map<String, Object>> retlist =jdbcTemplate.queryForList(hql);
 		return retlist;
 	}

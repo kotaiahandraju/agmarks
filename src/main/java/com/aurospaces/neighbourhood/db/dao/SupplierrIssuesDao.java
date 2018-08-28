@@ -150,7 +150,7 @@ System.out.println(sql);
 	    }
 		
 		
-		String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'   and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+		String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'   and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 		
 		List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -180,7 +180,7 @@ public List<Map<String, Object>> getIssuesBybranchQ2(SupplierIssues supplierIssu
 	        financiyalYearTo=(CurrentYear)+"-09-31";
 	    }
 		
-		String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+		String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 		
 		List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -211,7 +211,7 @@ public List<Map<String, Object>> getIssuesBybranchQ3(SupplierIssues supplierIssu
     
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -246,7 +246,7 @@ public List<Map<String, Object>> getIssuesBybranchQ4(SupplierIssues supplierIssu
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -281,7 +281,7 @@ jdbcTemplate = custom.getJdbcTemplate();
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -316,7 +316,7 @@ jdbcTemplate = custom.getJdbcTemplate();
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -350,7 +350,7 @@ jdbcTemplate = custom.getJdbcTemplate();
 	
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Mobile ='"+supplierIssues.getMobile()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"'  and Incharge_mobile ='"+supplierIssues.getMobile()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -389,7 +389,7 @@ public List<Map<String, Object>> getIssuesByProductQ1(SupplierIssues supplierIss
     }
 	
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'   and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'   and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -415,11 +415,11 @@ public List<Map<String, Object>> getIssuesByProductQ2(SupplierIssues supplierIss
     }
     else
     {
-        financiyalYearFrom=(CurrentYear)+"-01-01";
-        financiyalYearTo=(CurrentYear)+"-03-31";
+        financiyalYearFrom=(CurrentYear)+"-07-01";
+        financiyalYearTo=(CurrentYear)+"-09-30";
     }
 	
-	String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+	String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 	
 	List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -450,7 +450,7 @@ else
 
 
 
-String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 
 List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -485,7 +485,7 @@ else
 
 
 
-String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 
 List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -520,7 +520,7 @@ else
 
 
 
-String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 
 List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -555,7 +555,7 @@ else
 
 
 
-String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 
 List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);
@@ -589,7 +589,7 @@ else
 
 
 
-String sql ="select * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  Issue_date >= '"+financiyalYearFrom+"'  AND Issue_date <= '"+financiyalYearTo+"'";
+String sql ="select * from supplier_pa where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Product_code ='"+supplierIssues.getProductCode()+"'  and Product_name ='"+supplierIssues.getProductName()+"' and  T_date >= '"+financiyalYearFrom+"'  AND T_date <= '"+financiyalYearTo+"'";
 System.out.println(sql);
 
 List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);

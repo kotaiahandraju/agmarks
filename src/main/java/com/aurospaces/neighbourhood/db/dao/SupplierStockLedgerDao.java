@@ -36,7 +36,7 @@ public class SupplierStockLedgerDao extends BaseStockLedgerDao {
 	}
 	public List<StockLedger> getLedgerByProductCodeforIssues(SupplierIssues supplierIssues) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierIssues.getProductCode()+" 'and Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' order by S_no desc  limit 1";
+		String sql = "SELECT * from stock_ledger where  Product_code  = '"+supplierIssues.getProductCode()+" 'and Master_code ='"+supplierIssues.getMasterCode()+"'  order by S_no desc  limit 1";
 		
 		System.out.println(sql);
 		
