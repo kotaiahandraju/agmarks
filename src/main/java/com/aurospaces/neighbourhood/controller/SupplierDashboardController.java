@@ -31,6 +31,7 @@ public class SupplierDashboardController {
 	@Autowired SupplierStockLedgerDao SupplierStockLedgerDao;
 	@Autowired SupplierrIssuesDao supplierrIssuesDao;
 	@Autowired SupplierPaDao supplierPaDao;
+
 	
 	@RequestMapping(value = "/rest/removesupplier")
 	public @ResponseBody String saveAddProducts(@RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
@@ -229,15 +230,6 @@ public class SupplierDashboardController {
 				supplierPA.setTokenId(supplierIssues.getTokenId());
 				
 				supplierPaDao.save(supplierPA);
-				
-				
-				
-				
-				
-				
-				
-				
-				
 				
 				
 				
@@ -631,8 +623,6 @@ public class SupplierDashboardController {
 		return String.valueOf(objJSON);
 		
 	}
-
-
 
 
 
