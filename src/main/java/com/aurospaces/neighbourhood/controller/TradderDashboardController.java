@@ -143,5 +143,46 @@ public class TradderDashboardController {
 	    }
 	    
 	    
+	    
+	    @RequestMapping(value = "/rest/changestatustraderspostings")
+	    public @ResponseBody String changeFarmerTransactionsStatus(@RequestBody TraderTransactions  traderTransactions,  HttpServletRequest request)  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	try {
+	    		traderTransactions.setStatus("Completed");
+	    		traderTransactionsDao.save(traderTransactions);
+					objJSON.put("status", "success");
+			} catch (JSONException e) {
+				objJSON.put("status", "fail");
+				e.printStackTrace();
+			}
+	    	
+			return String.valueOf(objJSON);
+
+	    	
+	    }
+	    
+	    
+	    
+	    @RequestMapping(value = "/rest/changetdapostingsstatus")
+	    public @ResponseBody String changeFdaTransactionsStatus(@RequestBody TradertdaTrans  TradertdaTrans,  HttpServletRequest request)  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	try {
+	    		TradertdaTrans.setStatus("Completed");
+	    		tdaTransDao.save(TradertdaTrans);
+					objJSON.put("status", "success");
+			} catch (JSONException e) {
+				objJSON.put("status", "fail");
+				e.printStackTrace();
+			}
+	    	
+			return String.valueOf(objJSON);
+
+	    	
+	    }
+	    
+	    
+	    
 
 }
