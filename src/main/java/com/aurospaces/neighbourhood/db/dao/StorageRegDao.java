@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.StorageReg;
+import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseStorageRegDao;
 
@@ -178,7 +179,114 @@ public class StorageRegDao extends BaseStorageRegDao
 		}
 
 
-		
 
+	public Set<StorageReg> getStoragedata(TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =traderReg.getCrops();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Crops like '%"+entry+"%';";
+			
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+	}
+		return storageSet;
+
+
+		
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOVegetablesontraders(TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =traderReg.getVegetables();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Vegetables like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOfDairyOnTraders(TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =traderReg.getDairy();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Dairy like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOfAnimals(TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =traderReg.getAniHusbandry();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Ani_husbandry like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			
+			System.out.println(storageSet.containsAll(storageList));
+			
+			/*if(storageSet.containsAll(storageList))
+		          System.out.println("alreadyExists");
+			else*/
+				
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+	}
 }
 

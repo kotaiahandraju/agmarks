@@ -83,7 +83,6 @@ public class FarmerDashboardprocessorsController {
 		try{
 			//FarRegs	farregbean  =farRegsDao.getById(user.getTokenId());
 			        
-				System.out.println("hello");
 				
 			List<ProcReg> processorList =	procRegDao.getAllSupplierData(farregbean);
 			

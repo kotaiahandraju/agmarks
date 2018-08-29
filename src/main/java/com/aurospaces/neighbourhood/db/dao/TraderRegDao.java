@@ -1,6 +1,7 @@
 
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -167,6 +168,19 @@ public class TraderRegDao extends BaseTraderRegDao
 		if(retlist.size() > 0)
 			return retlist;
 		return null;
+	}
+
+
+	public List<TraderReg> getFarRegsByMobile(String userName) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from trader_reg where Mobile = '"+userName+"'";
+		System.out.println(sql);
+		List<TraderReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(TraderReg.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
 	}
 
 }

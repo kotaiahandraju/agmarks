@@ -1,7 +1,15 @@
 package com.aurospaces.neighbourhood.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,11 +21,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.aurospaces.neighbourhood.bean.FarmerTransactions;
-import com.aurospaces.neighbourhood.bean.FdaTrans;
+import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.ProcReg;
+import com.aurospaces.neighbourhood.bean.StorageReg;
+import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.TraderTransactions;
 import com.aurospaces.neighbourhood.bean.TradertdaTrans;
+import com.aurospaces.neighbourhood.bean.Users;
+import com.aurospaces.neighbourhood.db.dao.ProcRegDao;
+import com.aurospaces.neighbourhood.db.dao.StorageRegDao;
 import com.aurospaces.neighbourhood.db.dao.TdaTransDao;
+import com.aurospaces.neighbourhood.db.dao.TraderRegDao;
 import com.aurospaces.neighbourhood.db.dao.TraderTransactionsDao;
 
 @Controller
@@ -27,6 +41,10 @@ public class TradderDashboardController {
 	TraderTransactionsDao traderTransactionsDao;
 	
 	@Autowired TdaTransDao tdaTransDao;
+	
+	@Autowired TraderRegDao traderRegDao;
+	@Autowired StorageRegDao storageRegDao;
+	@Autowired ProcRegDao procRegDao;
 	
 	
 	 @RequestMapping(value = "/rest/savetradertransaction")
@@ -183,6 +201,230 @@ public class TradderDashboardController {
 	    }
 	    
 	    
+	    
+	    @RequestMapping(value = "/rest/commoditiesontrader")
+	    public @ResponseBody String getCommoditiesOnTrader(@RequestBody TraderReg  traderReg,  HttpServletRequest request)  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	TraderReg tradeUser = traderRegDao.getById(traderReg.getId());
+	    	
+	    	List<Map<String, Object>>	traderTransactionslist = tdaTransDao.getTradersCommodites(tradeUser);
+	    	objJSON.put("status", traderTransactionslist);
+			return String.valueOf(objJSON);
+
+	    	
+	    }
+	    
+	    @RequestMapping(value = "/rest/vegitablesontrader")
+	    public @ResponseBody String getVegitablesOnTrader(@RequestBody TraderReg  traderReg,  HttpServletRequest request)  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	TraderReg tradeUser = traderRegDao.getById(traderReg.getId());
+	    	
+	    	List<Map<String, Object>>	traderTransactionslist = tdaTransDao.getTradersCommodites(tradeUser);
+	    	objJSON.put("status", traderTransactionslist);
+			return String.valueOf(objJSON);
+
+	    	
+	    }
+	    
+	    
+	    
+
+		@RequestMapping(value = "/rest/commoditiesStorageOntraders")
+	    public @ResponseBody String storageDataOfCommodities(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	
+	    	List<TraderReg>	traderegbean  =traderRegDao.getFarRegsByMobile(user.getUser_name());
+	    	Set<StorageReg> storagedata=	storageRegDao.getStoragedata(traderegbean.get(0));
+	    	  
+	    	if(storagedata.isEmpty())
+	    		objJSON.put("commoditiesStorage",Collections.emptyList());
+	    	else
+	    	{
+	    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(traderegbean,storagedata);
+	    		
+	    	//objJSON.put("commoditiesStorage",storagedata);
+	    	objJSON.put("commoditiesStorage",distanceStorageData);
+	    	}
+	    	
+			return String.valueOf(objJSON);
+	    	
+	    	}
+		
+		
+		
+		
+		
+		@RequestMapping(value = "/rest/vegetablesStorageontraders")
+	    public @ResponseBody String storageDataOfVegetables(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
+	    	JSONObject objJSON = new JSONObject();
+	    	
+	    	List<TraderReg>	traderegbean  =traderRegDao.getFarRegsByMobile(user.getUser_name());
+	    	Set<StorageReg> storagedata=	storageRegDao.getStorageDataOVegetablesontraders(traderegbean.get(0));
+	    	  
+	    	if(storagedata.isEmpty())
+	    		objJSON.put("vegetablesStorage","");
+	    	else
+	    	{
+	    		
+	    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(traderegbean,storagedata);
+	    	//objJSON.put("vegetablesStorage",storagedata);
+	    		objJSON.put("vegetablesStorage",distanceStorageData);
+	    	}
+	    	
+			return String.valueOf(objJSON);
+	    	
+	    	}
+		
+		
+		 @RequestMapping(value = "/rest/dairystorageontraders")
+		    public @ResponseBody String storageDataOfDairy(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
+		    	JSONObject objJSON = new JSONObject();
+		    	
+		    	List<TraderReg>	traderegbean  =traderRegDao.getFarRegsByMobile(user.getUser_name());
+		    	Set<StorageReg> storagedata=	storageRegDao.getStorageDataOfDairyOnTraders(traderegbean.get(0));
+		    	  
+		    	if(storagedata.isEmpty())
+		    		objJSON.put("dairystorage","");
+		    	else
+		    	{
+		    		
+		    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(traderegbean,storagedata);
+		    	//objJSON.put("dairystorage",storagedata);
+		    		objJSON.put("dairystorage",distanceStorageData);
+		    	
+		    	}
+		    	
+				return String.valueOf(objJSON);
+		    	
+		    	}
+		 
+		 
+		 
+		 @RequestMapping(value = "/rest/animalstorageontraders")
+		    public @ResponseBody String storageDataOfAnimals(@RequestBody Users user,  HttpServletRequest request) throws IOException  {
+		    	JSONObject objJSON = new JSONObject();
+		    	
+		    	List<TraderReg>	traderegbean  =traderRegDao.getFarRegsByMobile(user.getUser_name());
+		    	Set<StorageReg> storagedata=	storageRegDao.getStorageDataOfAnimals(traderegbean.get(0));
+		    	  
+		    	if(storagedata.isEmpty())
+		    		objJSON.put("animalstorage","");
+		    	else
+		    	{
+		    		
+		    		Set<StorageReg> distanceStorageData=getStoragedataByDistence(traderegbean,storagedata);
+		    	//objJSON.put("animalstorage",storagedata);
+		    	
+		    	objJSON.put("animalstorage",distanceStorageData);
+		    	
+		    	}
+		    	
+				return String.valueOf(objJSON);
+		    	
+		    	}
+		
+		
+		
+		
+	    
+	    
+		private Set<StorageReg> getStoragedataByDistence(List<TraderReg> traderegbean, Set<StorageReg> storagedata) throws IOException {
+
+			Set<StorageReg> distencestorageSet  =new LinkedHashSet<StorageReg>();
+			
+			
+			
+			for(StorageReg entry :storagedata)
+			{
+			String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+traderegbean.get(0).getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+		    
+		    
+		    URL obj = new URL(requestUrl);
+		    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		    // optional default is GET
+		    con.setRequestMethod("GET");
+		    //add request header
+		    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		    int responseCode = con.getResponseCode();
+		    
+		    String distence[] =null;
+		    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		    String inputLine;
+		    StringBuffer responses = new StringBuffer();
+		    while ((inputLine = in.readLine()) != null) {
+		    	//System.out.println(inputLine);
+		    	
+		    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+		    			{
+		    		distence =inputLine.split(":");
+		    		
+		    			}
+		    	
+		    	responses.append(inputLine);
+		    }
+		    
+		  
+		   // System.out.println(distence[1].length());
+		    
+		    
+		    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+		    
+		   // System.out.println(finaldistence);
+		    
+		    double d=Double.parseDouble(finaldistence);
+		    
+		    
+		    double distanceInKM =d*1.60934;        //converting distance miles to km .
+		    
+		    String result = String.format("%.2f", distanceInKM);
+		    
+		  
+		    entry.setDistance(result);   
+		    
+		    distencestorageSet.add(entry);
+		    
+		    
+		    
+			}
+			return distencestorageSet; 
+		}
+		
+		
+		
+		
+		
+		
+		@RequestMapping(value = "/rest/processorAllOntraders")
+		public @ResponseBody String getAllProcessors(  @RequestBody TraderReg traderReg,HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				//FarRegs	farregbean  =farRegsDao.getById(user.getTokenId());
+				        
+					
+				List<ProcReg> processorList =	procRegDao.getAllProcessorsDataOnTraders(traderReg);
+				
+				if(processorList == null)
+				{
+					objJSON.put("processorList",Collections.emptyList());
+				}else
+				{
+					objJSON.put("processorList", processorList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
+		
+		
+		
+		
+		
 	    
 
 }

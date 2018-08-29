@@ -77,7 +77,7 @@ public class FarmerDashboardNearPanelController {
 	
 	
 	@RequestMapping(value = "/rest/tradersAll")
-	public @ResponseBody String getAllProcessors( @RequestBody Users user, HttpServletRequest request) throws Exception {
+	public @ResponseBody String getAllTradaers( @RequestBody Users user, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
 			FarRegs	farregbean  =farRegsDao.getById(user.getUserId());
