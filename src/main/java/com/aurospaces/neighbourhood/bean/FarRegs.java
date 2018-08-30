@@ -138,7 +138,15 @@ protected Date DateOfReg ;
 protected String Ccode ;
 
 
+protected String distance ;
 
+
+public String getDistance() {
+	return distance;
+}
+public void setDistance(String distance) {
+	this.distance = distance;
+}
 public int getId()
 {
   return Id;

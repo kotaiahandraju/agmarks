@@ -2,10 +2,8 @@
 package com.aurospaces.neighbourhood.db.dao;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,6 +11,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.SupplierReg;
 import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
@@ -181,6 +180,64 @@ public class TraderRegDao extends BaseTraderRegDao
 		if(retlist.size() > 0)
 			return retlist;
 		return Collections.emptyList();
+	}
+
+
+	public List<FarRegs> getAllFaramersTransactions(TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+            String sql = "select * from far_regs fr,farmer_transactions ft,trader_reg tr "
+            			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, concat(tr.Crops,',',tr.Vegetables))"
+            			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+traderReg.getTokenId()+"'"
+            			+ "group by ft.Token_id ";
+
+		
+		System.out.println(sql);
+		
+		List<FarRegs> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
+	}
+
+
+	public List<FarRegs> getFaramersTransactionsBystateAndDistrict(FarRegs farRegs, TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from far_regs fr,farmer_transactions ft,trader_reg tr "
+        			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, concat(tr.Crops,',',tr.Vegetables))"
+        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+traderReg.getTokenId()+"'"
+        			+ "and fr.State = '"+farRegs.getState()+" ' and fr.District ='"+farRegs.getDistrict()+"'   "
+        			+ "group by ft.Token_id ";
+
+	
+	System.out.println(sql);
+	
+	List<FarRegs> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+
+	public List<SupplierReg> getAllSuppliers() {
+jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from supplier_reg ";
+
+	
+	System.out.println(sql);
+	
+	List<SupplierReg> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(SupplierReg.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
 	}
 
 }

@@ -55,7 +55,7 @@ protected String Mobile ;
 
 /** Field mapping. **/
 //@JsonFormat(shape=JsonFormat.Shape.STRING,pattern="dd-MM-yyyy")
-protected Date DateOfIncorp ;
+protected String DateOfIncorp ;
 
 /** Field mapping. **/
 protected String GSTNumber ;
@@ -100,8 +100,19 @@ protected String BranchCode ;
 protected String DistributorStatus ;
 
 
+protected String distance ;
 
 
+
+
+
+
+public String getDistance() {
+	return distance;
+}
+public void setDistance(String distance) {
+	this.distance = distance;
+}
 public int getId()
 {
   return Id;
@@ -206,13 +217,12 @@ public void setMobile(final String Mobile)
 {
   this.Mobile = Mobile;
 }
-public Date getDateOfIncorp()
-{
-  return DateOfIncorp;
+
+public String getDateOfIncorp() {
+	return DateOfIncorp;
 }
-public void setDateOfIncorp(final Date DateOfIncorp)
-{
-  this.DateOfIncorp = DateOfIncorp;
+public void setDateOfIncorp(String dateOfIncorp) {
+	DateOfIncorp = dateOfIncorp;
 }
 public String getGSTNumber()
 {

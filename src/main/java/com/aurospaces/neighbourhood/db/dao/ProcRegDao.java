@@ -108,9 +108,32 @@ public class ProcRegDao extends BaseProcRegDao
 		jdbcTemplate = custom.getJdbcTemplate();
 		 
 		 
-		 String sql  ="select pr.*  from proc_transactions pt, trader_reg tr,proc_reg pr where pr.Token_id=pt.Token_id and FIND_IN_SET  (pt.Name, concat(tr.Crop_type,',',tr.Vegetables)) and pt.Status ='In Process' and pt.T_status like '%buy%' " 
+		 String sql  ="select pr.*  from proc_transactions pt, trader_reg tr,proc_reg pr where pr.Token_id=pt.Token_id and FIND_IN_SET  (pt.Name, concat(tr.Crops,',',tr.Vegetables)) and pt.Status ='In Process' and pt.T_status like '%sell%' " 
 
                      + " and tr.Token_id ='"+traderReg.getTokenId()+"' group by pt.Token_id ";
+
+
+				      
+		
+		System.out.println(sql);
+		
+		List<ProcReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(ProcReg.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
+	}
+
+
+
+	public List<ProcReg> getProcessorsByStateAndDisticOnTrders(ProcReg procReg, TraderReg traderReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		 
+		 
+		 String sql  ="select pr.*  from proc_transactions pt, trader_reg tr,proc_reg pr where pr.Token_id=pt.Token_id and FIND_IN_SET  (pt.Name, concat(tr.Crops,',',tr.Vegetables)) and pt.Status ='In Process' and pt.T_status like '%sell%' " 
+
+                    + " and pr.State = '"+procReg.getState()+" ' and pr.District ='"+procReg.getDistrict()+"' and tr.Token_id ='"+traderReg.getTokenId()+"' group by pt.Token_id ";
 
 
 				      
