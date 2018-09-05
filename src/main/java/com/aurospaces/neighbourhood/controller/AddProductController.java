@@ -107,7 +107,7 @@ public class AddProductController
 			        }
 
 
-	              filepath= "img/"+filepath;
+	             
 	    	
 	    	return  filepath;
 	    	

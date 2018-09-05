@@ -16,6 +16,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.aurospaces.neighbourhood.bean.TradertdaTrans;
+import com.aurospaces.neighbourhood.bean.VendorsvdaTrans;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 
 
@@ -25,7 +26,7 @@ public class BaseTdaTransDao{
 	CustomConnection custom;
 	JdbcTemplate jdbcTemplate;
 
- 
+
 	public final String INSERT_SQL = "INSERT INTO tda_trans( Token_id, Live_stock, Inputs, Variety, Quantity, Unit, Milk_yield, Price, Nearest_market, Comment, Transaction_type, Status, Date,EDD) values (?, ?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; 
 
 
@@ -112,7 +113,5 @@ ps.setString(14, tradertdaTrans.getEDD());
 				return retlist.get(0);
 			return null;
 		}
-
-	
 
 }

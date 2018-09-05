@@ -17,10 +17,12 @@ import com.aurospaces.neighbourhood.bean.SupplierIssues;
 import com.aurospaces.neighbourhood.bean.SupplierPA;
 import com.aurospaces.neighbourhood.bean.SupplierReceipt;
 import com.aurospaces.neighbourhood.bean.SupplierReg;
+import com.aurospaces.neighbourhood.bean.SupplierTransactions;
 import com.aurospaces.neighbourhood.db.dao.SupplierPaDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierReceiptsDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierRegDao;
 import com.aurospaces.neighbourhood.db.dao.SupplierStockLedgerDao;
+import com.aurospaces.neighbourhood.db.dao.SupplierTransactionsdao;
 import com.aurospaces.neighbourhood.db.dao.SupplierrIssuesDao;
 
 @Controller
@@ -31,7 +33,7 @@ public class SupplierDashboardController {
 	@Autowired SupplierStockLedgerDao SupplierStockLedgerDao;
 	@Autowired SupplierrIssuesDao supplierrIssuesDao;
 	@Autowired SupplierPaDao supplierPaDao;
-
+	@Autowired	SupplierTransactionsdao supplierTransactionsdao;
 	
 	@RequestMapping(value = "/rest/removesupplier")
 	public @ResponseBody String saveAddProducts(@RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
@@ -623,6 +625,52 @@ public class SupplierDashboardController {
 		return String.valueOf(objJSON);
 		
 	}
+	
+	
+	
+	@RequestMapping(value = "/rest/saveStockRequest")
+	public @ResponseBody String saveStockRequest( @RequestBody SupplierTransactions supplierTransactions, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		
+		try{
+			supplierTransactions.setStatus("In Process");
+			supplierTransactionsdao.save(supplierTransactions);
+			objJSON.put("status", "success");
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	@RequestMapping(value = "/rest/stockRequestCounts")
+	public @ResponseBody String getStockRequestCounts( @RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		
+		try{
+			
+			List<Map<String, Object>> supplierRequestCounts = supplierTransactionsdao.getStocksRequestCounts(supplierReg);
+			objJSON.put("status", supplierRequestCounts);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+	
+	
+	@RequestMapping(value = "/rest/stockRequestdetails")
+	public @ResponseBody String getStockRequestDetails( @RequestBody SupplierReg supplierReg, HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		
+		try{
+			
+			List<Map<String, Object>> supplierRequestCounts = supplierTransactionsdao.getStocksRequestDetails(supplierReg);
+			objJSON.put("status", supplierRequestCounts);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+
 
 
 

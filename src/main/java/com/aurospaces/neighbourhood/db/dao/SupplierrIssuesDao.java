@@ -119,7 +119,7 @@ public class SupplierrIssuesDao extends BaseSupplierissuesDao {
 
 	public List<Map<String, Object>> getAnalaticsData(SupplierIssues supplierIssues) {
 		jdbcTemplate = custom.getJdbcTemplate();
-		String sql ="select sum(Received_quantity),Receipt_date from supplier_receipts where   Product_code ='"+supplierIssues.getProductCode()+"' and  Master_code ='"+supplierIssues.getMasterCode()+"'  and  Receipt_date >= '"+supplierIssues.getFromdate()+"'  AND Receipt_date <= '"+supplierIssues.getTodate()+"' group by Receipt_date";
+		String sql ="select Received_quantity,Receipt_date from supplier_receipts where   Product_code ='"+supplierIssues.getProductCode()+"' and  Master_code ='"+supplierIssues.getMasterCode()+"'  and  Receipt_date >= '"+supplierIssues.getFromdate()+"'  AND Receipt_date <= '"+supplierIssues.getTodate()+"' order by Receipt_date";
 System.out.println(sql);
 		
 		List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);

@@ -690,6 +690,26 @@ public @ResponseBody String traderreg(@RequestBody TraderReg traderReg,  HttpSer
 	}
 	return String.valueOf(objJSON);
 }
+
+
+@RequestMapping(value = "/rest/edittraderreg")
+public @ResponseBody String EditTraderRegistration(@RequestBody TraderReg traderReg,  HttpServletRequest request)  {
+	List<Map<String,Object>> list=null;
+	JSONObject objJSON = new JSONObject();
+	try{
+	traderRegDao.save(traderReg);
+	objJSON.put("msg", "success");
+}catch(Exception e){
+	e.printStackTrace();
+	objJSON.put("msg", "fail");
+}
+	
+	
+	return String.valueOf(objJSON);
+}
+
+
+
 @RequestMapping(value = "/rest/vendorduplicatecheck")
 public @ResponseBody String vendorduplicatecheck(@RequestBody VendorReg vendorReg,  HttpServletRequest request)  {
 	JSONObject objJSON = new JSONObject();
@@ -774,6 +794,28 @@ public @ResponseBody String vendorreg(@RequestBody VendorReg vendorReg,  HttpSer
 	}
 	return String.valueOf(objJSON);
 }
+
+
+@RequestMapping(value = "/rest/editvendorreg")
+public @ResponseBody String editVendorRegistration(@RequestBody VendorReg vendorReg,  HttpServletRequest request)  {
+	List<Map<String,Object>> list=null;
+	JSONObject objJSON = new JSONObject();
+	try
+	{
+		vendorRegDao.save(vendorReg);
+	objJSON.put("msg", "success");
+}
+	catch(Exception e){
+		e.printStackTrace();
+		objJSON.put("msg", "fail");
+	}
+	
+	return String.valueOf(objJSON);
+	
+}
+
+
+
 @RequestMapping(value = "/rest/supplierduplicatecheck")
 public @ResponseBody String supplierduplicatecheck(@RequestBody SupplierReg supplierReg,  HttpServletRequest request)  {
 	JSONObject objJSON = new JSONObject();
@@ -863,6 +905,23 @@ public @ResponseBody String supplierreg(@RequestBody SupplierReg supplierReg,  H
 	}
 	return String.valueOf(objJSON);
 }
+
+
+@RequestMapping(value = "/rest/editsupplierreg")
+public @ResponseBody String editSupplierRegistration(@RequestBody SupplierReg supplierReg,  HttpServletRequest request)  {
+	List<Map<String,Object>> list=null;
+	JSONObject objJSON = new JSONObject();
+	
+	supplierRegDao.save(supplierReg);
+	
+	objJSON.put("msg", "success");
+	
+	return String.valueOf(objJSON);
+}
+
+
+
+
 @RequestMapping(value = "/rest/supplierslist")
 public @ResponseBody String supplierslist( HttpServletRequest request)  {
 	JSONObject objJSON = new JSONObject();

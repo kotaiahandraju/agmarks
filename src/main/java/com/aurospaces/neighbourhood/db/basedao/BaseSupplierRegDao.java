@@ -98,9 +98,9 @@ ps.setString(27, supplierReg.getDistributorStatus());
 		else
 		{
 
-			String sql = "UPDATE supplier_reg  set Token_id = ? ,First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Active_status = ? ,Bio = ? ,Botanical = ? ,Farm_machinery = ? ,Inorganic = ? ,Organic = ? ,Seed = ? ,Ccode =? , My_plan =?, Master_code =?, Branch_code =?,Distributor_status =? where Id = ? ";
+			String sql = "UPDATE supplier_reg  set First_name = ? ,Last_name = ? ,Company_name = ? ,Address = ? ,Village = ? ,Mandal = ? ,District = ? ,State = ? ,Pincode = ? ,Email = ? ,Mobile = ? ,Date_of_incorp = ? ,GST_number = ? ,Active_status = ? ,Bio = ? ,Botanical = ? ,Farm_machinery = ? ,Inorganic = ? ,Organic = ? ,Seed = ? ,Ccode =? , Master_code =?  where Id = ? ";
 	
-			jdbcTemplate.update(sql, new Object[]{supplierReg.getTokenId(),supplierReg.getFirstName(),supplierReg.getLastName(),supplierReg.getCompanyName(),supplierReg.getAddress(),supplierReg.getVillage(),supplierReg.getMandal(),supplierReg.getDistrict(),supplierReg.getState(),supplierReg.getPincode(),supplierReg.getEmail(),supplierReg.getMobile(),supplierReg.getDateOfIncorp(),supplierReg.getGSTNumber(),supplierReg.getActiveStatus(),supplierReg.getBio(),supplierReg.getBotanical(),supplierReg.getFarmMachinery(),supplierReg.getInorganic(),supplierReg.getOrganic(),supplierReg.getSeed(),supplierReg.getCcode(),supplierReg.getMyPlan(),supplierReg.getMasterCode(),supplierReg.getBranchCode(),supplierReg.getDistributorStatus(),supplierReg.getId()});
+			jdbcTemplate.update(sql, new Object[]{supplierReg.getFirstName(),supplierReg.getLastName(),supplierReg.getCompanyName(),supplierReg.getAddress(),supplierReg.getVillage(),supplierReg.getMandal(),supplierReg.getDistrict(),supplierReg.getState(),supplierReg.getPincode(),supplierReg.getEmail(),supplierReg.getMobile(),supplierReg.getStrdateOfIncorp(),supplierReg.getGSTNumber(),supplierReg.getActiveStatus(),supplierReg.getBio(),supplierReg.getBotanical(),supplierReg.getFarmMachinery(),supplierReg.getInorganic(),supplierReg.getOrganic(),supplierReg.getSeed(),supplierReg.getCcode(),supplierReg.getMasterCode(),supplierReg.getId()});
 		}
 	}
 		
