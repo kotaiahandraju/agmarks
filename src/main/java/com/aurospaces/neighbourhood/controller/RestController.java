@@ -1740,18 +1740,18 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 					objJSON.put("clinicpostings", plantClinicTransactionslist);
 					
 					
-					for(PlantClinic entry :plantClinicTransactionslist){
+					/*for(PlantClinic entry :plantClinicTransactionslist){
 						 HashMap<String,String> imageList =new LinkedHashMap<String,String>();
 						
 						imageList.put(entry.getImgName(), imgEncoder(entry.getImgName()));
 						
 						prodArrayList.add(imageList);
-						 
+						 */
 						
-					}
 					
-					objJSON.put("imageList", prodArrayList);
-				}
+					
+				}		//objJSON.put("imageList", prodArrayList);
+				
 		} catch (JSONException e) {
 			objJSON.put("clinicpostings", "fail");
 			e.printStackTrace();
@@ -1776,7 +1776,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     		
     		objJSON.put("clinichistory", clinicTransactionslist);
     		
-    		for(PlantClinic entry :clinicTransactionslist){
+    		/*for(PlantClinic entry :clinicTransactionslist){
 				
     			HashMap<String,String> imageList =new LinkedHashMap<String,String>();
 				
@@ -1787,7 +1787,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 				
 			}
 			
-			objJSON.put("imageList", prodArrayList);
+			objJSON.put("imageList", prodArrayList);*/
 				}
 		} catch (JSONException e) {
 			objJSON.put("clinichistory", "fail");
@@ -1859,7 +1859,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 		        }
 
 
-              filepath= "img/"+filepath;
+             // filepath= filepath;
     	
     	return  filepath;
     	
