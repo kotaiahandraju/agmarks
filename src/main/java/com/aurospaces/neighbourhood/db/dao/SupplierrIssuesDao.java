@@ -79,7 +79,14 @@ public class SupplierrIssuesDao extends BaseSupplierissuesDao {
 	{
 	
 	jdbcTemplate = custom.getJdbcTemplate();
-	String sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"' and  Branch_code ='"+supplierIssues.getBranchCode()+"' and Status ='in Process' and due_amount <> '0' ";
+	String sql = "SELECT * from supplier_issues where  Master_code ='"+supplierIssues.getMasterCode()+"'  and Status ='in Process' and due_amount <> '0' ";
+	
+	if( !StringUtils.isBlank(supplierIssues.getBranchCode()))
+	{
+		sql =sql+"and  Branch_code ='"+supplierIssues.getBranchCode()+"'";
+	}
+	
+	
 	
 	System.out.println(sql);
 	
