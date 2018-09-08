@@ -1,6 +1,7 @@
 
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -146,6 +147,19 @@ public class VendorRegDao extends BaseVendorRegDao
 		if(retlist.size() > 0)
 			return retlist;
 		return null;
+	}
+
+	public List<VendorReg> getByVendorsbeanMobile(String mobile) {
+		
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+		String sql ="select * from vendor_reg where Mobile ='"+mobile+"'";
+		List<VendorReg> retlist = jdbcTemplate.query(sql,
+				new Object[]{},
+				ParameterizedBeanPropertyRowMapper.newInstance(VendorReg.class));
+				if(retlist.size() > 0)
+					return retlist;
+				return Collections.emptyList();
 	}
 
 	

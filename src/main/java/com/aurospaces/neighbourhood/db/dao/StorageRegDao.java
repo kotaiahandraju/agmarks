@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.StorageReg;
 import com.aurospaces.neighbourhood.bean.TraderReg;
+import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseStorageRegDao;
 
@@ -280,6 +281,32 @@ public class StorageRegDao extends BaseStorageRegDao
 		          System.out.println("alreadyExists");
 			else*/
 				
+			storageSet.addAll(storageList);
+			
+			System.out.println(sql);
+			
+		}
+		
+		return storageSet;
+	}
+
+
+
+	public Set<StorageReg> getStorageDataOVegetablesonVendors(VendorReg vendorReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =vendorReg.getVegetables();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Vegetables like '%"+entry+"%';";
+			System.out.println(sql);
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
 			storageSet.addAll(storageList);
 			
 			System.out.println(sql);

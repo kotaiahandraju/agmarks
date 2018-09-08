@@ -9,7 +9,7 @@ public class ContractBusiness {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	protected int SNo   = 0;
+	protected int SNo = 0;
 	
 	protected String CompanyName ;
 	protected String Ccode ;
@@ -90,6 +90,8 @@ public class ContractBusiness {
 	public void setCompanyName(String companyName) {
 		CompanyName = companyName;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "ContractBusiness [SNo=" + SNo + ", CompanyName=" + CompanyName + ", Ccode=" + Ccode + ", Mobile="
