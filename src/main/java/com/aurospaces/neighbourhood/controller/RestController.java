@@ -1362,6 +1362,31 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     }
     
     
+    
+    
+    @RequestMapping(value = "/rest/editfarmertransaction")
+    public @ResponseBody String editFarmerTransactions(@RequestBody FarmerTransactions  farmerTransactions,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		
+    		if(StringUtils.isNotBlank(farmerTransactions.getStrEDD())){
+    			farmerTransactions.setEDD(KhaibarGasUtil.dateFormate(farmerTransactions.getStrEDD()));
+    		
+    		}
+			farmerTransactionsDao.editFarmerTransactions(farmerTransactions);
+				objJSON.put("status", "success");
+		} catch (JSONException e) {
+			objJSON.put("status", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
+    
     @RequestMapping(value = "/rest/saveplantclinic")
     public @ResponseBody String savePlantClinic(@RequestBody PlantClinic  plantClinic,  HttpServletRequest request) throws IOException  {
     	JSONObject objJSON = new JSONObject();
@@ -1526,6 +1551,32 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
         		}
     		fdaTrans.setStatus("In Process");
     		fdaTransDao.save(fdaTrans);
+				objJSON.put("status", "success");
+		} catch (JSONException e) {
+			objJSON.put("status", "fail");
+			e.printStackTrace();
+		}
+    	
+		return String.valueOf(objJSON);
+
+    	
+    }
+    
+    
+    
+    
+    
+    @RequestMapping(value = "/rest/editfdatransaction")
+    public @ResponseBody String editFdaTransactions(@RequestBody FdaTrans  fdaTrans,  HttpServletRequest request)  {
+    	JSONObject objJSON = new JSONObject();
+    	
+    	try {
+    		
+        		if(StringUtils.isNotBlank(fdaTrans.getStrEDD())){
+        			fdaTrans.setEDD(KhaibarGasUtil.dateFormate(fdaTrans.getStrEDD()));
+        		
+        		}
+    		fdaTransDao.editFdaTransactions(fdaTrans);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
 			objJSON.put("status", "fail");

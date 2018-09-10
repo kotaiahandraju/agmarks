@@ -21,7 +21,7 @@ public class BaseContractFarmer {
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO contract_farmer(Farmer_name, Ccode, Mobile,Address,Village,District,State,Pincode,Cultivable_land,Place,Crop_to_grown,Other,Comments,Status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO contract_farmer(Farmer_name, Ccode, Mobile,Address,Village,District,State,Pincode,Cultivable_land,Place,Crop_to_grown,Other,Comments,Status,Units,User_status,Mandal) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -62,6 +62,9 @@ ps.setString(12, contractFarmer.getOther());
 ps.setString(13, contractFarmer.getComments());
 ps.setString(14, contractFarmer.getStatus());
 
+ps.setString(15, contractFarmer.getUnits());
+ps.setString(16, contractFarmer.getUserStatus());
+ps.setString(17, contractFarmer.getMandal());
 
 
 

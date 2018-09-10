@@ -430,7 +430,7 @@ public class AgriPanchangamController {
     	
     	try {
     		
-    		
+    		contractBusiness.setUserStatus("In Process");
     		contractBusinessDao.save(contractBusiness);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -450,7 +450,7 @@ public class AgriPanchangamController {
     	
     	try {
     		
-    		
+    		contractFarmer.setUserStatus("In Process");
     		ContractFarmerDao.save(contractFarmer);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {

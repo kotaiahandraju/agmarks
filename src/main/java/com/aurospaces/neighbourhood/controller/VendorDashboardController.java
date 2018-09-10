@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.StorageReg;
+import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorClinic;
 import com.aurospaces.neighbourhood.bean.VendorReg;
@@ -325,6 +328,31 @@ try {
 
 	    	
 	    }
+	 
+	 
+	 @RequestMapping(value = "/rest/farmersAllonvendors")
+		public @ResponseBody String getAllFarmersOnTraders( @RequestBody VendorReg vendorReg,HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				//FarRegs	farregbean  =farRegsDao.getById(user.getTokenId());
+				        
+					
+				List<FarRegs> farmersList =	vendorRegDao.getAllFaramersTransactions(vendorReg);
+				
+				if(farmersList.isEmpty())
+				{
+					objJSON.put("farmers",Collections.emptyList());
+				}else
+				{
+					objJSON.put("farmers", farmersList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		} 
 	
 	 
 	 

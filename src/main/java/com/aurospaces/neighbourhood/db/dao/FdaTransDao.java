@@ -51,6 +51,18 @@ public class FdaTransDao extends BaseFdaTransDao
 				List<Map<String,Object>>  retlist = jdbcTemplate.queryForList(hql,new Object[]{});
 		//System.out.println(retlist);
 		return retlist;
+	}
+
+	public void editFdaTransactions(FdaTrans fdaTrans) {
+		jdbcTemplate = custom.getJdbcTemplate();
+
+		java.sql.Timestamp EDD = 
+				new java.sql.Timestamp(fdaTrans.getEDD().getTime()); 
+		
+		String sql = "UPDATE farmer_transactions  set  Quantity = ?,Units = ? ,EDD =?  where S_no = ? ";
+		
+		jdbcTemplate.update(sql, new Object[]{fdaTrans.getQuantity(),fdaTrans.getUnit(),fdaTrans.getEDD(),fdaTrans.getSNo()});
+
 	} 
 
 

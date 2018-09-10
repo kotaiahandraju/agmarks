@@ -34,6 +34,9 @@ public class ContractFarmer {
 	
 	
 	protected String Other ;
+	
+	protected String Units;
+	protected String UserStatus;
 	public int getSNo() {
 		return SNo;
 	}
@@ -135,6 +138,21 @@ public class ContractFarmer {
 	}
 	public void setMandal(String mandal) {
 		Mandal = mandal;
+	}
+	
+	
+	
+	public String getUnits() {
+		return Units;
+	}
+	public void setUnits(String units) {
+		Units = units;
+	}
+	public String getUserStatus() {
+		return UserStatus;
+	}
+	public void setUserStatus(String userStatus) {
+		UserStatus = userStatus;
 	}
 	@Override
 	public String toString() {

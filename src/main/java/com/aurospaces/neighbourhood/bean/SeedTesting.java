@@ -15,7 +15,7 @@ public class SeedTesting {
 	protected String District ;
 	protected String LabName ;
 	protected String MachinePower ;
-	protected String Addresss ;
+	protected String Address ;
 	public int getSNo() {
 		return SNo;
 	}
@@ -46,16 +46,17 @@ public class SeedTesting {
 	public void setMachinePower(String machinePower) {
 		MachinePower = machinePower;
 	}
-	public String getAddresss() {
-		return Addresss;
+	public String getAddress() {
+		return Address;
 	}
-	public void setAddresss(String addresss) {
-		Addresss = addresss;
+	public void setAddress(String address) {
+		Address = address;
 	}
+	
 	@Override
 	public String toString() {
 		return "SeedTesting [SNo=" + SNo + ", State=" + State + ", District=" + District + ", LabName=" + LabName
-				+ ", MachinePower=" + MachinePower + ", Addresss=" + Addresss + "]";
+				+ ", MachinePower=" + MachinePower + ", Address=" + Address + "]";
 	}
 	
 	

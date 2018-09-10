@@ -21,7 +21,7 @@ public class BaseContractBusiness {
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO contract_business(Company_name, Ccode, Mobile,GST,Company_id,Area_int_contract,Required_crops,Cultivable_land,Comment,Status) values (?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO contract_business(Company_name, Ccode, Mobile,GST,Company_id,Area_int_contract,Required_crops,Cultivable_land,Comment,Status,Units,User_status) values (?,?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -55,6 +55,9 @@ ps.setString(7, contractBusiness.getRequiredCrops());
 ps.setString(8, contractBusiness.getCultivableLand());
 ps.setString(9, contractBusiness.getComment());
 ps.setString(10, contractBusiness.getStatus());
+
+ps.setString(11, contractBusiness.getUnits());
+ps.setString(12, contractBusiness.getUserStatus());
 
 
 

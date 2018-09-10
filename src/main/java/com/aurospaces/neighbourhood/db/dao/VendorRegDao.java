@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
@@ -160,6 +161,25 @@ public class VendorRegDao extends BaseVendorRegDao
 				if(retlist.size() > 0)
 					return retlist;
 				return Collections.emptyList();
+	}
+
+	public List<FarRegs> getAllFaramersTransactions(VendorReg vendorReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from far_regs fr,farmer_transactions ft,vendor_reg vr "
+        			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, vr.Vegetables)"
+        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+vendorReg.getTokenId()+"'"
+        			+ "group by ft.Token_id ";
+
+	
+	System.out.println(sql);
+	
+	List<FarRegs> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
 	}
 
 	

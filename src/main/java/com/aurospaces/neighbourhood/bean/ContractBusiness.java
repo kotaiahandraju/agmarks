@@ -23,6 +23,11 @@ public class ContractBusiness {
 	protected String CultivableLand ;
 	protected String Comment ;
 	protected String Status;
+	
+	protected String Units;
+	protected String UserStatus;
+	
+	
 	public int getSNo() {
 		return SNo;
 	}
@@ -92,6 +97,20 @@ public class ContractBusiness {
 	}
 	
 	
+	
+	
+	public String getUnits() {
+		return Units;
+	}
+	public void setUnits(String units) {
+		Units = units;
+	}
+	public String getUserStatus() {
+		return UserStatus;
+	}
+	public void setUserStatus(String userStatus) {
+		UserStatus = userStatus;
+	}
 	@Override
 	public String toString() {
 		return "ContractBusiness [SNo=" + SNo + ", CompanyName=" + CompanyName + ", Ccode=" + Ccode + ", Mobile="
