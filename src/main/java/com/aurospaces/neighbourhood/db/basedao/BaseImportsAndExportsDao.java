@@ -22,7 +22,7 @@ public class BaseImportsAndExportsDao {
 	JdbcTemplate jdbcTemplate;
 
  
-	public final String INSERT_SQL = "INSERT INTO import_export(Company_name, Ccode, Contact_number, Address, Village, District, State, Pincode, Crop_name, Variety,Quantity,Units,Quality,Packaging,Transport_type,Vehicle_type,Import_date,Export_date,Comment,Status,Mandal) values (?, ?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
+	public final String INSERT_SQL = "INSERT INTO import_export(Company_name, Ccode, Contact_number, Address, Village, District, State, Pincode, Crop_name, Variety,Quantity,Units,Quality,Packaging,Transport_type,Vehicle_type,Import_date,Export_date,Comment,Status,Mandal,User_status) values (?, ?,?, ?,?, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)"; 
 
 
 
@@ -68,6 +68,7 @@ ps.setString(15, importExport.getTransportType());
 ps.setString(16, importExport.getVehicleType());
 
 
+
 if(importExport.getImportDate()!= null)
 {
 	ps.setDate(17, new java.sql.Date(importExport.getImportDate().getTime()));
@@ -98,6 +99,7 @@ else
 ps.setString(19, importExport.getComment());
 ps.setString(20, importExport.getStatus());
 ps.setString(21, importExport.getMandal());
+ps.setString(22, importExport.getUserStatus());
 
 
 							return ps;

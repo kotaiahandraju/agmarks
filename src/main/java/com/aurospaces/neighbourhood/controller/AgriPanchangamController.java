@@ -414,6 +414,8 @@ public class AgriPanchangamController {
 				Date date1=KhaibarGasUtil.dateFormate(importExport.getStrExportDate());
 				importExport.setExportDate(date1);
 			}
+       
+       importExport.setUserStatus("In Process");
 				importsAndExportsDao.save(importExport);
 
 			objJSON.put("ImportExportDaoList", "insertedSuccesfully");

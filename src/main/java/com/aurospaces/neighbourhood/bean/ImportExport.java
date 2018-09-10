@@ -50,6 +50,9 @@ public class ImportExport {
 	protected String strExportDate ;
 	
 	
+	protected String userStatus ;
+	
+	
 	
 	public int getSNo() {
 		return SNo;
@@ -205,6 +208,15 @@ public class ImportExport {
 	}
 	public void setStrExportDate(String strExportDate) {
 		this.strExportDate = strExportDate;
+	}
+	
+	
+	
+	public String getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
 	}
 	@Override
 	public String toString() {
