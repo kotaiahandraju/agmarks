@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -353,6 +354,127 @@ try {
 			}
 			return String.valueOf(objJSON);
 		} 
+	 
+	 
+	 
+	 @RequestMapping(value = "/rest/farmersbydisticwiseonvendors")
+		public @ResponseBody String getFarmersByStateAndDisticOnTraders(@RequestBody VendorReg vendorReg, HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				
+				 
+				 List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(vendorReg.getMobile());
+				 
+				 
+					
+				List<FarRegs> processorList =	vendorRegDao.getFaramersTransactionsBystateAndDistrict(vendorReg,vendorRegbean.get(0));
+				
+				if(processorList == null)
+				{
+					objJSON.put("farmers", Collections.emptyList());
+				}else
+				{
+					objJSON.put("farmers", processorList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
+	 
+	 
+	 
+	 @RequestMapping(value = "/rest/distancefarmerssonvendors")
+		public @ResponseBody String getFarmersByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				 
+				 List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(user.getMobile());
+				 
+					List<FarRegs> farmersList =	vendorRegDao.getAllFaramersTransactions(vendorRegbean.get(0));
+				
+				
+				
+				if(farmersList.isEmpty())
+				{
+					objJSON.put("farmers",Collections.emptyList());
+					
+				}else
+				{
+					Set<FarRegs> distanceStorageData=getfarmersDataByDistenceOnVendors(vendorRegbean.get(0),farmersList);
+					objJSON.put("farmers",distanceStorageData);
+					
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
+
+	private Set<FarRegs> getfarmersDataByDistenceOnVendors(VendorReg vendorReg, List<FarRegs> farmersList) throws IOException {
+		Set<FarRegs> distenceFarmersSet  =new LinkedHashSet<FarRegs>();
+		
+		for(FarRegs entry :farmersList)
+		{
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+vendorReg.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+	    
+	    
+	    URL obj = new URL(requestUrl);
+	    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	    // optional default is GET
+	    con.setRequestMethod("GET");
+	    //add request header
+	    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+	    int responseCode = con.getResponseCode();
+	    
+	    String distence[] =null;
+	    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    String inputLine;
+	    StringBuffer responses = new StringBuffer();
+	    while ((inputLine = in.readLine()) != null) {
+	    	//System.out.println(inputLine);
+	    	
+	    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+	    			{
+	    		distence =inputLine.split(":");
+	    		
+	    			}
+	    	
+	    	responses.append(inputLine);
+	    }
+	    
+	  
+	   // System.out.println(distence[1].length());
+	    
+	    
+	    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+	    
+	   // System.out.println(finaldistence);
+	    
+	    double d=Double.parseDouble(finaldistence);
+	    
+	    
+	    double distanceInKM =d*1.60934;        //converting distance miles to km .
+	    
+	    String result = String.format("%.2f", distanceInKM);
+	    
+	  
+	    entry.setDistance(result);   
+	    
+	    distenceFarmersSet.add(entry);
+	    
+	    
+		}
+		return distenceFarmersSet; 
+	}
+	 
+	 
+	 
+	 
+		
 	
 	 
 	 

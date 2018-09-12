@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
@@ -169,6 +170,40 @@ public class VendorRegDao extends BaseVendorRegDao
         String sql = "select * from far_regs fr,farmer_transactions ft,vendor_reg vr "
         			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, vr.Vegetables)"
         			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+vendorReg.getTokenId()+"'"
+        			+ "group by ft.Token_id ";
+
+	
+	System.out.println(sql);
+	
+	List<FarRegs> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+	
+
+	public List<VendorReg> getVendorRegsByMobile(String mobile) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String sql = "SELECT * from vendor_reg where Mobile = '"+mobile+"'";
+		System.out.println(sql);
+		List<VendorReg> retlist = jdbcTemplate.query(sql,
+		new Object[]{},
+		ParameterizedBeanPropertyRowMapper.newInstance(VendorReg.class));
+		if(retlist.size() > 0)
+			return retlist;
+		return Collections.emptyList();
+	}
+
+	public List<FarRegs> getFaramersTransactionsBystateAndDistrict(VendorReg vendorReg, VendorReg vendorReg2) {
+jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from far_regs fr,farmer_transactions ft,vendor_reg vr "
+        			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, vr.Vegetables)"
+        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+vendorReg2.getTokenId()+"'"
+        			+ "and fr.State = '"+vendorReg.getState()+" ' and fr.District ='"+vendorReg.getDistrict()+"'   "
         			+ "group by ft.Token_id ";
 
 	

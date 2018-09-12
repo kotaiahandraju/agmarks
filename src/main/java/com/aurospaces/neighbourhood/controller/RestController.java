@@ -556,13 +556,13 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 		if(userBean != null){
 			for(Users user : userBean){
 				if(StringUtils.isBlank(user.getStatus1())){
-					usersDao.updateStatus("Storage","Status1",storageReg.getMobile());
+					usersDao.updateStatus("Warehouse","Status1",storageReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus2())){
-					usersDao.updateStatus("Storage","Status2",storageReg.getMobile());
+					usersDao.updateStatus("Warehouse","Status2",storageReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus3())){
-					usersDao.updateStatus("Storage","Status3",storageReg.getMobile());
+					usersDao.updateStatus("Warehouse","Status3",storageReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus4())){
-					usersDao.updateStatus("Storage","Status4",storageReg.getMobile());
+					usersDao.updateStatus("Warehouse","Status4",storageReg.getMobile());
 				}
 				msg= msg.replaceAll("_password_", user.getPassword());
 			}
@@ -571,7 +571,7 @@ public @ResponseBody String stroagereg(@RequestBody StorageReg storageReg,  Http
 			usersBean.setMobile(storageReg.getMobile());
 			usersBean.setTokenId(tokenId);
 			usersBean.setUser_name(storageReg.getFirstName());
-			usersBean.setStatus1("Storage");
+			usersBean.setStatus1("Warehouse");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersBean.setCcode(storageReg.getCcode());
 			
@@ -1123,7 +1123,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
    	                	   
    	                	status1Bean =	   farRegsDao.getFarRegsByMobile(user1.getMobile());
    	                   } 
-   	                   else  if(user1.getStatus1().equals("Storage"))
+   	                   else  if(user1.getStatus1().equals("Warehouse"))
    	                   {
    	                	status1Bean =	storageRegDao.getStorageRegByMobile(user1.getMobile());
    	                	   
@@ -1176,7 +1176,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
    	                	   
    	                	status1Bean =	   farRegsDao.getFarRegsByMobile(user1.getMobile());
    	                   } 
-   	                   else  if(user1.getStatus2().equals("Storage"))
+   	                   else  if(user1.getStatus2().equals("Warehouse"))
    	                   {
    	                	status1Bean =	storageRegDao.getStorageRegByMobile(user1.getMobile());
    	                	   
@@ -1229,7 +1229,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
                 	   
                 	status1Bean =	   farRegsDao.getFarRegsByMobile(user1.getMobile());
                    } 
-                   else  if(user1.getStatus3().equals("Storage"))
+                   else  if(user1.getStatus3().equals("Warehouse"))
                    {
                 	status1Bean =	storageRegDao.getStorageRegByMobile(user1.getMobile());
                 	   
@@ -1282,7 +1282,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
                 	   
                 	status1Bean =	   farRegsDao.getFarRegsByMobile(user1.getMobile());
                    } 
-                   else  if(user1.getStatus4().equals("Storage"))
+                   else  if(user1.getStatus4().equals("Warehouse"))
                    {
                 	status1Bean =	storageRegDao.getStorageRegByMobile(user1.getMobile());
                 	   
