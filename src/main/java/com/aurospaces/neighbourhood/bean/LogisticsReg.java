@@ -74,6 +74,7 @@ protected String Ccode ;
 
 protected String MyPlan ;
 
+protected String Distance;
 
 
 public int getId()
@@ -243,6 +244,14 @@ public String getMyPlan() {
 }
 public void setMyPlan(String myPlan) {
 	MyPlan = myPlan;
+}
+
+
+public String getDistance() {
+	return Distance;
+}
+public void setDistance(String distance) {
+	Distance = distance;
 }
 @Override
 public String toString() {

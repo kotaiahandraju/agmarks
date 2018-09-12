@@ -1,8 +1,6 @@
 package com.aurospaces.neighbourhood.controller;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -16,7 +14,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.castor.util.Base64Decoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.LogisticsReg;
 import com.aurospaces.neighbourhood.bean.StorageReg;
+import com.aurospaces.neighbourhood.bean.SupplierReg;
 import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorClinic;
@@ -39,7 +38,6 @@ import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.db.dao.VendorTransactionsDao;
 import com.aurospaces.neighbourhood.db.dao.VendorsVdaTransactions;
 import com.aurospaces.neighbourhood.util.ImageDecoderUtility;
-import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
 
 @Controller
 public class VendorDashboardController {
@@ -474,10 +472,281 @@ try {
 	 
 	 
 	 
-		
+	@RequestMapping(value = "/rest/logisticsAllonvendors")
+	public @ResponseBody String getAllLogisticsOnVendors( @RequestBody LogisticsReg logisticsReg,HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			//FarRegs	farregbean  =farRegsDao.getById(user.getTokenId());
+			        
+				
+			List<LogisticsReg> farmersList =	vendorRegDao.getAllLogistics();
+			
+			if(farmersList.isEmpty())
+			{
+				objJSON.put("farmers",Collections.emptyList());
+			}else
+			{
+				objJSON.put("farmers", farmersList);
+			}
+
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	} 
 	
+	
+	
+	
+	@RequestMapping(value = "/rest/distancelogisticsOnvendors")
+	public @ResponseBody String getSuppliersByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
+		JSONObject objJSON = new JSONObject();
+		try{
+			 
+			List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(user.getMobile());
+			 
+				List<LogisticsReg> logisticsList =	vendorRegDao.getAllLogistics();
+			
+			
+			
+			if(logisticsList.isEmpty())
+			{
+				objJSON.put("status",Collections.emptyList());
+				
+			}else
+			{
+				Set<LogisticsReg> distanceStorageData=getLogisticsdataByDistenceOnVendors(vendorRegbean.get(0),logisticsList);
+				objJSON.put("status",distanceStorageData);
+				
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return String.valueOf(objJSON);
+	}
+
+	private Set<LogisticsReg> getLogisticsdataByDistenceOnVendors(VendorReg vendorReg,
+			List<LogisticsReg> logisticsList) throws IOException {
+Set<LogisticsReg> distenceLogisticsSet  =new LinkedHashSet<LogisticsReg>();
+		
+		for(LogisticsReg entry :logisticsList)
+		{
+		String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+vendorReg.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+	    
+	    
+	    URL obj = new URL(requestUrl);
+	    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+	    // optional default is GET
+	    con.setRequestMethod("GET");
+	    //add request header
+	    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+	    int responseCode = con.getResponseCode();
+	    
+	    String distence[] =null;
+	    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    String inputLine;
+	    StringBuffer responses = new StringBuffer();
+	    while ((inputLine = in.readLine()) != null) {
+	    	//System.out.println(inputLine);
+	    	
+	    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+	    			{
+	    		distence =inputLine.split(":");
+	    		
+	    			}
+	    	
+	    	responses.append(inputLine);
+	    }
+	    
+	  
+	   // System.out.println(distence[1].length());
+	    
+	    
+	    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+	    
+	   // System.out.println(finaldistence);
+	    
+	    double d=Double.parseDouble(finaldistence);
+	    
+	    
+	    double distanceInKM =d*1.60934;        //converting distance miles to km .
+	    
+	    String result = String.format("%.2f", distanceInKM);
+	    
+	  
+	    entry.setDistance(result);   
+	    
+	    distenceLogisticsSet.add(entry);
+	    
+	    
+		}
+		return distenceLogisticsSet; 
+	}
+	
+	 @RequestMapping(value = "/rest/logisticsbydisticwiseonvendors")
+		public @ResponseBody String geLogisticstByStateAndDisticOnTraders(@RequestBody VendorReg vendorReg, HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				
+				List<LogisticsReg> processorList =	vendorRegDao.getLogisticsBystateAndDistrict(vendorReg);
+				
+				if(processorList == null)
+				{
+					objJSON.put("farmers", Collections.emptyList());
+				}else
+				{
+					objJSON.put("farmers", processorList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
 	 
 	 
+	 
+	 
+	 @RequestMapping(value = "/rest/tradersAllOnvendors")
+		public @ResponseBody String getAllTradaersonVendors( @RequestBody Users user, HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				 List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(user.getMobile());
+				        
+					System.out.println("hello");
+					
+				List<TraderReg> tradersList =	vendorRegDao.getAlltradersDataOnvendors(user);
+				
+				if(tradersList == null)
+				{
+					objJSON.put("tradersList", Collections.emptyList());
+				}else
+				{
+					objJSON.put("tradersList", tradersList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
+	 
+	 
+	 
+	 @RequestMapping(value = "/rest/distancetradersonvendors")
+		public @ResponseBody String getTraddersByDistance(@RequestBody Users user,  HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				        
+				List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(user.getMobile());
+				
+				List<TraderReg> tradeorsList =	vendorRegDao.getAlltradersDataOnvendors(user);
+				
+				if(tradeorsList == null)
+				{
+					objJSON.put("tradersList", Collections.emptyList());
+					
+				}else
+				{
+					Set<TraderReg> distanceStorageData=gettradersdataByDistence(vendorRegbean.get(0),tradeorsList);
+					objJSON.put("tradersList",distanceStorageData);
+					
+				}
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
+
+		
+	 
+	 private Set<TraderReg> gettradersdataByDistence(VendorReg vendorReg, List<TraderReg> tradeorsList) throws IOException {
+			Set<TraderReg> distencetradersSet  =new LinkedHashSet<TraderReg>();
+			
+			for(TraderReg entry :tradeorsList)
+			{
+			String requestUrl  = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+vendorReg.getPincode()+"&destinations="+entry.getPincode()+"&key=AIzaSyCnMiHsbLVPD4LOhfTWCnEPasW0BR_pOY0";
+		    
+		    
+		    URL obj = new URL(requestUrl);
+		    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		    // optional default is GET
+		    con.setRequestMethod("GET");
+		    //add request header
+		    con.setRequestProperty("User-Agent", "Mozilla/5.0");
+		    int responseCode = con.getResponseCode();
+		    
+		    String distence[] =null;
+		    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+		    String inputLine;
+		    StringBuffer responses = new StringBuffer();
+		    while ((inputLine = in.readLine()) != null) {
+		    	//System.out.println(inputLine);
+		    	
+		    	if(inputLine.contains("text") && !inputLine.contains("mins"))
+		    			{
+		    		distence =inputLine.split(":");
+		    		
+		    			}
+		    	
+		    	responses.append(inputLine);
+		    }
+		    
+		  
+		   // System.out.println(distence[1].length());
+		    
+		    
+		    String  finaldistence=distence[1].substring(2, distence[1].indexOf(" mi"));
+		    
+		   // System.out.println(finaldistence);
+		    
+		    double d=Double.parseDouble(finaldistence);
+		    
+		    
+		    double distanceInKM =d*1.60934;        //converting distance miles to km .
+		    
+		    String result = String.format("%.2f", distanceInKM);
+		    
+		  
+		    entry.setDistance(result);   
+		    
+		    distencetradersSet.add(entry);
+		    
+		    
+			}
+			return distencetradersSet; 
+		}
+	 
+	 
+	 
+	 
+	 @RequestMapping(value = "/rest/tradersbydisticwiseonvendors")
+		public @ResponseBody String gettradersByStateAndDisticOnVendors(@RequestBody TraderReg traderReg, HttpServletRequest request) throws Exception {
+			JSONObject objJSON = new JSONObject();
+			try{
+				List<VendorReg>	vendorRegbean  =vendorRegDao.getVendorRegsByMobile(traderReg.getMobile());
+					
+				List<TraderReg> tradersList =	vendorRegDao.getTradersByStateAndDisticOnvendors(traderReg,vendorRegbean.get(0));
+				
+				if(tradersList == null)
+				{
+					objJSON.put("tradersList",  Collections.emptyList());
+				}else
+				{
+					objJSON.put("tradersList", tradersList);
+				}
+
+				
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			return String.valueOf(objJSON);
+		}
 	
 	
 

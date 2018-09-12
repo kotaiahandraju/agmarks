@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.LogisticsReg;
 import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.Users;
 import com.aurospaces.neighbourhood.bean.VendorReg;
@@ -212,6 +213,75 @@ jdbcTemplate = custom.getJdbcTemplate();
 	List<FarRegs> retlist = jdbcTemplate.query(sql,
 	new Object[]{},
 	ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+	public List<LogisticsReg> getAllLogistics() {
+jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from logistics_reg   ";
+        			
+        			
+
+	
+	System.out.println(sql);
+	
+	List<LogisticsReg> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(LogisticsReg.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+	public List<LogisticsReg> getLogisticsBystateAndDistrict(VendorReg vendorReg) {
+jdbcTemplate = custom.getJdbcTemplate();
+		
+        String sql = "select * from logistics_reg where State = '"+vendorReg.getState()+" ' and District ='"+vendorReg.getDistrict()+"'   ";			
+        			
+    
+	
+	System.out.println(sql);
+	
+	List<LogisticsReg> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(LogisticsReg.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+	public List<TraderReg> getAlltradersDataOnvendors(Users user) {
+		String sql = "select tr.* from trader_transactions tt, vendor_reg fr,trader_reg tr where tr.Token_id=tt.Token_id and FIND_IN_SET  (tt.Crop_name, fr.Vegetables) and tt.Status ='inprocess'  "
+				+" and fr.Token_id ='"+user.getTokenId()+"' group by tt.Token_id ";
+
+				
+
+	
+	System.out.println(sql);
+	 
+	List<TraderReg> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(TraderReg.class));
+	if(retlist.size() > 0)
+		return retlist;
+	return Collections.emptyList();
+	}
+
+	public List<TraderReg> getTradersByStateAndDisticOnvendors(TraderReg traderReg, VendorReg vendorReg) {
+		String sql = "select tr.* from trader_transactions tt, vendor_reg fr,trader_reg tr where   tr.State = '"+traderReg.getState()+" ' and tr.District ='"+traderReg.getDistrict()+"' and tr.Token_id=tt.Token_id and FIND_IN_SET  (tt.Crop_name, fr.Vegetables) and tt.Status ='inprocess'  "
+				+" and fr.Token_id ='"+vendorReg.getTokenId()+"' group by tt.Token_id ";
+
+				
+
+	
+	System.out.println(sql);
+	 
+	List<TraderReg> retlist = jdbcTemplate.query(sql,
+	new Object[]{},
+	ParameterizedBeanPropertyRowMapper.newInstance(TraderReg.class));
 	if(retlist.size() > 0)
 		return retlist;
 	return Collections.emptyList();
