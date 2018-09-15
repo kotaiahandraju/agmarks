@@ -59,7 +59,7 @@ public class FdaTransDao extends BaseFdaTransDao
 		java.sql.Timestamp EDD = 
 				new java.sql.Timestamp(fdaTrans.getEDD().getTime()); 
 		
-		String sql = "UPDATE farmer_transactions  set  Quantity = ?,Units = ? ,EDD =?  where S_no = ? ";
+		String sql = "UPDATE fda_trans  set  Quantity = ?,Unit = ? ,EDD =?  where S_no = ? ";
 		
 		jdbcTemplate.update(sql, new Object[]{fdaTrans.getQuantity(),fdaTrans.getUnit(),fdaTrans.getEDD(),fdaTrans.getSNo()});
 
