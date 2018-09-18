@@ -170,7 +170,7 @@ public class VendorRegDao extends BaseVendorRegDao
 		
         String sql = "select * from far_regs fr,farmer_transactions ft,vendor_reg vr "
         			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, vr.Vegetables)"
-        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+vendorReg.getTokenId()+"'"
+        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  vr.Token_id ='"+vendorReg.getTokenId()+"'"
         			+ "group by ft.Token_id ";
 
 	
@@ -203,7 +203,7 @@ jdbcTemplate = custom.getJdbcTemplate();
 		
         String sql = "select * from far_regs fr,farmer_transactions ft,vendor_reg vr "
         			+" where ft.Token_id =fr.Token_id and  FIND_IN_SET  (ft.Crop_name, vr.Vegetables)"
-        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  tr.Token_id ='"+vendorReg2.getTokenId()+"'"
+        			+ "and ft.Status ='In Process' and ft.Transaction_type like '%buy%' and  vr.Token_id ='"+vendorReg2.getTokenId()+"'"
         			+ "and fr.State = '"+vendorReg.getState()+" ' and fr.District ='"+vendorReg.getDistrict()+"'   "
         			+ "group by ft.Token_id ";
 
