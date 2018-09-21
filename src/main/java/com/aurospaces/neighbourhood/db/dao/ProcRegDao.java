@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
 import com.aurospaces.neighbourhood.bean.ProcReg;
-import com.aurospaces.neighbourhood.bean.ProcessorTransActions;
 import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.daosupport.CustomConnection;
 import com.aurospaces.neighbourhood.db.basedao.BaseProcRegDao;

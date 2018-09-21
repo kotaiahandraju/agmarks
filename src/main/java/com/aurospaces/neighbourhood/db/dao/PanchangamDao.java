@@ -196,7 +196,7 @@ public class PanchangamDao {
      +" union all  "
      +" select count(*) as counts ,'Supplier' as registeras from users where Status1='Supplier' or  Status2='Supplier' or  Status3='Supplier' or  Status4='Supplier' "
      +" union all "
-     +" select count(*) as counts ,'Stroage' as registeras from users where Status1='Stroage' or  Status2='Stroage' or  Status3='Stroage' or  Status4='Stroage' "
+     +" select count(*) as counts ,'Warehouse' as registeras from users where Status1='Warehouse' or  Status2='Warehouse' or  Status3='Warehouse' or  Status4='Warehouse' "
      +" union all "
      +" select count(*) as counts ,'Trader' as registeras from users where Status1='Trader' or  Status2='Trader' or  Status3='Trader' or  Status4='Trader' "
      +" union all "
