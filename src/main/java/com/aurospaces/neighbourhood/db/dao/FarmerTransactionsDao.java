@@ -21,8 +21,7 @@ public class FarmerTransactionsDao extends BaseFarmerTransactionsDao
 	public void editFarmerTransactions(FarmerTransactions farmerTransactions) {
 		jdbcTemplate = custom.getJdbcTemplate();
 		
-		java.sql.Timestamp EDD = 
-				new java.sql.Timestamp(farmerTransactions.getEDD().getTime()); 
+		
 		
 		String sql = "UPDATE farmer_transactions  set  Quantity = ?,Units = ? ,EDD =?  where S_no = ? ";
 		

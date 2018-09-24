@@ -53,12 +53,6 @@ public class BaseFdaTransDao{
 						new java.sql.Timestamp(fdaTrans.getDate().getTime()); 
 						
 					
-					if(fdaTrans.getEDD() == null)
-					{
-						fdaTrans.setEDD( new Date());
-					}
-					java.sql.Timestamp EDD = 
-						new java.sql.Timestamp(fdaTrans.getEDD().getTime()); 
 					
 					
 					
@@ -77,7 +71,7 @@ ps.setString(10, fdaTrans.getComment());
 ps.setString(11, fdaTrans.getTransactionType());
 ps.setString(12, fdaTrans.getStatus());
 ps.setTimestamp(13, Date);
-ps.setTimestamp(14, EDD);
+ps.setString(14, fdaTrans.getEDD());
 
 
 							return ps;

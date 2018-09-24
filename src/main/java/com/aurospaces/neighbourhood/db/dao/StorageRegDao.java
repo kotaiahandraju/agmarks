@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.aurospaces.neighbourhood.bean.FarRegs;
+import com.aurospaces.neighbourhood.bean.ProcReg;
 import com.aurospaces.neighbourhood.bean.StorageReg;
 import com.aurospaces.neighbourhood.bean.TraderReg;
 import com.aurospaces.neighbourhood.bean.VendorReg;
@@ -313,6 +314,28 @@ public class StorageRegDao extends BaseStorageRegDao
 			
 		}
 		
+		return storageSet;
+	}
+
+
+
+	public Set<StorageReg> getStoragedata(ProcReg procReg) {
+		jdbcTemplate = custom.getJdbcTemplate();
+		String cropType =procReg.getRawMaterial();
+		
+		Set<StorageReg> storageSet  =new LinkedHashSet<StorageReg>();
+		
+		String  crops[] =cropType.split(",");
+		
+		for(String entry:crops)
+		{
+			String sql ="select * from storage_reg  where Crops like '%"+entry+"%';";
+			
+			List<StorageReg> storageList = jdbcTemplate.query(sql,
+					new Object[]{},
+					ParameterizedBeanPropertyRowMapper.newInstance(StorageReg.class));
+			storageSet.addAll(storageList);
+	}
 		return storageSet;
 	}
 }

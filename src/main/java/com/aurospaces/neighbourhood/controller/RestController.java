@@ -74,6 +74,7 @@ import com.aurospaces.neighbourhood.db.dao.UsersDao;
 import com.aurospaces.neighbourhood.db.dao.VegPricesDao;
 import com.aurospaces.neighbourhood.db.dao.VendorRegDao;
 import com.aurospaces.neighbourhood.db.dao.WarehouseCapacityDao;
+import com.aurospaces.neighbourhood.util.ImageDecoderUtility;
 import com.aurospaces.neighbourhood.util.JsonReader;
 import com.aurospaces.neighbourhood.util.KhaibarGasUtil;
 import com.aurospaces.neighbourhood.util.SendSMS;
@@ -114,6 +115,8 @@ public class RestController {
 	
 	@Autowired JsonReader jsonReader;
 	@Autowired WarehouseCapacityDao warehouseCapacityDao;
+	
+	@Autowired ImageDecoderUtility imageDecoderUtility;
 	
 	
 
@@ -1003,7 +1006,7 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 			usersBean.setMobile(logisticsReg.getMobile());
 			usersBean.setTokenId(tokenId);
 			usersBean.setUser_name(logisticsReg.getFirstName());
-			usersBean.setStatus1("Logistics");
+			usersBean.setStatus1("Logistic");
 			usersBean.setPassword(CommonUtils.generatePIN());
 			usersBean.setCcode(logisticsReg.getCcode());
 			
@@ -1138,7 +1141,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
    	            	status1Bean =	procRegDao.getProcreggByMobile(user1.getMobile());
               	   
                  }
-   	          else  if(user1.getStatus1().equals("Logistics"))
+   	          else  if(user1.getStatus1().equals("Logistic"))
               {
    	        	status1Bean       = logisticsRegDao.getLogisticsRegByMobile(user1.getMobile());
            	   
@@ -1191,7 +1194,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
    	            	status1Bean =	procRegDao.getProcreggByMobile(user1.getMobile());
               	   
                  }
-   	          else  if(user1.getStatus2().equals("Logistics"))
+   	          else  if(user1.getStatus2().equals("Logistic"))
               {
    	        	status1Bean       = logisticsRegDao.getLogisticsRegByMobile(user1.getMobile());
            	   
@@ -1244,7 +1247,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
             	status1Bean =	procRegDao.getProcreggByMobile(user1.getMobile());
        	   
           }
-          else  if(user1.getStatus3().equals("Logistics"))
+          else  if(user1.getStatus3().equals("Logistic"))
        {
         	status1Bean       = logisticsRegDao.getLogisticsRegByMobile(user1.getMobile());
     	   
@@ -1297,7 +1300,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
             	status1Bean =	procRegDao.getProcreggByMobile(user1.getMobile());
        	   
           }
-          else  if(user1.getStatus4().equals("Logistics"))
+          else  if(user1.getStatus4().equals("Logistic"))
        {
         	status1Bean       = logisticsRegDao.getLogisticsRegByMobile(user1.getMobile());
     	   
@@ -1344,10 +1347,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	try {
     		
-    		if(StringUtils.isNotBlank(farmerTransactions.getStrEDD())){
-    			farmerTransactions.setEDD(KhaibarGasUtil.dateFormate(farmerTransactions.getStrEDD()));
     		
-    		}
     		farmerTransactions.setStatus("In Process");
 			farmerTransactionsDao.save(farmerTransactions);
 				objJSON.put("status", "success");
@@ -1370,10 +1370,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	try {
     		
-    		if(StringUtils.isNotBlank(farmerTransactions.getStrEDD())){
-    			farmerTransactions.setEDD(KhaibarGasUtil.dateFormate(farmerTransactions.getStrEDD()));
     		
-    		}
 			farmerTransactionsDao.editFarmerTransactions(farmerTransactions);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {
@@ -1404,7 +1401,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     		//decoder(plantClinic.getImgName(), request,ramdomString);
     		if(!plantClinic.getImgName().isEmpty())
     		{
-    		 impgpath = imgdecoder(plantClinic.getImgName(),request);
+    		 //impgpath = imgdecoder(plantClinic.getImgName(),request);
+    			 impgpath = imageDecoderUtility.imgDecoder(plantClinic.getImgName(),request);
     		
     		System.out.println(impgpath);
     		plantClinic.setImgName(impgpath);
@@ -1545,10 +1543,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	try {
     		
-        		if(StringUtils.isNotBlank(fdaTrans.getStrEDD())){
-        			fdaTrans.setEDD(KhaibarGasUtil.dateFormate(fdaTrans.getStrEDD()));
         		
-        		}
     		fdaTrans.setStatus("In Process");
     		fdaTransDao.save(fdaTrans);
 				objJSON.put("status", "success");
@@ -1572,10 +1567,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	try {
     		
-        		if(StringUtils.isNotBlank(fdaTrans.getStrEDD())){
-        			fdaTrans.setEDD(KhaibarGasUtil.dateFormate(fdaTrans.getStrEDD()));
         		
-        		}
     		fdaTransDao.editFdaTransactions(fdaTrans);
 				objJSON.put("status", "success");
 		} catch (JSONException e) {

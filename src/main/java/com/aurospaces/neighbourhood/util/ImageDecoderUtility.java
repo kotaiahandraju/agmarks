@@ -39,7 +39,13 @@ public class ImageDecoderUtility {
 				String rootPath = System.getProperty("catalina.base");
 			       // File dir = new File(rootPath + File.separator + "img");
 				
-				File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "img");
+				String local ="D:\\agmarksimg";
+				
+				String server ="/var/www/html/agmarks/static/images/plant_clinic_images";
+				System.out.println("folder address in server"+server);
+				
+				//File dir = new File(rootPath + File.separator + "webapps"+ File.separator + "img");
+				File dir = new File(server);
 			        if (!dir.exists()) {
 			            dir.mkdirs();
 			        }

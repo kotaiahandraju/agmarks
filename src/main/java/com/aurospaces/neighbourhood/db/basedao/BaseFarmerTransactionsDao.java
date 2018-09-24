@@ -52,12 +52,8 @@ public class BaseFarmerTransactionsDao{
 					java.sql.Timestamp Date = 
 						new java.sql.Timestamp(farmerTransactions.getDate().getTime()); 
 					
-					if(farmerTransactions.getEDD() == null)
-					{
-					farmerTransactions.setEDD( new Date());
-					}
-					java.sql.Timestamp EDD = 
-						new java.sql.Timestamp(farmerTransactions.getEDD().getTime()); 
+					
+					
 							
 					PreparedStatement ps =
 									connection.prepareStatement(INSERT_SQL,new String[]{"SNo"});
@@ -75,7 +71,7 @@ ps.setString(11, farmerTransactions.getAskPrice());
 ps.setString(12, farmerTransactions.getTransactionType());
 ps.setTimestamp(13, Date);
 ps.setString(14, farmerTransactions.getStatus());
-ps.setTimestamp(15, EDD);
+ps.setString(15, farmerTransactions.getEDD());
 
 							return ps;
 						}

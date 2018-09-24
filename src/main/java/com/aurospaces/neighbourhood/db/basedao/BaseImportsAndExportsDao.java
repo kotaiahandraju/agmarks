@@ -71,7 +71,7 @@ ps.setString(16, importExport.getVehicleType());
 
 if(importExport.getImportDate()!= null)
 {
-	ps.setDate(17, new java.sql.Date(importExport.getImportDate().getTime()));
+	ps.setString(17, importExport.getImportDate());
 	
 }
 else
@@ -83,7 +83,7 @@ else
 if(importExport.getExportDate() != null)
 {
 	
-	ps.setDate(18, new java.sql.Date(importExport.getExportDate().getTime()));
+	ps.setString(18, importExport.getImportDate());
 	
 }
 else

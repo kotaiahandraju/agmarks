@@ -202,7 +202,7 @@ public class PanchangamDao {
      +" union all "
      +" select count(*) as counts ,'Vendor' as registeras from users where Status1='Vendor' or  Status2='Vendor' or  Status3='Vendor' or  Status4='Vendor' "
      +" union all "
-     +" select count(*) as counts ,'Logistics' as registeras from users where Status1='Logistics' or  Status2='Logistics' or  Status3='Logistics' or  Status4='Logistics' ";
+     +" select count(*) as counts ,'Logistic' as registeras from users where Status1='Logistic' or  Status2='Logistic' or  Status3='Logistic' or  Status4='Logistic' ";
 
 		System.out.println(sql);
 		List<Map<String, Object>> retlist = jdbcTemplate.queryForList(sql);

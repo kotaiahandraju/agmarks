@@ -401,19 +401,7 @@ public class AgriPanchangamController {
 	public @ResponseBody String saveImportsAndExports( @RequestBody ImportExport importExport, HttpServletRequest request) throws Exception {
 		JSONObject objJSON = new JSONObject();
 		try{
-			if(StringUtils.isNotBlank(importExport.getStrImportDate())){
-				
-				
-				Date date1=KhaibarGasUtil.dateFormate(importExport.getStrImportDate());
-				importExport.setImportDate(date1);
-			}
 			
-			
-       if(StringUtils.isNotBlank(importExport.getStrExportDate())){
-				
-				Date date1=KhaibarGasUtil.dateFormate(importExport.getStrExportDate());
-				importExport.setExportDate(date1);
-			}
        
        importExport.setUserStatus("In Process");
 				importsAndExportsDao.save(importExport);

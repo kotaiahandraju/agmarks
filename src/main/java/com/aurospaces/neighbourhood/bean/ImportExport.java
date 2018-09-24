@@ -39,8 +39,8 @@ public class ImportExport {
 	protected String TransportType ;
 	protected String VehicleType ;
 	
-	protected Date ImportDate ;
-	protected Date ExportDate ;
+	protected String ImportDate ;
+	protected String ExportDate ;
 	protected String Comment ;
 	protected String Status ;
 	
@@ -182,21 +182,22 @@ public class ImportExport {
 	}
 	
 	
-	public Date getImportDate() {
+	
+	
+	
+	
+	public String getImportDate() {
 		return ImportDate;
 	}
-	public void setImportDate(Date importDate) {
+	public void setImportDate(String importDate) {
 		ImportDate = importDate;
 	}
-	public Date getExportDate() {
+	public String getExportDate() {
 		return ExportDate;
 	}
-	public void setExportDate(Date exportDate) {
+	public void setExportDate(String exportDate) {
 		ExportDate = exportDate;
 	}
-	
-	
-	
 	public String getStrImportDate() {
 		return strImportDate;
 	}

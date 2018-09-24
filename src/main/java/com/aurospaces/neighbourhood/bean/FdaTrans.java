@@ -57,7 +57,7 @@ protected String Status ;
 protected Date Date ;
 
 
-protected Date EDD; 
+protected String EDD; 
 
 protected String strEDD;
 
@@ -175,10 +175,11 @@ public void setDate(final Date Date)
 {
   this.Date = Date;
 }
-public Date getEDD() {
+
+public String getEDD() {
 	return EDD;
 }
-public void setEDD(Date eDD) {
+public void setEDD(String eDD) {
 	EDD = eDD;
 }
 public String getStrEDD() {

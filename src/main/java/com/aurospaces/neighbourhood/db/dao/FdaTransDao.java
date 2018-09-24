@@ -56,8 +56,7 @@ public class FdaTransDao extends BaseFdaTransDao
 	public void editFdaTransactions(FdaTrans fdaTrans) {
 		jdbcTemplate = custom.getJdbcTemplate();
 
-		java.sql.Timestamp EDD = 
-				new java.sql.Timestamp(fdaTrans.getEDD().getTime()); 
+		
 		
 		String sql = "UPDATE fda_trans  set  Quantity = ?,Unit = ? ,EDD =?  where S_no = ? ";
 		
