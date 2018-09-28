@@ -150,6 +150,9 @@ public class RestController {
 	public @ResponseBody String getcounts(  HttpServletRequest request) throws Exception {
 		int count=0;
 		JSONObject objJSON = new JSONObject();
+		
+		
+		SendSMS.sendSMSFromAgmarksCreditials("LEELATESTING", "9293139394");
 		try{
 			count = usersDao.getcounts("Farmer");
 				objJSON.put("Farmer", count);
