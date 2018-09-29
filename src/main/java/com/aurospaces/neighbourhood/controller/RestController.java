@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -152,7 +151,6 @@ public class RestController {
 		JSONObject objJSON = new JSONObject();
 		
 		
-		SendSMS.sendSMSFromAgmarksCreditials("LEELATESTING", "9293139394");
 		try{
 			count = usersDao.getcounts("Farmer");
 				objJSON.put("Farmer", count);
@@ -994,13 +992,13 @@ public @ResponseBody String logisticsreg(@RequestBody LogisticsReg logisticsReg,
 		if(userBean != null){
 			for(Users user : userBean){
 				if(StringUtils.isBlank(user.getStatus1())){
-					usersDao.updateStatus("Logistics","Status1",logisticsReg.getMobile());
+					usersDao.updateStatus("Logistic","Status1",logisticsReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus2())){
-					usersDao.updateStatus("Logistics","Status2",logisticsReg.getMobile());
+					usersDao.updateStatus("Logistic","Status2",logisticsReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus3())){
-					usersDao.updateStatus("Logistics","Status3",logisticsReg.getMobile());
+					usersDao.updateStatus("Logistic","Status3",logisticsReg.getMobile());
 				}else if(StringUtils.isBlank(user.getStatus4())){
-					usersDao.updateStatus("Logistics","Status4",logisticsReg.getMobile());
+					usersDao.updateStatus("Logistic","Status4",logisticsReg.getMobile());
 				}
 				msg= msg.replaceAll("_password_", user.getPassword());
 			}
@@ -1404,8 +1402,8 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     		//decoder(plantClinic.getImgName(), request,ramdomString);
     		if(!plantClinic.getImgName().isEmpty())
     		{
-    		 //impgpath = imgdecoder(plantClinic.getImgName(),request);
-    			 impgpath = imageDecoderUtility.imgDecoder(plantClinic.getImgName(),request);
+    		 //impgpath = imgdecoder(plantClinic.getImgName(),request);  //for local tomcat
+    			impgpath = imageDecoderUtility.imgDecoder(plantClinic.getImgName(),request);  // agmarks tomcat
     		
     		System.out.println(impgpath);
     		plantClinic.setImgName(impgpath);
@@ -1772,20 +1770,26 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	
     	ArrayList<HashMap<String, String>> prodArrayList = new ArrayList<HashMap<String, String>>();
     	
+    	List<PlantClinic> plantWithimages =new ArrayList<PlantClinic>();
+    	
+    	
     
     	
     	try {
     		List<PlantClinic>	plantClinicTransactionslist =plantClinicDao.getplantClinicTransactions(plantClinic);
-				if(plantClinicTransactionslist.isEmpty())
-				{
-    		
-    		objJSON.put("clinicpostings", plantClinicTransactionslist);
-				}
-				else
-				{
-					objJSON.put("clinicpostings", plantClinicTransactionslist);
-					
-					
+				
+    		for(PlantClinic entry :plantClinicTransactionslist){
+				
+				String imgEnodeString =imageDecoderUtility.imgEncoder(entry.getImgName());
+				entry.setImgEncodeString(imgEnodeString);
+				plantWithimages.add(entry);
+				
+				
+			
+			}
+			
+			objJSON.put("clinicpostings", plantWithimages);
+			
 					/*for(PlantClinic entry :plantClinicTransactionslist){
 						 HashMap<String,String> imageList =new LinkedHashMap<String,String>();
 						
@@ -1796,7 +1800,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 						
 					
 					
-				}		//objJSON.put("imageList", prodArrayList);
+						//objJSON.put("imageList", prodArrayList);
 				
 		} catch (JSONException e) {
 			objJSON.put("clinicpostings", "fail");
@@ -1810,17 +1814,29 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
     	JSONObject objJSON = new JSONObject();
     	 
     	 ArrayList<HashMap<String, String>> prodArrayList = new ArrayList<HashMap<String, String>>();
+    	 
+    	 List<PlantClinic> plantWithimages =new ArrayList<PlantClinic>();
     	
     	try {
     		List<PlantClinic>	clinicTransactionslist =plantClinicDao.getplantClinicTransactionsHistory(plantClinic);
-				if(clinicTransactionslist.isEmpty())
-				{
-					objJSON.put("clinichistory", clinicTransactionslist);
+							
+				
+				
+			for(PlantClinic entry :clinicTransactionslist){
+					
+					String imgEnodeString =imageDecoderUtility.imgEncoder(entry.getImgName());
+					entry.setImgEncodeString(imgEnodeString);
+					plantWithimages.add(entry);
+					
+					
+				
 				}
-				else
-				{
-    		
-    		objJSON.put("clinichistory", clinicTransactionslist);
+				
+				objJSON.put("clinichistory", plantWithimages);
+				
+				
+				
+				
     		
     		/*for(PlantClinic entry :clinicTransactionslist){
 				
@@ -1834,7 +1850,7 @@ public @ResponseBody String userLogggedChecking(@RequestBody Users user,  HttpSe
 			}
 			
 			objJSON.put("imageList", prodArrayList);*/
-				}
+				
 		} catch (JSONException e) {
 			objJSON.put("clinichistory", "fail");
 			e.printStackTrace();
@@ -1922,7 +1938,7 @@ private String  imgEncoder(String imgname) {
 		
 		String rootPath = System.getProperty("catalina.base");
 		
-		File file = new File(rootPath + File.separator + "webapps"+ File.separator +imgname);
+		File file = new File(rootPath + File.separator + "webapps"+ File.separator +"img"+File.separator+imgname);
 		        
 		      //  File file = new File(rootPath + File.separator + imgname);
 		        

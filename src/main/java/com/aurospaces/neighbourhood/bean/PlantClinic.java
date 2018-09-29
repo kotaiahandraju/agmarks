@@ -44,7 +44,10 @@ protected String Status ;
 protected String TransactionType ;
 
 /** Field mapping. **/
-protected String Comment ,strdate;
+protected String Comment ,strdate,imgEncodeString;
+
+
+
 
 /** Field mapping. **/
 protected Date Date ;
@@ -132,6 +135,12 @@ public String getTransactionType() {
 }
 public void setTransactionType(String transactionType) {
 	TransactionType = transactionType;
+}
+public String getImgEncodeString() {
+	return imgEncodeString;
+}
+public void setImgEncodeString(String imgEncodeString) {
+	this.imgEncodeString = imgEncodeString;
 }
 
 

@@ -1,6 +1,7 @@
 
 package com.aurospaces.neighbourhood.db.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,19 @@ public class FarRegsDao extends BaseFarRegsDao
 	
 	
 	public List<FarRegs> getFarRegsByMobile(String mobile) {
+		
+		List<FarRegs> farList =new ArrayList<FarRegs>();
+		
+		
+		
 		jdbcTemplate = custom.getJdbcTemplate();
 		String sql = "SELECT * from far_regs where Mobile = '"+mobile+"'";
 		System.out.println(sql);
 		List<FarRegs> retlist = jdbcTemplate.query(sql,
 		new Object[]{},
-		ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));
+		ParameterizedBeanPropertyRowMapper.newInstance(FarRegs.class));		
+		
+		
 		if(retlist.size() > 0)
 			return retlist;
 		return null;

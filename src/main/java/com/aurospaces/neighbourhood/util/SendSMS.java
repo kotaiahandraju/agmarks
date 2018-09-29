@@ -22,7 +22,7 @@ public class SendSMS {
      //public String message=null;
     
     
-    public static String sendSMS(String message, String mobileNumber,ServletContext objContext) throws IOException
+   /* public static String sendSMS(String message, String mobileNumber) throws IOException
 	{
     	 String username = null;
     	 String password = null;
@@ -58,9 +58,9 @@ public class SendSMS {
     
     
     
+    */
     
-    
-    public static void sendSMSFromAgmarksCreditials(String pmessage, String pmobileNumber)
+    public static void sendSMS(String pmessage, String pmobileNumber,ServletContext objContext)
     {
     	//Your authentication key
         String authkey = "211321ALxeUaDj1h5add7963";
@@ -100,19 +100,7 @@ public class SendSMS {
       String  respons = uc.getResponseMessage();
        System.out.println("SMS response:"+respons);
        System.out.println("SMS response:"+message);
-            //prepare connection
-            /*myURL = new URL(mainUrl);
-            myURLConnection = myURL.openConnection();
-            myURLConnection.connect();
-            reader= new BufferedReader(new InputStreamReader(myURLConnection.getInputStream()));
-            //reading response
-            String response;
-            while ((response = reader.readLine()) != null)
-            //print response
-            System.out.println(response);
-*/
-            //finally close connection
-            //Reader.close();
+           
         }
         catch (IOException e)
         {
